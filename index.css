@@ -1,0 +1,119 @@
+
+:root {
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'Inter', sans-serif;
+
+  /* Theme Colors - Digital Atelier (Refined) */
+  --color-bg-body: #FDFCFB; /* Warm paper white */
+  --color-bg-surface: #FFFFFF; 
+  
+  --color-text-primary: #111111; /* Sharp black */
+  --color-text-secondary: #666666; 
+  --color-text-tertiary: #999999; 
+
+  /* Shadows - Layered for depth (Softer, more diffuse) */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 4px 20px -2px rgba(0, 0, 0, 0.02), 0 2px 8px -1px rgba(0, 0, 0, 0.01);
+  --shadow-card: 0 20px 40px -12px rgba(0, 0, 0, 0.03);
+  --shadow-float: 0 30px 60px -12px rgba(0, 0, 0, 0.06);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-body);
+  /* Studio lighting effect: Very subtle */
+  background-image: radial-gradient(circle at 50% 0%, #FFFFFF 0%, #FDFCFB 100%);
+  background-attachment: fixed;
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03; /* Slightly increased for texture */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+/* Custom Selection Color */
+::selection {
+  background-color: rgba(0, 0, 0, 0.08); /* More subtle */
+  color: #000000;
+}
+
+/* Mobile App Enhancements */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media screen and (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+:focus-visible {
+  outline: 1px solid var(--color-text-primary); /* Thinner outline */
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Scrollbar Refined */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0,0,0,0.06) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar { width: 3px; } /* Thinner */
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.06); border-radius: 4px; }
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.15); }
+
+/* Typography Helpers */
+.font-serif { font-family: var(--font-serif); }
+.font-sans { font-family: var(--font-sans); }
+
+.italic-editorial { 
+  font-family: var(--font-serif);
+  font-style: italic; 
+  font-weight: 300; /* Lighter weight */
+  letter-spacing: -0.02em; /* Tighter tracking */
+}
+
+/* Micro Labels: More refined spacing */
+.label-editorial {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 500; /* Slightly lighter */
+  text-transform: uppercase;
+  letter-spacing: 0.2em; /* Wider tracking */
+  color: var(--color-text-tertiary);
+}
+
+input::placeholder, textarea::placeholder {
+  color: #AEAEB2 !important;
+  font-weight: 300;
+  opacity: 0.6; /* More transparent */
+}
+
+/* Utility for smooth transitions */
+.transition-smooth {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 400ms; /* Slower */
+}
