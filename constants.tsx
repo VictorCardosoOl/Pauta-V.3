@@ -617,6 +617,35 @@ Entregáveis:
   // --- MÓDULO: TREINAMENTO ---
 
   {
+    id: 'comunicado-manutencao-condicional',
+    title: 'Comunicado de Manutenção (Dinâmico)',
+    category: 'operational',
+    channel: CommunicationChannel.EMAIL,
+    subject: '[IF:Urgente=Sim]URGENTE: [/IF]Manutenção Programada - [Sistema]',
+    description: 'E-mail de manutenção que muda o tom e conteúdo se for marcado como urgente.',
+    content: `Prezados, [Saudação].
+
+[IF:Urgente=Sim]**ESTE É UM COMUNICADO DE ALTA PRIORIDADE.**[/IF]
+
+Informamos que o sistema [Sistema] passará por uma manutenção no dia [Data].
+
+[IF:Urgente=Sim]Devido à natureza crítica desta atualização, o acesso será interrompido imediatamente após o horário de início.[/IF]
+[IF:Urgente!=Sim]A manutenção será realizada fora do horário de pico para minimizar impactos.[/IF]
+
+**Detalhes:**
+• Início: [Horário Início]
+• Previsão de Término: [Horário Fim]
+• Duração Estimada: [Duração]
+
+[IF:Urgente=Sim]Pedimos que salvem todos os trabalhos pendentes agora.[/IF]
+
+Agradecemos a compreensão.
+Atenciosamente,
+Equipe de TI`,
+    secondaryLabel: 'Aviso WhatsApp',
+    secondaryContent: `[IF:Urgente=Sim]🚨 *URGENTE:* [/IF]Manutenção no [Sistema] hoje às [Horário Início]. Previsão de retorno: [Horário Fim].`
+  },
+  {
     id: 'material-download-treinamento',
     title: 'Envio de Material (Download)',
     category: 'deployment',

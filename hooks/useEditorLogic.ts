@@ -6,7 +6,8 @@ import {
   formatValueForText, 
   calculateDuration, 
   generateOSFromDate,
-  extractPlaceholders
+  extractPlaceholders,
+  processConditionalLogic
 } from '../utils/textUtils';
 
 export const useEditorLogic = (template: Template) => {
@@ -39,8 +40,10 @@ export const useEditorLogic = (template: Template) => {
   }, [template.content, template.subject, template.secondaryContent]);
 
   const updateContentWithVariables = useCallback((baseText: string, values: Record<string, string>) => {
-    let result = baseText;
-    // Optimization: Only iterate if we have placeholders
+    // 1. Process Conditional Logic first
+    let result = processConditionalLogic(baseText, values);
+    
+    // 2. Optimization: Only iterate if we have placeholders
     if (placeholders.length === 0) return result;
 
     placeholders.forEach(ph => {

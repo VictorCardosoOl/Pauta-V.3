@@ -1,7 +1,6 @@
 import React from 'react';
 import { Template } from '../types';
 import { EditorialCard } from './EditorialCard';
-import { ArrowUpRight } from 'lucide-react';
 import { CATEGORIES } from '../constants';
 
 interface EditorialFeedProps {

@@ -1,10 +1,7 @@
 
 import React, { useMemo, useRef, useEffect, useState, useLayoutEffect, Component, ErrorInfo, ReactNode } from 'react';
-import { StaggeredMenu, StaggeredMenuHandle } from './components/StaggeredMenu';
 import { Editor } from './components/Editor';
 import { CommandMenu } from './components/CommandMenu';
-import { AppHeader } from './components/AppHeader';
-import { TemplateList } from './components/TemplateList';
 import { EditorialSidebar } from './components/EditorialSidebar';
 import { EditorialFeed } from './components/EditorialFeed';
 import { CATEGORIES } from './constants';

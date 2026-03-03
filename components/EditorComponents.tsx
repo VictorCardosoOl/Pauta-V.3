@@ -1,5 +1,5 @@
 
-import React, { useRef, useLayoutEffect, memo } from 'react';
+import React, { memo } from 'react';
 import { Template, CommunicationChannel } from '../types';
 import { SlidersHorizontal, RefreshCw, Sparkles, Calendar, Clock, AlignLeft, Quote, Copy, Check, ChevronLeft } from 'lucide-react';
 import { getInputType } from '../utils/textUtils';

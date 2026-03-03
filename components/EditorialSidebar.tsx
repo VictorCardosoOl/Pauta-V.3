@@ -1,6 +1,6 @@
 import React from 'react';
 import { CATEGORIES } from '../constants';
-import { ArrowUpRight, Github, Twitter, Mail } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 interface EditorialSidebarProps {
   selectedCategory: string;

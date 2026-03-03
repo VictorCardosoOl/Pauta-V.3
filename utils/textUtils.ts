@@ -15,16 +15,26 @@ export const extractPlaceholders = (text: string): string[] => {
   
   // Match anything between square brackets that doesn't contain another opening bracket
   // This prevents nested matches like [[Tag]] which are invalid in this context
-  const regex = /\[([^\[\]]+)\]/g;
+  const regex = /\[([^[]]+)\]/g;
   const matches = text.match(regex);
   
   if (!matches) return [];
   
-  const systemTags = ['[Saudação]', '[Data Hoje]', '[Data Extenso]', '[CENÁRIO:', '[CENÁRIO']; 
+  const systemTags = ['[Saudação]', '[Data Hoje]', '[Data Extenso]', '[CENÁRIO:', '[CENÁRIO', '[IF:', '[/IF]']; 
   
   // Use Set for uniqueness
   const uniquePlaceholders = Array.from(new Set(matches));
   
+  // Add variables found inside [IF:Variable=Value] tags
+  const ifRegex = /\[IF:([^=[]!]+)(=|!=)([^\]]+)\]/g;
+  let ifMatch;
+  while ((ifMatch = ifRegex.exec(text)) !== null) {
+    const varName = `[${ifMatch[1]}]`;
+    if (!uniquePlaceholders.includes(varName)) {
+      uniquePlaceholders.push(varName);
+    }
+  }
+
   return uniquePlaceholders.filter(tag => {
     // Filter out system tags
     if (systemTags.some(sys => tag.startsWith(sys))) return false;
@@ -128,6 +138,32 @@ export const getFormattedNextBusinessDay = (): string => {
   
   const str = new Intl.DateTimeFormat('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }).format(date);
   return str.charAt(0).toUpperCase() + str.slice(1);
+};
+
+/**
+ * Processes conditional logic blocks [IF:Variable=Value]Content[/IF].
+ */
+export const processConditionalLogic = (text: string, values: Record<string, string>): string => {
+  if (!text) return '';
+  
+  // Regex for [IF:Variable=Value]Content[/IF] or [IF:Variable!=Value]Content[/IF]
+  const regex = /\[IF:([^=[]!]+)(=|!=)([^\]]+)\]([\s\S]*?)\[\/IF\]/g;
+  
+  return text.replace(regex, (match, variable, operator, targetValue, content) => {
+    const actualValue = values[`[${variable}]`] || '';
+    
+    let conditionMet = false;
+    const trimmedActual = actualValue.toLowerCase().trim();
+    const trimmedTarget = targetValue.toLowerCase().trim();
+
+    if (operator === '=') {
+      conditionMet = trimmedActual === trimmedTarget;
+    } else if (operator === '!=') {
+      conditionMet = trimmedActual !== trimmedTarget;
+    }
+    
+    return conditionMet ? content : '';
+  });
 };
 
 /**
