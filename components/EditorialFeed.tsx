@@ -13,10 +13,13 @@ interface EditorialFeedProps {
 }
 
 export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds }) => {
-  const heroTemplate = pinnedTemplates[0] || otherTemplates[0];
-  const listTemplates = pinnedTemplates[0] ? otherTemplates : otherTemplates.slice(1);
+  const isAllCategory = selectedCategory === 'all';
+  const heroTemplate = isAllCategory ? (pinnedTemplates[0] || otherTemplates[0]) : null;
+  const listTemplates = isAllCategory 
+    ? (pinnedTemplates[0] ? otherTemplates : otherTemplates.slice(1))
+    : [...pinnedTemplates, ...otherTemplates];
 
-  const categoryName = selectedCategory === 'all' 
+  const categoryName = isAllCategory 
     ? 'Pauta' 
     : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Categoria';
 
@@ -26,7 +29,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
       <div className="flex-1 flex flex-col p-8 md:p-12 lg:p-16 border-r border-editorial-black">
         
         {/* Hero Section */}
-        {heroTemplate && (
+        {isAllCategory && heroTemplate && (
           <div className="mb-16 pb-16 border-b border-editorial-black">
             <h1 className="font-sans font-black text-[10vw] md:text-[8vw] leading-[0.8] tracking-tighter mb-8 text-editorial-black uppercase whitespace-pre-line">
               {categoryName}
@@ -61,16 +64,24 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
           </div>
         )}
 
+        {!isAllCategory && (
+          <div className="mb-12 pb-8 border-b border-editorial-black">
+            <h1 className="font-sans font-black text-[8vw] md:text-[6vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line">
+              {categoryName}
+            </h1>
+          </div>
+        )}
+
         {/* Grid Feed (Below Hero) */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-20">
-           {listTemplates.slice(3).map((template, idx) => (
+           {(isAllCategory ? listTemplates.slice(3) : listTemplates).map((template, idx) => (
               <EditorialCard 
                 key={template.id} 
                 template={template} 
                 onClick={() => setSelectedTemplate(template)} 
                 onPin={onPin}
                 isPinned={pinnedIds.includes(template.id)}
-                index={idx + 3} // Offset index correctly
+                index={isAllCategory ? idx + 3 : idx} // Offset index correctly
                 isHero={false}
               />
            ))}
