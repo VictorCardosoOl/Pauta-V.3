@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, ArrowRight, CornerDownLeft, FileText, Layers, Hash, Copy, Check } from 'lucide-react';
-import { useAppContext } from '../hooks/useAppContext';
+import { useAppStore } from '../store/useAppStore';
 import { CommunicationChannel, Template } from '../types';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 
 const CommandMenuContent: React.FC = () => {
-  const { setIsSearchModalOpen, setSelectedTemplate, templates } = useAppContext();
+  const { setIsSearchModalOpen, setSelectedTemplate, templates } = useAppStore();
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -219,7 +219,7 @@ const CommandMenuContent: React.FC = () => {
 };
 
 export const CommandMenu: React.FC = () => {
-  const { isSearchModalOpen } = useAppContext();
+  const { isSearchModalOpen } = useAppStore();
 
   return (
     <AnimatePresence>

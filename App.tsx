@@ -7,8 +7,7 @@ import { EditorialFeed } from './components/EditorialFeed';
 import { CATEGORIES } from './constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDebounce } from './hooks/useDebounce';
-import { useAppContext } from './hooks/useAppContext';
-import { AppContextProvider } from './contexts/AppContext'; // Import Provider
+import { useAppStore } from './store/useAppStore';
 import gsap from 'gsap';
 import Lenis from '@studio-freight/lenis';
 
@@ -86,7 +85,7 @@ const AppContent: React.FC = () => {
     searchQuery, setSearchQuery,
     isSearchModalOpen, setIsSearchModalOpen,
     templates
-  } = useAppContext();
+  } = useAppStore();
 
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -282,9 +281,7 @@ const AppContent: React.FC = () => {
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
-      <AppContextProvider>
-        <AppContent />
-      </AppContextProvider>
+      <AppContent />
     </ErrorBoundary>
   );
 };
