@@ -40,7 +40,7 @@ export const EditorialSidebar: React.FC<EditorialSidebarProps> = ({ selectedCate
             {selectedCategory === 'all' && <span className="w-1.5 h-1.5 bg-editorial-black rounded-full" />}
           </button>
           
-          <div className="h-px w-full bg-editorial-black/10 my-2" />
+          <div className="h-px w-full bg-editorial-black/20 my-2" />
 
           {CATEGORIES.map((cat) => (
             <button

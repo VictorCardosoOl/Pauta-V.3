@@ -67,21 +67,21 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                <div className="flex items-center gap-2">
                   <button 
                     onClick={handlePin}
-                    className="p-3 rounded-full border border-editorial-black hover:bg-editorial-black hover:text-white transition-colors"
+                    className="p-3 rounded-full border border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5 transition-colors"
                     title={isPinned ? "Desafixar" : "Fixar"}
                   >
                     <Pin size={18} className={isPinned ? "fill-current" : ""} />
                   </button>
                   <button 
                     onClick={handleCopy}
-                    className="p-3 rounded-full border border-editorial-black hover:bg-editorial-black hover:text-white transition-colors"
+                    className="p-3 rounded-full border border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5 transition-colors"
                     title="Copiar"
                   >
                     {isCopied(template.id) ? <Check size={18} /> : <Copy size={18} />}
                   </button>
                   <button 
                     onClick={handleEdit}
-                    className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest border border-editorial-black px-6 py-3 rounded-full hover:bg-editorial-black hover:text-white transition-colors"
+                    className="flex items-center gap-2 font-sans text-sm font-bold uppercase tracking-widest border border-editorial-black/20 px-6 py-3 rounded-full hover:border-editorial-black hover:bg-editorial-black/5 transition-colors"
                   >
                     Editar <Edit size={16} />
                   </button>

@@ -126,29 +126,29 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChang
       <div className="flex items-center gap-2 border-b border-editorial-black/10 pb-3 mb-4 opacity-50 group-focus-within:opacity-100 transition-opacity">
         <button
           onClick={() => editor.chain().focus().toggleBold().run()}
-          className={`p-2 rounded hover:bg-editorial-black/5 transition-colors ${editor.isActive('bold') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
+          className={`p-2 rounded-full hover:bg-editorial-black/5 transition-colors ${editor.isActive('bold') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
           title="Negrito"
         >
           <Bold size={16} />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleItalic().run()}
-          className={`p-2 rounded hover:bg-editorial-black/5 transition-colors ${editor.isActive('italic') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
+          className={`p-2 rounded-full hover:bg-editorial-black/5 transition-colors ${editor.isActive('italic') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
           title="Itálico"
         >
           <Italic size={16} />
         </button>
-        <div className="w-px h-4 bg-editorial-black/10 mx-1" />
+        <div className="w-px h-4 bg-editorial-black/20 mx-1" />
         <button
           onClick={() => editor.chain().focus().toggleBulletList().run()}
-          className={`p-2 rounded hover:bg-editorial-black/5 transition-colors ${editor.isActive('bulletList') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
+          className={`p-2 rounded-full hover:bg-editorial-black/5 transition-colors ${editor.isActive('bulletList') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
           title="Lista"
         >
           <List size={16} />
         </button>
         <button
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          className={`p-2 rounded hover:bg-editorial-black/5 transition-colors ${editor.isActive('orderedList') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
+          className={`p-2 rounded-full hover:bg-editorial-black/5 transition-colors ${editor.isActive('orderedList') ? 'bg-editorial-black/10 text-editorial-black' : 'text-editorial-gray'}`}
           title="Lista Numerada"
         >
           <ListOrdered size={16} />

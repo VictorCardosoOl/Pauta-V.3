@@ -265,10 +265,10 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
                 animate="visible"
                 onClick={() => copyToClipboard(secondaryContent, 'sec-float')} 
                 className={`
-                  pointer-events-auto flex items-center gap-3 px-5 py-3 border transition-all duration-200 active:scale-95
+                  pointer-events-auto flex items-center gap-3 px-6 py-4 border rounded-full shadow-sm transition-all duration-200 active:scale-95
                   ${isCopied('sec-float') 
                     ? 'bg-editorial-black text-white border-editorial-black' 
-                    : 'bg-editorial-bg text-editorial-black border-editorial-black hover:bg-white'}
+                    : 'bg-editorial-bg text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'}
                 `}
               >
                 {isCopied('sec-float') ? <Check size={18} /> : <Layers size={18} />}
@@ -284,7 +284,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
               animate="visible"
               onClick={handleCopyAll} 
               className={`
-                pointer-events-auto flex items-center gap-3 px-8 py-4 border transition-all duration-200 active:scale-95
+                pointer-events-auto flex items-center gap-3 px-8 py-4 border rounded-full shadow-sm transition-all duration-200 active:scale-95
                 ${isCopied('copy-all') 
                   ? 'bg-editorial-black text-white border-editorial-black' 
                   : 'bg-editorial-black text-white border-editorial-black hover:bg-editorial-black/90'}

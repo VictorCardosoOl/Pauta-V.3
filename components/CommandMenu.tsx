@@ -160,7 +160,7 @@ const CommandMenuContent: React.FC = () => {
                     className="flex-1 flex items-center gap-5 min-w-0 text-left"
                   >
                     <div className={`
-                        w-8 h-8 flex items-center justify-center shrink-0 border transition-colors
+                        w-8 h-8 flex items-center justify-center shrink-0 border rounded-full transition-colors
                         ${idx === selectedIndex ? 'border-[#111111] text-[#111111]' : 'border-[#E5E5E5] text-[#CCCCCC]'}
                     `}>
                         {getIcon(item.channel)}

@@ -10,6 +10,15 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        editorial: {
+          bg: 'var(--color-bg-body)',
+          surface: 'var(--color-bg-surface)',
+          black: 'var(--color-text-primary)',
+          gray: 'var(--color-text-secondary)',
+          light: 'var(--color-text-tertiary)',
+        }
+      },
       screens: {
         '2xl': '1536px',
         '3xl': '1920px',

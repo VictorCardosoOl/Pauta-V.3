@@ -862,39 +862,51 @@ A reunião será realizada através da plataforma Google Meet, pelo o seguinte l
     category: 'operational',
     channel: CommunicationChannel.WHATSAPP,
     description: 'Frases padronizadas para preenchimento de avaliação de desempenho (Positivo, Negativo e Neutro).',
-    content: `[CENÁRIO: Não houve fila de espera (Positivo)]
+    content: `---
+[CENÁRIO: Não houve fila de espera (Positivo)]
 O colaborador manteve os atendimentos em fluxo contínuo, evitando interrupções e assegurando a ausência de fila de espera. Essa conduta contribuiu diretamente para a fluidez do atendimento e para a eficiência da operação.
 
+---
 [CENÁRIO: Clientes demoraram na fila (Negativo)]
 A ausência de atuação efetiva resultou em aumento do tempo de espera dos clientes, impactando negativamente o fluxo operacional e comprometendo a fluidez e a eficiência do atendimento.
 
+---
 [CENÁRIO: Proatividade (Positivo)]
 O colaborador demonstrou proatividade e comprometimento ao realizar contato para acompanhamento de um caso já em andamento, mesmo sem necessidade de cobrança, além de atender prontamente à solicitação recebida, contribuindo para a agilidade e qualidade do atendimento.
 
+---
 [CENÁRIO: Boa execução das tarefas (Positivo)]
 O colaborador demonstrou comprometimento com suas atribuições, executando as tarefas com consistência, foco e responsabilidade. Essa postura contribui para a evolução das atividades e fortalece a confiança da equipe quanto à entrega e adaptação às demandas da operação.
 
+---
 [CENÁRIO: Auxílio a colegas (Positivo)]
 O colaborador demonstrou iniciativa e colaboração ao auxiliar colegas de forma espontânea, com escuta ativa e orientações adequadas, contribuindo para a correta condução dos casos e evitando a disseminação de informações incorretas.
 
+---
 [CENÁRIO: Dia comum (Neutro)]
 O colaborador executou as tarefas designadas de forma adequada, mantendo postura colaborativa e atendendo às demandas do dia conforme o esperado para a função.
 
+---
 [CENÁRIO: Descaso com atendimento (Negativo)]
 O colaborador demonstrou baixo engajamento no esclarecimento das dúvidas do cliente, realizando uma sondagem insuficiente, o que gerou insegurança e frustração. Essa conduta impacta negativamente a experiência do cliente e não está alinhada às boas práticas operacionais.
 
+---
 [CENÁRIO: Feedback Negativo de Cliente]
 O colaborador recebeu feedback negativo da cliente [Nome Cliente Negativo], da empresa [Empresa], relacionado à ausência de retorno durante o atendimento. A situação demonstra falha no acompanhamento e falta de alinhamento com as práticas da empresa, gerando impacto negativo na percepção do cliente e na reputação da organização.
 
+---
 [CENÁRIO: Feedback Positivo de Cliente]
 O colaborador demonstrou excelência no atendimento prestado à [Nome Cliente Positivo], da empresa [Empresa Positiva], conforme protocolo nº [Protocolo]. O registro evidencia cordialidade, clareza nas orientações e eficiência na resolução da demanda, reforçando o alinhamento com os padrões de qualidade do atendimento ao cliente.
 
+---
 [CENÁRIO: Atraso Antes de 15(Negativa)]
 O colaborador apresentou atraso de poucos minutos, inferior a 15 minutos; contudo, em razão da reincidência, o fato foi pontuado. Ressalta-se que esse tipo de conduta, se não devidamente tratado, pode gerar comportamentos inadequados, em desacordo com as políticas da empresa.
 
+---
 [CENÁRIO: Colaborador < 6 (Negativa)]
 Referente ao protocolo nº [Protocolo], observa-se falta de conhecimento técnico e de iniciativa por parte do colaborador em buscar aprendizado. Ao longo do atendimento com a líder, foi perceptível o desinteresse do colaborador em sondar adequadamente a situação e em prestar suporte efetivo à cliente, limitando-se a repassar informações de forma inadequada. Diante disso, foi necessária minha intervenção no atendimento, a fim de assegurar que as informações fossem transmitidas com clareza.
 
+---
 [CENÁRIO: Orientação Incorreta Durante Atendimento]
 A colaboradora forneceu uma série de orientações incorretas relacionadas ao caso da Meyer, o que tornou necessário o acionamento de um Analista N2 para prestar suporte na tratativa. Essa situação resultou em desperdício de recursos e aumento no tempo de atendimento.`
   },
@@ -907,11 +919,11 @@ A colaboradora forneceu uma série de orientações incorretas relacionadas ao c
     content: `[Saudação], [Nome do Gestor],
 Espero que esteja bem.
 
-Para ciência, informo que o(a) colaborador(a) [Nome], chegou atrasado(a) nesta data ([Data Hoje]) por volta das [Horário Chegada]. O horário padrão é [Horário Padrão].
+Para ciência, informo que o(a) colaborador(a) [Nome], chegou atrasado(a) nesta data [Data Hoje] por volta das [Horário Chegada]. O horário padrão é [Horário Padrão].
 
 Justificativa apresentada: [Motivo].`,
     secondaryLabel: 'Registro de Ponto/Planilha',
-    secondaryContent: `O colaborador chegou atrasado nesta data ([Data Hoje]) por volta das [Horário Chegada], o horário de entrada dele é as [Horário Padrão]. Me justificou informando que o atrasado devido [Motivo].`
+    secondaryContent: `O colaborador chegou atrasado nesta data [Data Hoje] por volta das [Horário Chegada], o horário de entrada dele é as [Horário Padrão]. Me justificou informando que o atrasado devido [Motivo].`
   },
   {
     id: 'report-falta',
@@ -922,7 +934,7 @@ Justificativa apresentada: [Motivo].`,
     content: `[Saudação], [Nome do Gestor],
 Espero que esteja bem.
 
-Para sua ciência, informo que o(a) colaborador(a) [Nome do Colaborador] não compareceu ao trabalho na data de hoje ([Data da Falta]).
+Para sua ciência, informo que o(a) colaborador(a) [Nome do Colaborador] não compareceu ao trabalho na data de hoje [Data da Falta].
 
 Segundo informações prestadas: [Motivo/Justificativa].
 

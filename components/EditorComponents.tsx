@@ -24,10 +24,10 @@ export const EditorHeader = memo<EditorHeaderProps>(({
       <div className="flex items-center gap-6 min-w-0">
         <button 
           onClick={onClose} 
-          className="ml-[60px] md:ml-[40px] group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-editorial-black hover:bg-editorial-black hover:text-white transition-all active:scale-95 bg-transparent"
+          className="ml-[60px] md:ml-[40px] group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5 transition-all active:scale-95 bg-transparent rounded-full"
           title="Voltar (ESC)"
         >
-             <ChevronLeft size={20} strokeWidth={1.5} className="relative -left-[1px]" />
+             <ChevronLeft size={20} strokeWidth={1.5} className="relative -left-[1px] text-editorial-black" />
         </button>
         
         <div className="flex flex-col min-w-0 gap-1">
@@ -46,10 +46,10 @@ export const EditorHeader = memo<EditorHeaderProps>(({
         {hasVariables && (
            <button 
             onClick={onToggleVariables}
-            className={`flex items-center gap-2 px-5 py-2.5 border transition-all duration-300 active:scale-95 ${
+            className={`flex items-center gap-2 px-5 py-2.5 border rounded-full transition-all duration-300 active:scale-95 ${
                 showVariables 
                 ? 'bg-editorial-black text-white border-editorial-black' 
-                : 'bg-transparent text-editorial-black border-editorial-black hover:bg-editorial-black/5'
+                : 'bg-transparent text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'
             }`}
             title="Personalizar"
           >
@@ -59,7 +59,7 @@ export const EditorHeader = memo<EditorHeaderProps>(({
         )}
         <button 
             onClick={onReset} 
-            className="w-10 h-10 flex items-center justify-center text-editorial-black border border-editorial-black hover:bg-editorial-black hover:text-white transition-colors" 
+            className="w-10 h-10 flex items-center justify-center text-editorial-black border border-editorial-black/20 rounded-full hover:border-editorial-black hover:bg-editorial-black/5 transition-colors" 
             title="Resetar"
         >
           <RefreshCw size={18} strokeWidth={1.5} />
@@ -178,8 +178,8 @@ export const ContentArea = memo<ContentAreaProps>(({
                 </div>
                 <button 
                   onClick={() => copyToClipboard(scene.text, `scene-${idx}`, true)} 
-                  className={`text-[9px] font-sans font-bold uppercase tracking-widest px-3 py-1.5 border transition-all ${
-                      isCopied(`scene-${idx}`) ? 'bg-editorial-black text-white border-editorial-black' : 'bg-transparent text-editorial-black border-editorial-black hover:bg-editorial-black hover:text-white'
+                  className={`text-[9px] font-sans font-bold uppercase tracking-widest px-4 py-2 border rounded-full transition-all ${
+                      isCopied(`scene-${idx}`) ? 'bg-editorial-black text-white border-editorial-black' : 'bg-transparent text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'
                   }`}
                 >
                   {isCopied(`scene-${idx}`) ? 'Copiado' : 'Copiar'}
@@ -202,7 +202,9 @@ export const ContentArea = memo<ContentAreaProps>(({
                    <label className="text-[9px] font-sans font-bold uppercase tracking-widest text-editorial-gray">Assunto</label>
                    <button 
                      onClick={() => copyToClipboard(subject, 'subject')}
-                     className="flex items-center gap-2 text-[9px] font-sans font-medium tracking-wide text-editorial-black hover:text-white transition-colors bg-transparent px-3 py-1.5 border border-editorial-black hover:bg-editorial-black"
+                     className={`flex items-center gap-2 text-[9px] font-sans font-medium tracking-wide transition-colors bg-transparent px-4 py-2 border rounded-full ${
+                       isCopied('subject') ? 'bg-editorial-black text-white border-editorial-black' : 'text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'
+                     }`}
                    >
                      {isCopied('subject') ? <Check size={12}/> : <Copy size={12}/>}
                      {isCopied('subject') ? 'Copiado' : 'Copiar'}

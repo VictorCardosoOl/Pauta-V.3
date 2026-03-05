@@ -230,7 +230,7 @@ const AppContent: React.FC = () => {
            <div className="font-sans font-bold text-xl tracking-tighter uppercase">
               {selectedCategory === 'all' ? 'Pauta' : CATEGORIES.find(c => c.id === selectedCategory)?.name}
            </div>
-           <button onClick={() => setIsSearchModalOpen(true)} className="p-2 border border-editorial-black rounded-full">
+           <button onClick={() => setIsSearchModalOpen(true)} className="p-2 border border-editorial-black/20 rounded-full hover:bg-editorial-black/5 transition-colors">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
            </button>
         </div>

@@ -56,7 +56,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
                        <p className="font-serif text-lg text-editorial-gray line-clamp-2">{template.description}</p>
                     </div>
                  ))}
-                 <button className="mt-auto flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest hover:translate-x-2 transition-transform self-end border-b border-editorial-black pb-1">
+                 <button className="mt-auto flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest hover:translate-x-2 transition-transform self-end border-b border-editorial-black/20 hover:border-editorial-black pb-1">
                     Ver Todos →
                  </button>
               </div>
