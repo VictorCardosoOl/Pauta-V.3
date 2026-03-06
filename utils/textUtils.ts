@@ -209,6 +209,17 @@ export const calculateDuration = (start: string, end: string): string => {
 };
 
 /**
+ * Formats text for HTML display:
+ * 1. Converts newlines to <br> tags
+ * 2. Preserves whitespace
+ */
+export const formatTextToHtml = (text: string): string => {
+  if (!text) return '';
+  // Replace newlines with <br>
+  return text.replace(/\n/g, '<br>');
+};
+
+/**
  * Generates an OS number from a date string (removes hyphens).
  */
 export const generateOSFromDate = (dateStr: string): string => {

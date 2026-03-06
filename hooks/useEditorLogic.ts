@@ -7,18 +7,20 @@ import {
   calculateDuration, 
   generateOSFromDate,
   extractPlaceholders,
-  processConditionalLogic
+  processConditionalLogic,
+  formatTextToHtml
 } from '../utils/textUtils';
 
 export const useEditorLogic = (template: Template) => {
   // Lazy initialization: Process text ONCE before the first render to avoid mount flickering/re-renders.
   const [subject, setSubject] = useState<string>(() => processStaticTags(template.subject || ''));
-  const [content, setContent] = useState<string>(() => processStaticTags(template.content));
-  const [secondaryContent, setSecondaryContent] = useState<string>(() => processStaticTags(template.secondaryContent || ''));
+  // Format content to HTML (convert newlines to <br>) for RichTextEditor
+  const [content, setContent] = useState<string>(() => formatTextToHtml(processStaticTags(template.content)));
+  const [secondaryContent, setSecondaryContent] = useState<string>(() => formatTextToHtml(processStaticTags(template.secondaryContent || '')));
   
-  // Keep raw copies for variable replacement reference
-  const [rawContent] = useState<string>(() => processStaticTags(template.content));
-  const [rawSecondaryContent] = useState<string>(() => processStaticTags(template.secondaryContent || ''));
+  // Keep raw copies for variable replacement reference - ALSO formatted as HTML to match structure
+  const [rawContent] = useState<string>(() => formatTextToHtml(processStaticTags(template.content)));
+  const [rawSecondaryContent] = useState<string>(() => formatTextToHtml(processStaticTags(template.secondaryContent || '')));
   
   const [variableValues, setVariableValues] = useState<Record<string, string>>({});
   
@@ -145,8 +147,8 @@ export const useEditorLogic = (template: Template) => {
     if (!window.confirm('Restaurar texto original?')) return;
     
     // Recalculate static tags cleanly
-    const pContent = processStaticTags(template.content);
-    const pSecondary = processStaticTags(template.secondaryContent || '');
+    const pContent = formatTextToHtml(processStaticTags(template.content));
+    const pSecondary = formatTextToHtml(processStaticTags(template.secondaryContent || ''));
     
     setContent(pContent);
     setSecondaryContent(pSecondary);
