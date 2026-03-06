@@ -239,7 +239,7 @@ const AppContent: React.FC = () => {
       {/* Main Content Area */}
       <main className="flex-1 flex flex-col h-full overflow-hidden relative">
         {/* Mobile Header (Only visible on small screens) */}
-        <div className="lg:hidden p-6 border-b border-editorial-black flex justify-between items-center bg-editorial-bg z-10 sticky top-0">
+        <div className="md:hidden p-6 border-b border-editorial-black flex justify-between items-center bg-editorial-bg z-10 sticky top-0">
            <div className="flex items-center gap-4">
               <button 
                 onClick={() => setIsMobileMenuOpen(true)}
