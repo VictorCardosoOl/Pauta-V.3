@@ -41,8 +41,13 @@ export const useTemplateCopier = (): UseTemplateCopierReturn => {
 
       if (isHtml) {
         htmlContent = textToCopy;
-        // Strip HTML tags for plain text fallback
-        plainText = textToCopy.replace(/<[^>]*>/g, '');
+        // Convert <br> and paragraph endings to newlines for plain text fallback
+        let tempText = textToCopy.replace(/<br\s*\/?>/gi, '\n');
+        tempText = tempText.replace(/<\/p>/gi, '\n\n');
+        // Strip remaining HTML tags
+        plainText = tempText.replace(/<[^>]*>/g, '');
+        // Decode common HTML entities
+        plainText = plainText.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
       } else {
         htmlContent = formatForHtmlClipboard(textToCopy);
         plainText = textToCopy;

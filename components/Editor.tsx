@@ -7,7 +7,6 @@ import { EditorHeader, VariablePanel, ContentArea } from './EditorComponents';
 import { Copy, Check, Layers, X } from 'lucide-react';
 import { useTemplateCopier } from '../hooks/useTemplateCopier';
 import gsap from 'gsap';
-import Lenis from '@studio-freight/lenis';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 
 interface EditorProps {
@@ -68,7 +67,6 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
   
   // Refs for Scroll & Animation
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const contentWrapperRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
@@ -78,36 +76,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // --- 1. SMOOTH SCROLL INSIDE EDITOR ---
-  useLayoutEffect(() => {
-    if (!scrollContainerRef.current || !contentWrapperRef.current) return;
-
-    const lenis = new Lenis({
-      wrapper: scrollContainerRef.current,
-      content: contentWrapperRef.current,
-      duration: 0.8, // Slightly faster
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      touchMultiplier: 2,
-    });
-
-    // Use Lenis's own RAF if no complex GSAP ScrollTrigger is needed
-    let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    }
-    rafId = requestAnimationFrame(raf);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
-
-  // --- 2. GSAP ENTRANCE CHOREOGRAPHY ---
+  // --- GSAP ENTRANCE CHOREOGRAPHY ---
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
         // Wait for page transition to finish (approx 0.5s)
@@ -146,8 +115,8 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
   }, [hasVariables, isMobile]);
 
   const handleCopyAll = () => {
-    const fullText = subject ? `Assunto: ${subject}\n\n${content}` : content;
-    copyToClipboard(fullText, 'copy-all');
+    const fullText = subject ? `<b>Assunto:</b> ${subject}<br><br>${content}` : content;
+    copyToClipboard(fullText, 'copy-all', true);
   };
 
   const focusTrapRef = useFocusTrap(true);
@@ -177,10 +146,8 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
       {/* Main Layout */}
       <div className="flex-1 flex flex-row overflow-hidden relative min-h-0">
         
-        {/* Content Area (Lenis Scroll Container) */}
-        <div ref={scrollContainerRef} className="flex-1 h-full overflow-y-auto custom-scrollbar relative"> 
-           {/* Content Wrapper for Lenis */}
-           <div ref={contentWrapperRef} className="min-h-full pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0">
+        {/* Content Area (Native Scroll Container) */}
+        <div ref={scrollContainerRef} className="flex-1 h-full overflow-y-auto custom-scrollbar relative pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0"> 
              <ContentArea 
                template={template}
                subject={subject} setSubject={setSubject}
@@ -190,7 +157,6 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
                scenarios={scenarios}
                focusedVariable={focusedVariable}
              />
-           </div>
         </div>
 
         {/* Variable Panel (Desktop) */}
@@ -263,7 +229,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
                 variants={fabVariants}
                 initial="hidden"
                 animate="visible"
-                onClick={() => copyToClipboard(secondaryContent, 'sec-float')} 
+                onClick={() => copyToClipboard(secondaryContent, 'sec-float', true)} 
                 className={`
                   pointer-events-auto flex items-center gap-3 px-6 py-4 border rounded-full shadow-sm transition-all duration-200 active:scale-95
                   ${isCopied('sec-float') 
