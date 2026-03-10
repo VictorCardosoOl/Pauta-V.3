@@ -59,16 +59,19 @@ export const useEditorLogic = (template: Template) => {
       
       if (rawVal) {
         const formattedVal = formatValueForText(rawVal, type);
+        // Escape < and > in the user input to prevent HTML injection issues in Tiptap
+        const escapedVal = formattedVal.replace(/</g, '&lt;').replace(/>/g, '&gt;');
         // Wrap in span for highlighting
         // We use a specific class 'variable-mark' and data attribute
-        const replacement = `<span data-variable="${ph}" class="variable-mark">${formattedVal}</span>`;
+        const replacement = `<span data-variable="${ph}" class="variable-mark">${escapedVal}</span>`;
         result = result.split(ph).join(replacement);
       } else {
         // If no value, keep placeholder but wrap it so we can highlight it too?
         // User asked to highlight text corresponding to variable.
         // If variable is empty, maybe highlight the placeholder?
         // Let's wrap the placeholder too.
-        const replacement = `<span data-variable="${ph}" class="variable-mark placeholder-mark">${ph}</span>`;
+        const escapedPh = ph.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const replacement = `<span data-variable="${ph}" class="variable-mark placeholder-mark">${escapedPh}</span>`;
         result = result.split(ph).join(replacement);
       }
     });

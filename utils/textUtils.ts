@@ -215,8 +215,10 @@ export const calculateDuration = (start: string, end: string): string => {
  */
 export const formatTextToHtml = (text: string): string => {
   if (!text) return '';
+  // Escape < and > to prevent them from being parsed as HTML tags by Tiptap
+  const escaped = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
   // Replace newlines with <br>
-  return text.replace(/\n/g, '<br>');
+  return escaped.replace(/\n/g, '<br>');
 };
 
 /**
