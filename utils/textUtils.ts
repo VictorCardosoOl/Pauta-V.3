@@ -13,9 +13,9 @@ export const escapeRegExp = (string: string): string => {
 export const extractPlaceholders = (text: string): string[] => {
   if (!text) return [];
   
-  // Match anything between square brackets that doesn't contain another opening bracket
+  // Match anything between square brackets that doesn't contain another opening or closing bracket
   // This prevents nested matches like [[Tag]] which are invalid in this context
-  const regex = /\[([^[]]+)\]/g;
+  const regex = /\[([^\][]+)\]/g;
   const matches = text.match(regex);
   
   if (!matches) return [];

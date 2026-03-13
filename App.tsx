@@ -268,7 +268,7 @@ const AppContent: React.FC = () => {
                   className="flex flex-col w-full h-full will-change-transform"
                 >
                   <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
-                    <div ref={contentWrapperRef} className="w-full h-full">
+                    <div ref={contentWrapperRef} className="w-full">
                       <EditorialFeed 
                         pinnedTemplates={pinnedTemplates}
                         otherTemplates={otherTemplates}

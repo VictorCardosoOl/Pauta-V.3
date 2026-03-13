@@ -159,21 +159,20 @@ export const useEditorLogic = (template: Template) => {
     setVariableValues({});
   }, [template]);
 
-  // Extract Scenarios - Memoized
+  // Extract Scenarios - Robust Regex Parser
   const scenarios = useMemo(() => {
     if (!isScenarioMode) return [];
-    return content.split('[').reduce<{title: string, text: string}[]>((acc, seg) => {
-      if (seg.startsWith('CENÁRIO:')) {
-        const endBracket = seg.indexOf(']');
-        if (endBracket !== -1) {
-          acc.push({
-            title: seg.substring(8, endBracket).trim(),
-            text: seg.substring(endBracket + 1).trim()
-          });
-        }
-      }
-      return acc;
-    }, []);
+    
+    // Regex to match [CENÁRIO: Title] Content
+    // It looks for [CENÁRIO: followed by anything until ]
+    // Then captures everything until the next [CENÁRIO: or end of string
+    const scenarioRegex = /\[CENÁRIO:\s*([^\]]+)\]([\s\S]*?)(?=\[CENÁRIO:|$)/gi;
+    const matches = [...content.matchAll(scenarioRegex)];
+    
+    return matches.map(match => ({
+      title: match[1].trim(),
+      text: match[2].trim()
+    }));
   }, [content, isScenarioMode]);
 
   return {

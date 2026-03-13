@@ -59,8 +59,8 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
           </h2>
           
           <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-             <p className="font-serif text-2xl md:text-3xl leading-relaxed text-editorial-gray line-clamp-4 flex-1">
-               {template.description || template.content.substring(0, 200) + "..."}
+             <p className="font-serif text-2xl md:text-3xl leading-relaxed text-editorial-gray line-clamp-6 flex-1">
+               {template.description || template.content.substring(0, 1000) + "..."}
              </p>
              
              <div className="mt-auto flex flex-col items-end gap-4 shrink-0">
@@ -118,8 +118,8 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         {template.title}
       </h3>
       
-      <p className="font-serif text-lg text-editorial-gray line-clamp-3 mb-6 flex-1">
-        {template.description}
+      <p className="font-serif text-lg text-editorial-gray line-clamp-5 mb-6 flex-1">
+        {template.description || template.content.substring(0, 500) + "..."}
       </p>
 
       <div className="mt-auto flex items-center justify-between border-t border-editorial-black/10 pt-4">

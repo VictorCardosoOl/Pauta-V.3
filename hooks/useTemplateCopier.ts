@@ -27,6 +27,23 @@ const formatForHtmlClipboard = (text: string): string => {
     .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>'); // Links
 };
 
+/**
+ * Strips internal editor attributes and classes from HTML for clean pasting.
+ */
+const cleanHtmlForClipboard = (html: string): string => {
+  if (!html) return '';
+  
+  return html
+    // Remove variable highlighting spans but keep content
+    .replace(/<span[^>]*class="[^"]*variable-mark[^"]*"[^>]*>([\s\S]*?)<\/span>/gi, '$1')
+    // Remove data attributes
+    .replace(/\sdata-[a-z0-9-]+="[^"]*"/gi, '')
+    // Remove internal classes
+    .replace(/\sclass="[^"]*"/gi, '')
+    // Remove empty spans
+    .replace(/<span>([\s\S]*?)<\/span>/gi, '$1');
+};
+
 export const useTemplateCopier = (): UseTemplateCopierReturn => {
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
 
@@ -40,23 +57,36 @@ export const useTemplateCopier = (): UseTemplateCopierReturn => {
       let plainText;
 
       if (isHtml) {
-        htmlContent = textToCopy;
+        // Clean HTML for clipboard (remove editor-specific tags/classes)
+        htmlContent = cleanHtmlForClipboard(textToCopy);
+        
         // Convert <br> and paragraph endings to newlines for plain text fallback
         let tempText = textToCopy.replace(/<br\s*\/?>/gi, '\n');
         tempText = tempText.replace(/<\/p>/gi, '\n\n');
+        tempText = tempText.replace(/<li[^>]*>/gi, '• ');
+        tempText = tempText.replace(/<\/li>/gi, '\n');
+        
         // Strip remaining HTML tags
         plainText = tempText.replace(/<[^>]*>/g, '');
-        // Decode common HTML entities
-        plainText = plainText.replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+        
+        // Decode common HTML entities for plain text
+        plainText = plainText
+          .replace(/&nbsp;/g, ' ')
+          .replace(/&amp;/g, '&')
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&quot;/g, '"')
+          .replace(/&#039;/g, "'");
       } else {
         htmlContent = formatForHtmlClipboard(textToCopy);
-        plainText = textToCopy;
+        // For plain text, we might want to strip markdown-like bold if it exists
+        plainText = textToCopy.replace(/\*([\s\S]*?)\*/g, "$1");
       }
 
       const fullHtml = `
-        <span style="font-family: 'Calibri', 'Segoe UI', sans-serif; font-size: 11pt; color: #000000; line-height: 1.5;">
+        <div style="font-family: 'Calibri', 'Segoe UI', sans-serif; font-size: 11pt; color: #000000; line-height: 1.5;">
           ${htmlContent}
-        </span>
+        </div>
       `;
 
       const clipboardItem = new ClipboardItem({
