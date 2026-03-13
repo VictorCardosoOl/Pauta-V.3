@@ -41,7 +41,7 @@ export const useEditorLogic = (template: Template) => {
     return extractPlaceholders(allText);
   }, [template.content, template.subject, template.secondaryContent]);
 
-  const updateContentWithVariables = useCallback((baseText: string, values: Record<string, string>) => {
+  const updateContentWithVariables = useCallback((baseText: string, values: Record<string, string>, isHtml: boolean = true) => {
     // 1. Process Conditional Logic first
     let result = processConditionalLogic(baseText, values);
     
@@ -52,27 +52,25 @@ export const useEditorLogic = (template: Template) => {
       const type = getInputType(ph);
       const rawVal = values[ph];
       
-      // Always wrap in span, even if empty (keeps placeholder visible if needed, or just empty span)
-      // But if rawVal is empty, we might want to keep the placeholder text?
-      // The previous logic kept the placeholder if rawVal was empty (because if (rawVal) check).
-      // Let's keep that behavior but wrap it.
-      
       if (rawVal) {
         const formattedVal = formatValueForText(rawVal, type);
-        // Escape < and > in the user input to prevent HTML injection issues in Tiptap
-        const escapedVal = formattedVal.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        // Wrap in span for highlighting
-        // We use a specific class 'variable-mark' and data attribute
-        const replacement = `<span data-variable="${ph}" class="variable-mark">${escapedVal}</span>`;
-        result = result.split(ph).join(replacement);
+        if (isHtml) {
+          // Escape < and > in the user input to prevent HTML injection issues in Tiptap
+          const escapedVal = formattedVal.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          // Wrap in span for highlighting
+          const replacement = `<span data-variable="${ph}" class="variable-mark">${escapedVal}</span>`;
+          result = result.split(ph).join(replacement);
+        } else {
+          result = result.split(ph).join(formattedVal);
+        }
       } else {
-        // If no value, keep placeholder but wrap it so we can highlight it too?
-        // User asked to highlight text corresponding to variable.
-        // If variable is empty, maybe highlight the placeholder?
-        // Let's wrap the placeholder too.
-        const escapedPh = ph.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-        const replacement = `<span data-variable="${ph}" class="variable-mark placeholder-mark">${escapedPh}</span>`;
-        result = result.split(ph).join(replacement);
+        if (isHtml) {
+          const escapedPh = ph.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          const replacement = `<span data-variable="${ph}" class="variable-mark placeholder-mark">${escapedPh}</span>`;
+          result = result.split(ph).join(replacement);
+        } else {
+          result = result.split(ph).join(ph);
+        }
       }
     });
     return result;
@@ -138,9 +136,9 @@ export const useEditorLogic = (template: Template) => {
       // Batch updates to avoid multiple re-renders
       // Note: We use functional updates or current state references if needed, 
       // but here we are deriving from rawContent which is stable.
-      setContent(updateContentWithVariables(rawContent, newValues));
-      setSecondaryContent(updateContentWithVariables(rawSecondaryContent, newValues));
-      setSubject(updateContentWithVariables(template.subject || '', newValues));
+      setContent(updateContentWithVariables(rawContent, newValues, true));
+      setSecondaryContent(updateContentWithVariables(rawSecondaryContent, newValues, true));
+      setSubject(updateContentWithVariables(template.subject || '', newValues, false));
       
       return newValues;
     });

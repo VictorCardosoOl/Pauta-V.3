@@ -2,7 +2,7 @@
 import { useState, useCallback } from 'react';
 
 interface UseTemplateCopierReturn {
-  copyToClipboard: (text: string, key: string) => Promise<void>;
+  copyToClipboard: (text: string, key: string, isHtml?: boolean) => Promise<void>;
   isCopied: (key: string) => boolean;
 }
 
@@ -34,8 +34,8 @@ const cleanHtmlForClipboard = (html: string): string => {
   if (!html) return '';
   
   return html
-    // Remove variable highlighting spans but keep content
-    .replace(/<span[^>]*class="[^"]*variable-mark[^"]*"[^>]*>([\s\S]*?)<\/span>/gi, '$1')
+    // Remove variable highlighting spans but keep content (match by data-variable or class)
+    .replace(/<span[^>]*(?:data-variable|class="[^"]*variable-mark[^"]*")[^>]*>([\s\S]*?)<\/span>/gi, '$1')
     // Remove data attributes
     .replace(/\sdata-[a-z0-9-]+="[^"]*"/gi, '')
     // Remove internal classes
