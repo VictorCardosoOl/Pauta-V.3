@@ -167,10 +167,22 @@ export const useEditorLogic = (template: Template) => {
     const scenarioRegex = /\[CENÁRIO:\s*([^\]]+)\]([\s\S]*?)(?=\[CENÁRIO:|$)/gi;
     const matches = [...content.matchAll(scenarioRegex)];
     
-    return matches.map(match => ({
-      title: match[1].trim(),
-      text: match[2].trim()
-    }));
+    return matches.map(match => {
+      let text = match[2].trim();
+      // Remove trailing --- and <br> tags
+      text = text.replace(/(?:<br\s*\/?>|\s|---)*$/gi, '');
+      // Remove leading <br> tags
+      text = text.replace(/^(?:<br\s*\/?>|\s)*/gi, '');
+      
+      // Decode HTML entities in title
+      let title = match[1].trim();
+      title = title.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+      
+      return {
+        title,
+        text
+      };
+    });
   }, [content, isScenarioMode]);
 
   return {

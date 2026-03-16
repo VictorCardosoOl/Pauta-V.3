@@ -54,7 +54,7 @@ export const useTemplateCopier = (): UseTemplateCopierReturn => {
 
     try {
       let htmlContent;
-      let plainText;
+      let plainText = '';
 
       if (isHtml) {
         // Clean HTML for clipboard (remove editor-specific tags/classes)
@@ -89,26 +89,30 @@ export const useTemplateCopier = (): UseTemplateCopierReturn => {
         </div>
       `;
 
-      const clipboardItem = new ClipboardItem({
-        'text/plain': new Blob([plainText], { type: 'text/plain' }),
-        'text/html': new Blob([fullHtml], { type: 'text/html' })
-      });
-
-      await navigator.clipboard.write([clipboardItem]);
-    } catch {
-      // Fallback for browsers/contexts with restricted ClipboardItem support
       try {
-        await navigator.clipboard.writeText(isHtml ? textToCopy.replace(/<[^>]*>/g, '') : textToCopy);
-      } catch {
-        // Silent fail or toast notification logic here
-        return; 
-      }
-    }
+        const clipboardItem = new ClipboardItem({
+          'text/plain': new Blob([plainText], { type: 'text/plain' }),
+          'text/html': new Blob([fullHtml], { type: 'text/html' })
+        });
 
-    setCopiedStates(prev => ({ ...prev, [key]: true }));
-    setTimeout(() => {
-      setCopiedStates(prev => ({ ...prev, [key]: false }));
-    }, 2000);
+        await navigator.clipboard.write([clipboardItem]);
+      } catch {
+        // Fallback for browsers/contexts with restricted ClipboardItem support
+        try {
+          await navigator.clipboard.writeText(plainText);
+        } catch {
+          // Silent fail or toast notification logic here
+          return; 
+        }
+      }
+
+      setCopiedStates(prev => ({ ...prev, [key]: true }));
+      setTimeout(() => {
+        setCopiedStates(prev => ({ ...prev, [key]: false }));
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
   }, []);
 
   return { copyToClipboard, isCopied };
