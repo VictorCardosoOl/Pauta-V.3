@@ -5,8 +5,8 @@ export const CATEGORIES: Category[] = [
   { id: 'prompts', name: 'Prompts', icon: 'Sparkles' },
   { id: 'deployment', name: 'Implantação', icon: 'Layers' },
   { id: 'scheduling', name: 'Agendamento', icon: 'Clock' },
-  { id: 'operational', name: 'Operacional', icon: 'Sliders' },
-  { id: 'relationship', name: 'Relacionamento', icon: 'Users' },
+  // { id: 'operational', name: 'Operacional', icon: 'Sliders' },
+  // { id: 'relationship', name: 'Relacionamento', icon: 'Users' },
 ];
 
 export const INITIAL_TEMPLATES: Template[] = [
@@ -616,6 +616,7 @@ Entregáveis:
 
   // --- MÓDULO: TREINAMENTO ---
 
+  /*
   {
     id: 'comunicado-manutencao-condicional',
     title: 'Comunicado de Manutenção (Dinâmico)',
@@ -645,6 +646,7 @@ Equipe de TI`,
     secondaryLabel: 'Aviso WhatsApp',
     secondaryContent: `[IF:Urgente=Sim]🚨 *URGENTE:* [/IF]Manutenção no [Sistema] hoje às [Horário Início]. Previsão de retorno: [Horário Fim].`
   },
+  */
   {
     id: 'material-download-treinamento',
     title: 'Envio de Material (Download)',
@@ -855,6 +857,7 @@ A reunião será realizada através da plataforma Google Meet, pelo o seguinte l
 [Link da Reunião]`
   },
 
+  /*
   // --- MÓDULO: OPERACIONAL ---
   {
     id: 'planilha-desempenho',
@@ -1102,6 +1105,7 @@ Quanto à validade jurídica da assinatura eletrônica, destacamos que ela encon
 
 Dessa forma, entendemos que o procedimento adotado está juridicamente amparado, tecnicamente seguro e em conformidade com a legislação vigente, oferecendo respaldo suficiente para a formalização junto ao cliente e mitigação de eventuais questionamentos judiciais.`
   },
+  */
   {
     id: 'faq-premium-layout',
     title: 'Seção Duvidas',
