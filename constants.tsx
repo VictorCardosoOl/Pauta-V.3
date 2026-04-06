@@ -1519,5 +1519,35 @@ Crie um tutorial enumerado de "Como adaptar este projeto para um novo cliente de
 - Onde altero logotipos e mídias?
 
 Por favor, entregue APENAS o código Markdown completo da documentação. Não inclua saudações, conclusões fora do arquivo ou textos de bate-papo. Utilize cabeçalhos (H1, H2, H3), negritos para destacar arquivos importantes, listas com marcadores e blocos de código formatados para facilitar a leitura.`
+  },
+  {
+    id: 'mapeamento-estrutura-projeto',
+    title: 'Mapeamento de Estrutura do Projeto',
+    category: 'prompts',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Prompt para gerar um mapeamento de estrutura de diretórios e documentação de arquitetura.',
+    content: `Atue como um Arquiteto de Software Especialista em md (markedown).
+
+Por favor, analise a base de código e os arquivos do projeto md que estou fornecendo neste contexto. 
+
+Sua tarefa é criar um "Mapeamento de Estrutura" (Directory Tree Mapping) completo e detalhado deste projeto. Este mapa servirá como documentação de arquitetura para facilitar o onboarding e a navegação futura.
+
+⚠️ INSTRUÇÃO CRÍTICA CONTRA ALUCINAÇÕES:
+- Desenhe a árvore baseando-se ESTRITAMENTE nos arquivos e diretórios que estão no contexto fornecido.
+- NÃO invente pastas (como \`cmd/\`, \`internal/\`, ou \`pkg/\`) se elas não existirem explicitamente no código que eu enviei.
+
+O resultado deve ser formatado em Markdown e conter:
+
+1. A Árvore de Diretórios Visual:
+Utilize formatação de bloco de código e caracteres padrão (como \`├──\` e \`└──\`) para desenhar a estrutura de pastas e arquivos principais. 
+
+2. Explicação da Arquitetura:
+Logo após a árvore, liste os diretórios principais encontrados (ex: \`cmd\`, \`internal\`, \`pkg\`, \`api\`, \`models\`, \`handlers\`, etc.) e explique o propósito de cada um NESTE projeto específico. 
+Se a estrutura seguir o "Standard md Project Layout", mencione isso e explique como os pacotes estão se comunicando. Se for uma estrutura mais simples (Flat structure), explique o motivo aparente.
+
+3. Ponto de Entrada e Dependências:
+Destaque onde está a função \`main()\` (o ponto de entrada da aplicação) e explique brevemente as principais dependências ou módulos definidos no arquivo \`go.mod\`.
+
+Entregue apenas o conteúdo Markdown final, pronto para ser copiado e colado em um arquivo \`ARCHITECTURE.md\`.`
   }
 ];
