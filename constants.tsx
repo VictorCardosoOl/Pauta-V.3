@@ -1480,5 +1480,44 @@ const ContentModal = ({ isOpen, onClose, children, layoutId }) => {
     document.body
   );
 };`
+  },
+  {
+    id: 'detalhamento-md-projeto',
+    title: 'Detalhamento MD Projeto',
+    category: 'prompts',
+    channel: CommunicationChannel.PROMPT,
+    description: 'Prompt para gerar a documentação detalhada (DOC-TEMPLATE.md) da arquitetura de projetos Front-end.',
+    content: `Atue como um Engenheiro de Software Sênior e Tech Lead especializado em arquitetura e documentação de projetos Front-end.
+
+Por favor, analise a base de código que estou fornecendo em anexo/contexto. Este projeto é um [INSERIR TIPO DE PROJETO, ex: Template multi-clientes / E-commerce / Landing Page White-label] voltado para o nicho de [INSERIR NICHO, ex: restaurantes / clínicas médicas / varejo].
+
+Sua tarefa é gerar o conteúdo completo para um arquivo chamado \`DOC-TEMPLATE.md\`. Este arquivo será o meu manual de instruções particular, para que eu ou minha equipe possamos lembrar facilmente no futuro como o projeto funciona, qual a sua arquitetura e como adaptá-lo para novos clientes ou contextos.
+
+⚠️ INSTRUÇÃO CRÍTICA CONTRA ALUCINAÇÕES:
+- Baseie-se ESTRITAMENTE nos arquivos de código fornecidos. 
+- NÃO invente bibliotecas, componentes, rotas ou funcionalidades que não estejam explicitamente no código.
+- Se você não encontrar um arquivo mencionado, não presuma seu conteúdo. Limite-se ao que é visível no contexto.
+
+O arquivo Markdown gerado deve ser rico visualmente e conter estritamente as seguintes seções, preenchidas com as informações extraídas da base de código:
+
+1. Visão Geral e Propósito Comercial:
+Explique o objetivo do projeto com base no nicho informado. Descreva qual problema ele resolve e quais os principais módulos ou páginas disponíveis (ex: site institucional, área logada, etc). Liste os diferenciais comerciais que o código entrega.
+
+2. Stack Tecnológica e Comportamento Visual:
+Liste as principais tecnologias encontradas no \`package.json\` (como frameworks, bundlers e bibliotecas de roteamento). Em seguida, identifique e explique o papel das bibliotecas de UI/UX e animações presentes no projeto. Descreva o tom e o comportamento visual atual (ex: minimalista, corporativo, fluido) baseado nos estilos e animações configuradas.
+
+3. Arquitetura Orientada a Dados (Data-Driven):
+Explique de forma detalhada como funciona a separação entre a interface (componentes) e os dados. Detalhe o papel do arquivo central de configuração (como \`[INSERIR NOME DO ARQUIVO DE DADOS, ex: clientConfig.ts ou data.json]\`) e mostre como ele alimenta os componentes dinamicamente (textos, links, imagens), evitando a necessidade de editar arquivos estruturais de código para cada alteração de conteúdo.
+
+4. Tematização Dinâmica e Estilização:
+Explique como a troca de design/cores do projeto funciona. Indique o arquivo onde os estilos ou variáveis globais estão definidos (ex: \`[INSERIR ARQUIVO DE ESTILO, ex: index.css ou tailwind.config.js]\`) e mostre um breve exemplo de código sobre como alterar a paleta de cores principal em minutos.
+
+5. Guia Rápido de Customização (Passo a Passo):
+Crie um tutorial enumerado de "Como adaptar este projeto para um novo cliente de forma rápida". Analise a arquitetura e diga exatamente:
+- Quais pastas ou arquivos de dados/configuração eu devo abrir?
+- O que devo alterar neles (com exemplos curtos de código baseados no projeto)?
+- Onde altero logotipos e mídias?
+
+Por favor, entregue APENAS o código Markdown completo da documentação. Não inclua saudações, conclusões fora do arquivo ou textos de bate-papo. Utilize cabeçalhos (H1, H2, H3), negritos para destacar arquivos importantes, listas com marcadores e blocos de código formatados para facilitar a leitura.`
   }
 ];
