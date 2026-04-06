@@ -1526,28 +1526,58 @@ Por favor, entregue APENAS o código Markdown completo da documentação. Não i
     category: 'prompts',
     channel: CommunicationChannel.PROMPT,
     description: 'Prompt para gerar um mapeamento de estrutura de diretórios e documentação de arquitetura.',
-    content: `Atue como um Arquiteto de Software Especialista em md (markedown).
+    content: `Atue como um Arquiteto de Software sênior especializado em documentação técnica.
 
-Por favor, analise a base de código e os arquivos do projeto md que estou fornecendo neste contexto. 
+Você receberá a estrutura de arquivos de um projeto. Sua tarefa é gerar um mapeamento completo da estrutura, porém com um detalhe crítico:
 
-Sua tarefa é criar um "Mapeamento de Estrutura" (Directory Tree Mapping) completo e detalhado deste projeto. Este mapa servirá como documentação de arquitetura para facilitar o onboarding e a navegação futura.
+🎯 FORMATO DE SAÍDA OBRIGATÓRIO
+A resposta deve ser 100% em um único bloco de código
+A linguagem do bloco deve ser: go
+O conteúdo deve ser escrito como comentários válidos em Go
+O resultado deve ser utilizável como um arquivo na raiz do projeto: estrutura.go
+⚠️ REGRAS CRÍTICAS
+NÃO deixe a saída vazia
+NÃO responda fora do bloco de código
+NÃO use Markdown fora do bloco
+NÃO invente arquivos ou pastas
+Se não souber o que um arquivo faz:
+descreva de forma genérica baseada no nome/extensão
+🧱 ESTRUTURA DO CONTEÚDO
 
-⚠️ INSTRUÇÃO CRÍTICA CONTRA ALUCINAÇÕES:
-- Desenhe a árvore baseando-se ESTRITAMENTE nos arquivos e diretórios que estão no contexto fornecido.
-- NÃO invente pastas (como \`cmd/\`, \`internal/\`, ou \`pkg/\`) se elas não existirem explicitamente no código que eu enviei.
+Você deve gerar comentários organizados assim:
 
-O resultado deve ser formatado em Markdown e conter:
+1. Título
+// 📁 Mapeamento de Estrutura do Projeto
+2. Árvore de Diretórios (OBRIGATÓRIO)
+Usar caracteres:
+├──
+└──
+│
+Cada arquivo deve ter descrição ao lado
 
-1. A Árvore de Diretórios Visual:
-Utilize formatação de bloco de código e caracteres padrão (como \`├──\` e \`└──\`) para desenhar a estrutura de pastas e arquivos principais. 
+Exemplo:
 
-2. Explicação da Arquitetura:
-Logo após a árvore, liste os diretórios principais encontrados (ex: \`cmd\`, \`internal\`, \`pkg\`, \`api\`, \`models\`, \`handlers\`, etc.) e explique o propósito de cada um NESTE projeto específico. 
-Se a estrutura seguir o "Standard md Project Layout", mencione isso e explique como os pacotes estão se comunicando. Se for uma estrutura mais simples (Flat structure), explique o motivo aparente.
+// project/
+// ├── main.go        // Ponto de entrada da aplicação
+// ├── config.json    // Arquivo de configuração
+// └── utils/
+//     └── helper.go  // Funções utilitárias
+3. Explicação da Arquitetura
+// 🏗️ Arquitetura
+// - /utils: contém funções auxiliares reutilizáveis
+// - /config: centraliza configurações
+4. Ponto de Entrada e Configurações
+// 🚀 Ponto de Entrada
+// main.go é responsável por iniciar a aplicação
 
-3. Ponto de Entrada e Dependências:
-Destaque onde está a função \`main()\` (o ponto de entrada da aplicação) e explique brevemente as principais dependências ou módulos definidos no arquivo \`go.mod\`.
+// ⚙️ Configurações
+// config.json armazena parâmetros do sistema
+🔒 REFORÇO FINAL (CRÍTICO)
+Sua resposta DEVE conter conteúdo dentro do bloco \`\`\`go
+Se a árvore não for gerada, a resposta será considerada inválida
+NÃO retorne explicações fora do código
+TODO o conteúdo deve ser comentário (//)
 
-Entregue apenas o conteúdo Markdown final, pronto para ser copiado e colado em um arquivo \`ARCHITECTURE.md\`.`
+Em seguida crie um arquivo go na raiz do projeto com base no detalhamento da arquitetura realizada com base na instruções acima, o nome do arquivo deve ser " Arquitetura.go"`
   }
 ];
