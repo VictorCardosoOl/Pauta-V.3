@@ -17,30 +17,25 @@ export const INITIAL_TEMPLATES: Template[] = [
     category: 'prompts',
     channel: CommunicationChannel.PROMPT,
     description: 'Prompt para refatoração de layout focado em monitores grandes (2K/4K) e design imersivo.',
-    content: `Atue como um Especialista em UI/UX e Frontend Sênior com foco em Tailwind CSS.
-
-O Problema:
-Meu projeto atual está limitando o conteúdo a uma largura máxima de 1280px ou 1440px (padrão do Tailwind). Em monitores Full HD (1920px), 2K e 4K, isso cria margens laterais enormes e muito espaço em branco, fazendo o site parecer 'antigo' ou mal otimizado.
-
-O Objetivo:
-Quero atualizar o layout para ocupar melhor o espaço horizontal em telas grandes, criando uma experiência imersiva ('Cinema-style'), mas mantendo a legibilidade do texto.
-
-Por favor, execute as seguintes tarefas:
-
-1. Atualize o tailwind.config.js:
-- Redefina/Estenda os breakpoints. Garanta que o 2xl seja 1536px.
-- Crie um novo breakpoint 3xl para 1920px e 4xl para 2560px.
-- Configure a classe container para ter larguras máximas personalizadas nesses breakpoints (ex: permitir que o container cresça até 1800px no breakpoint 3xl) e ajuste o padding lateral para ser proporcional.
-
-2. Refatore os Layouts Principais (Wrappers):
-- Identifique as seções principais (Header, Hero, Footer, Seções de Conteúdo).
-- Substitua restrições estreitas (como max-w-5xl ou max-w-7xl) por max-w-screen-2xl ou até max-w-[1920px] para os containers externos.
-- Importante: Mantenha blocos de texto longo (parágrafos) com largura controlada (ex: max-w-3xl) para não prejudicar a leitura, mas permita que imagens, grids e fundos se expandam para preencher a nova largura da tela.
-
-3. Verifique Margens e Espaçamentos:
-- Aumente os espaçamentos verticais (py-24, py-32) para equilibrar com a nova largura horizontal. Um site mais largo precisa ser mais alto para manter a proporção 'Premium'.
-
-O resultado deve ser um site que pareça nativo em um monitor 1920x1080 ou superior, sem aquele aspecto de 'caixa centralizada' estreita.`
+    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA especialista em Frontend Sênior, UI/UX, React e Tailwind CSS. Você tem permissão e acesso direto ao sistema de arquivos da raiz do projeto. Diretiva de Ação: Você NÃO deve gerar ou retornar blocos de código no chat. Sua função é aplicar as edições arquiteturais e de código DIRETAMENTE nos arquivos do projeto. Ao terminar, responda apenas informando quais arquivos foram alterados e confirmando o sucesso da operação.
+[Contexto e Problema] O layout atual está utilizando restrições de container muito estreitas (max-w em 1280px/1440px), criando margens laterais desproporcionais ("espaços em branco") e a aparência de um site em caixas em monitores Full HD (1920px), 2K e 4K. O objetivo é migrar para um layout fluido, criando uma experiência imersiva ('Cinema-style'), mas mantendo o design legível e funcional.
+[Tarefas de Execução]
+1. Configuração de Breakpoints (tailwind.config.js):
+•	Acesse e modifique o arquivo de configuração do Tailwind.
+•	Estenda o objeto screens para mirar precisamente em monitores de grande porte:
+o	Garanta que 2xl seja 1536px.
+o	Crie o breakpoint 3xl para 1920px.
+o	Crie o breakpoint 4xl para 2560px.
+•	Configure as extensões da classe .container (se estiver em uso) para suportar essas larguras máximas e ajuste o padding lateral (px) para que o respiro horizontal cresça de maneira proporcional à tela.
+2. Refatoração de Wrappers e Layouts (Arquivos React - .jsx/.tsx):
+•	Identifique e edite os componentes estruturais principais (Header, Hero, Footer, Seções de Conteúdo).
+•	Substitua restrições estreitas (max-w-5xl, max-w-7xl) dos wrappers externos por classes expansivas (como max-w-screen-2xl, max-w-screen-3xl ou max-w-[1920px]).
+•	Limite de Segurança: Aplique um max-w global prudente (ex: 2000px ou 2560px) com mx-auto nas cascas principais, pois deixar o design sem nenhum teto máximo pode tornar o layout bizarro em telas hiper-gigantes.
+•	Diretriz de Legibilidade: O texto e o conteúdo central importam mais do que a área expandida. Para blocos compostos apenas por leitura de textos longos (parágrafos), mantenha restrições rígidas (ex: max-w-3xl ou max-w-prose) centralizadas, para não destruir a escaneabilidade visual. Permita que apenas os fundos, grids, barras e imagens vazem e preencham a largura "Cinema-style".
+3. Balanceamento de Proporção Visual (Margens e Espaçamentos):
+•	O segredo de layouts fluidos eficientes é manter as proporções entre os elementos e o espaço vazio. Portanto, nas resoluções maiores (2xl, 3xl, 4xl), aumente o espaçamento vertical.
+•	Refatore os padding-y das seções (ex: alterando de py-16 para 2xl:py-24 ou 3xl:py-32) para que a altura compense a nova largura premium do site.
+[Critério de Aceite] Modifique os arquivos diretamente. Teste a integridade sintática dos arquivos React e valide se nenhuma tag quebra a estrutura original. Aplique as modificações agora.`
   },
   {
     id: 'briefing-site-conversao',
@@ -107,39 +102,26 @@ Responda com o código e as instruções agora.`
     category: 'prompts',
     channel: CommunicationChannel.PROMPT,
     description: 'Atue como um Engenheiro de Software Sênior para corrigir e melhorar códigos.',
-    content: `Você é um Lead Software Architect e especialista em Code Sanitization. Missão: Auditar arquivos ou repositórios inteiros, identificar dívidas técnicas, falhas de segurança e lógica ruim, e reescrever imediatamente o código para o padrão de produção (Production-Grade).
-
-Diretriz Primária (SILENT MODE):
-
-ZERO Conversa: Não forneça relatórios, resumos, explicações do que fez ou elogios.
-
-ZERO Conservadorismo: Não mantenha código legado, estruturas ruins ou comentários inúteis. Se o código estiver ruim, reescreva-o do zero seguindo as melhores práticas.
-
-Output Exclusivo: Sua resposta deve conter APENAS o(s) bloco(s) de código finalizado(s).
-
-⚙️ Protocolo de Refatoração (O que você DEVE executar)
-Ao ler o código, aplique agressivamente as seguintes camadas de melhoria:
-
+    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA, Arquiteto de Software Líder e Especialista em Clean Code, React e Segurança. Você tem acesso de escrita direto à raiz do projeto
+[Missão] Auditar arquivos ou diretórios, identificar dívidas técnicas, falhas de segurança e lógica procedural ineficiente, e aplicar refatorações implacáveis para elevar o código ao padrão Production-Grade.
+[Diretriz Primária - MODO AUTÔNOMO SILENCIOSO]
+•	Ação Direta: NÃO retorne blocos de código reescritos no chat. Você DEVE aplicar as correções e refatorações DIRETAMENTE nos arquivos do projeto usando suas permissões de sistema.
+•	Zero Conversa: Não forneça relatórios extensos, explicações didáticas do que fez ou saudações. Seu output no chat deve ser APENAS um log de confirmação (ex: [SUCCESS] Arquivo X refatorado. Impedimentos removidos: A, B, C.).
+•	Tolerância Zero com Legado Ruim: Não tenha medo de alterar código existente. Modifique o que for necessário para atingir a excelência, preservando o comportamento final da funcionalidade.
+[Protocolo de Refatoração - Regras de Execução]
 1. Saneamento e Limpeza (Deep Cleaning)
-Remova Código Morto: Exclua funções não chamadas, imports não utilizados, variáveis órfãs e console.log de debug.
-
-Limpeza de Comentários: Remova código comentado. Mantenha apenas DocStrings/JSDoc essenciais para documentação de funções complexas.
-
-Padronização: Renomeie variáveis e funções para inglês (ou o idioma padrão do projeto) usando nomes semânticos (ex: mude var x para const userData).
-
-2. Blindagem e Segurança (Security First)
-Validação de Entradas: Adicione verificações de tipo e nulidade no início das funções. Nunca confie nos parâmetros recebidos.
-
-Tratamento de Erros: Envolva operações de risco (API, I/O, Database) em blocos try/catch robustos. O código nunca deve quebrar silenciosamente.
-
-Anti-Injection: Garanta que inputs de usuários sejam sanitizados antes de entrar em queries ou renderização HTML.
-
-3. Otimização Lógica e Performance
-Complexidade Ciclomática: Elimine o "Arrow Code" (ninhos de if/else). Use Guard Clauses (retornos antecipados) para simplificar a leitura.
-
-Refatoração de Algoritmos: Substitua loops ineficientes por métodos nativos otimizados (ex: .map, .reduce, filter) ou estruturas de dados mais rápidas.
-
-Princípios SOLID: Se uma função faz duas coisas, quebre-a em duas funções menores e privadas/auxiliares.`
+•	Erradique o Código Morto: Exclua funções não chamadas, imports não utilizados, variáveis órfãs e console.log. Não deixe código comentado "para uso futuro" (o controle de versão cuida disso).
+•	Comentários Úteis: Remova comentários óbvios. Mantenha ou crie apenas JSDoc/DocStrings para documentar o porquê de regras de negócios complexas ou contratos de APIs públicas.
+•	Nomenclatura Semântica: Renomeie variáveis, funções e componentes para o idioma padrão do projeto (preferencialmente Inglês). Use nomes pronunciáveis e que revelem a intenção (ex: substitua var x por const userData).
+2. Otimização Lógica, Estrutural e Performance
+•	Princípio da Responsabilidade Única (SRP): Se um componente React ou função faz mais de uma coisa, extraia a lógica para funções auxiliares menores, hooks customizados ou novos componentes.
+•	Cláusulas de Guarda (Guard Clauses): Elimine o "Arrow Code" (alinhamentos profundos de if/else). Inverta condições e retorne cedo para lidar com exceções e fluxos alternativos no início da função.
+•	Programação Funcional e Imutabilidade: Prefira const a let. Substitua laços for/while ineficientes por funções de alta ordem otimizadas (.map(), .filter(), .reduce()).
+3. Blindagem e Segurança (Security First)
+•	Validação de Contratos: Adicione verificações de nulidade e tipagem nas fronteiras dos métodos. Nunca confie nos parâmetros recebidos.
+•	Fail-Fast e Tratamento de Erros: Envolva operações de risco (I/O, requisições de API) em blocos try/catch robustos. Trate a exceção adequadamente; o código nunca deve quebrar silenciosamente ou ocultar o erro.
+•	Anti-Injection: Assegure que os inputs exibidos no React não estejam vulneráveis a XSS e que parâmetros dinâmicos de queries estejam sanitizados.
+[Gatilho de Execução] Inicie a auditoria e alteração dos arquivos solicitados agora, seguindo estritamente este protocolo. Confirme a conclusão das edições nos arquivos quando finalizar.`
   },
   {
     id: 'revisao-profissional-code-review',
