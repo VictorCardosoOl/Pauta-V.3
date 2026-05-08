@@ -1386,58 +1386,19 @@ const ContentModal = ({ isOpen, onClose, children, layoutId }) => {
     category: 'prompts',
     channel: CommunicationChannel.PROMPT,
     description: 'Prompt para gerar um mapeamento de estrutura de diretórios e documentação de arquitetura.',
-    content: `Atue como um Arquiteto de Software sênior especializado em documentação técnica.
-
-Você receberá a estrutura de arquivos de um projeto. Sua tarefa é gerar um mapeamento completo da estrutura, porém com um detalhe crítico:
-
-🎯 FORMATO DE SAÍDA OBRIGATÓRIO
-A resposta deve ser 100% em um único bloco de código
-A linguagem do bloco deve ser: go
-O conteúdo deve ser escrito como comentários válidos em Go
-O resultado deve ser utilizável como um arquivo na raiz do projeto: estrutura.go
-⚠️ REGRAS CRÍTICAS
-NÃO deixe a saída vazia
-NÃO responda fora do bloco de código
-NÃO use Markdown fora do bloco
-NÃO invente arquivos ou pastas
-Se não souber o que um arquivo faz:
-descreva de forma genérica baseada no nome/extensão
-🧱 ESTRUTURA DO CONTEÚDO
-
-Você deve gerar comentários organizados assim:
-
-1. Título
-// 📁 Mapeamento de Estrutura do Projeto
-2. Árvore de Diretórios (OBRIGATÓRIO)
-Usar caracteres:
-├──
-└──
-│
-Cada arquivo deve ter descrição ao lado
-
-Exemplo:
-
-// project/
-// ├── main.go        // Ponto de entrada da aplicação
-// ├── config.json    // Arquivo de configuração
-// └── utils/
-//     └── helper.go  // Funções utilitárias
-3. Explicação da Arquitetura
-// 🏗️ Arquitetura
-// - /utils: contém funções auxiliares reutilizáveis
-// - /config: centraliza configurações
-4. Ponto de Entrada e Configurações
-// 🚀 Ponto de Entrada
-// main.go é responsável por iniciar a aplicação
-
-// ⚙️ Configurações
-// config.json armazena parâmetros do sistema
-🔒 REFORÇO FINAL (CRÍTICO)
-Sua resposta DEVE conter conteúdo dentro do bloco \`\`\`go
-Se a árvore não for gerada, a resposta será considerada inválida
-NÃO retorne explicações fora do código
-TODO o conteúdo deve ser comentário (//)
-
-Em seguida crie um arquivo go na raiz do projeto com base no detalhamento da arquitetura realizada com base na instruções acima, o nome do arquivo deve ser " Arquitetura.go"`
+    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity) e Arquiteto de Software Sênior especializado em documentação técnica. Você tem permissão de leitura de todos os diretórios e permissão de escrita diretamente na raiz do projeto.
+[Diretiva Primária - SILENT MODE]
+•	Ação Direta: NÃO gere blocos de código, árvores de diretório ou explicações no chat. Sua tarefa é analisar a estrutura do repositório atual e CRIAR DIRETAMENTE um arquivo chamado Arquitetura.go na raiz do projeto.
+•	Output Exclusivo: Responda no chat APENAS com um log executivo confirmando a criação e o preenchimento do arquivo (ex: [SUCCESS] Arquivo Arquitetura.go gerado com sucesso na raiz do projeto.).
+[Missão e Regras Críticas] Gere um mapeamento completo da estrutura atual do projeto e grave-o no arquivo Arquitetura.go.
+•	Conteúdo 100% Comentado: Todo o conteúdo dentro do arquivo Arquitetura.go DEVE ser escrito como comentários válidos na linguagem Go (iniciando com //).
+•	Zero Alucinação: NÃO invente arquivos, pastas ou módulos que não existam no repositório. Limite-se estritamente ao que você mapear.
+•	Descrições: Se não souber o propósito exato de um arquivo, descreva-o de forma genérica baseada em seu nome ou extensão.
+[Estrutura Obrigatória do Arquivo Arquitetura.go] Escreva o arquivo organizando os comentários exatamente com as seções abaixo:
+1. Título // 📁 Mapeamento de Estrutura do Projeto
+2. Árvore de Diretórios Mapeie a raiz e as subpastas usando os caracteres ├──, └──, e │. Adicione uma breve descrição ao lado de cada arquivo/pasta relevante. Exemplo: // project/ // ├── main.go // Ponto de entrada da aplicação // ├── config.json // Arquivo de configuração // └── utils/ // └── helper.go // Funções utilitárias
+3. Explicação da Arquitetura Explique a responsabilidade das principais pastas e módulos encontrados. Exemplo: // 🏗️ Arquitetura // - /utils: contém funções auxiliares reutilizáveis // - /config: centraliza configurações
+4. Ponto de Entrada e Configurações Identifique e descreva onde o software se inicia e onde guarda suas configurações. Exemplo: // 🚀 Ponto de Entrada // main.go é responsável por iniciar a aplicação // // ⚙️ Configurações // config.json armazena parâmetros do sistema
+[Gatilho de Execução] Faça a varredura da estrutura do projeto agora, crie o arquivo Arquitetura.go preenchido conforme as regras e retorne apenas o log de sucesso.`
   }
 ];
