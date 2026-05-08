@@ -20,44 +20,57 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
     : [...pinnedTemplates, ...otherTemplates];
 
   const categoryName = isAllCategory 
-    ? 'Pauta' 
-    : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Categoria';
+    ? 'Edição Limitada' 
+    : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Coleção';
 
   return (
     <div className="flex flex-col md:flex-row w-full bg-editorial-bg min-h-full">
       {/* Main Content (Hero + Feed) */}
-      <div className="flex-1 flex flex-col p-8 md:p-12 lg:p-16 border-r border-editorial-black">
+      <div className="flex-1 flex flex-col p-8 md:p-16 lg:p-24 2xl:p-32 border-r border-[#e0e0e0]">
         
+        {/* Pre-title Label */}
+        <div className="mb-4">
+            <span className="font-sans text-[10px] md:text-xs font-semibold tracking-[0.3em] uppercase text-editorial-gray">
+                — {new Date().getFullYear()} / Q2 Collection
+            </span>
+        </div>
+
         {/* Hero Section */}
         {isAllCategory && heroTemplate && (
-          <div className="mb-16 pb-16 border-b border-editorial-black">
-            <h1 className="font-sans font-black text-[10vw] md:text-[8vw] leading-[0.8] tracking-tighter mb-8 text-editorial-black uppercase whitespace-pre-line">
+          <div className="mb-24 pb-20 border-b border-[#e0e0e0]">
+            <h1 className="font-sans font-black text-[12vw] md:text-[9vw] leading-[0.8] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line mix-blend-difference">
               {categoryName}
             </h1>
             
-            <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-16 xl:gap-24 items-start">
               {/* Hero Card */}
-              <EditorialCard 
-                template={heroTemplate} 
-                onClick={() => setSelectedTemplate(heroTemplate)} 
-                onPin={onPin}
-                isPinned={pinnedIds.includes(heroTemplate.id)}
-                index={0} 
-                isHero={true} 
-              />
+              <div className="group relative">
+                <EditorialCard 
+                  template={heroTemplate} 
+                  onClick={() => setSelectedTemplate(heroTemplate)} 
+                  onPin={onPin}
+                  isPinned={pinnedIds.includes(heroTemplate.id)}
+                  index={0} 
+                  isHero={true} 
+                />
+              </div>
 
               {/* Secondary Column (Desktop Only) - Featured Articles */}
-              <div className="hidden lg:flex flex-col gap-8 border-l border-editorial-black pl-8 h-full">
-                 <div className="font-serif italic text-3xl mb-8">Artigos em Destaque</div>
+              <div className="hidden lg:flex flex-col gap-10 border-l border-[#e0e0e0] pl-10 xl:pl-16 h-full">
+                 <div className="font-serif italic text-4xl mb-4 font-light text-editorial-black">Selecionados</div>
                  {listTemplates.slice(0, 3).map((template, idx) => (
-                    <div key={template.id} onClick={() => setSelectedTemplate(template)} className="group cursor-pointer border-b border-editorial-black/20 pb-8 last:border-none">
-                       <div className="font-sans font-bold text-5xl mb-4 text-editorial-black/20 group-hover:text-editorial-black transition-colors">{(idx + 1).toString().padStart(2, '0')}</div>
-                       <h3 className="font-sans font-bold text-2xl leading-tight mb-3 group-hover:underline decoration-1 underline-offset-4">{template.title}</h3>
-                       <p className="font-serif text-lg text-editorial-gray line-clamp-2">{template.description}</p>
+                    <div key={template.id} onClick={() => setSelectedTemplate(template)} className="group cursor-pointer border-b border-[#e0e0e0] pb-8 last:border-none">
+                       <div className="flex items-center gap-4 mb-3">
+                           <div className="font-sans font-medium text-sm text-editorial-gray">No. {(idx + 1).toString().padStart(2, '0')}</div>
+                           <div className="flex-1 h-[1px] bg-[#e0e0e0] group-hover:bg-editorial-black transition-colors duration-500"></div>
+                       </div>
+                       <h3 className="font-sans font-bold text-xl xl:text-2xl leading-tight mb-3 group-hover:text-editorial-gray transition-colors duration-500">{template.title}</h3>
+                       <p className="font-serif text-lg text-editorial-gray opacity-80 line-clamp-2">{template.description}</p>
                     </div>
                  ))}
-                 <button className="mt-auto flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest hover:translate-x-2 transition-transform self-end border-b border-editorial-black/20 hover:border-editorial-black pb-1">
-                    Ver Todos →
+                 <button className="mt-auto flex items-center justify-between gap-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] group hover:text-editorial-gray transition-colors self-end border border-editorial-black px-6 py-3 rounded-full overflow-hidden relative">
+                    <span className="relative z-10 transition-colors group-hover:text-white">Explorar Índices</span>
+                    <div className="absolute inset-0 bg-editorial-black transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
                  </button>
               </div>
             </div>
@@ -65,15 +78,15 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         )}
 
         {!isAllCategory && (
-          <div className="mb-12 pb-8 border-b border-editorial-black">
-            <h1 className="font-sans font-black text-[8vw] md:text-[6vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line">
+          <div className="mb-20 pb-12 border-b border-[#e0e0e0]">
+            <h1 className="font-sans font-black text-[10vw] md:text-[7vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
           </div>
         )}
 
         {/* Grid Feed (Below Hero) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-12 gap-y-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-16 gap-y-28">
            {(isAllCategory ? listTemplates.slice(3) : listTemplates).map((template, idx) => (
               <EditorialCard 
                 key={template.id} 
@@ -88,9 +101,13 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         </div>
 
         {/* Footer Area */}
-        <div className="mt-32 pt-16 border-t border-editorial-black flex flex-col md:flex-row justify-between items-end">
-           <div className="font-sans font-black text-[15vw] leading-none tracking-tighter uppercase text-editorial-black/10 select-none">
-              Pauta
+        <div className="mt-40 pt-20 border-t border-[#e0e0e0] flex flex-col items-center justify-center relative overflow-hidden">
+           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-editorial-black/[0.03] to-transparent pointer-events-none"></div>
+           <div className="font-sans font-black text-[18vw] leading-none tracking-tighter uppercase text-editorial-black/[0.04] select-none text-center">
+              Awwwards.
+           </div>
+           <div className="absolute bottom-10 font-serif italic text-xl text-editorial-gray">
+              Design is thinking made visual.
            </div>
         </div>
       </div>

@@ -12,11 +12,11 @@ export default {
     extend: {
       colors: {
         editorial: {
-          bg: 'var(--color-bg-body)',
-          surface: 'var(--color-bg-surface)',
-          black: 'var(--color-text-primary)',
-          gray: 'var(--color-text-secondary)',
-          light: 'var(--color-text-tertiary)',
+          bg: '#f7f7f7',
+          black: '#0a0a0a',
+          gray: '#737373',
+          surface: '#ffffff',
+          light: '#e0e0e0',
         }
       },
       screens: {

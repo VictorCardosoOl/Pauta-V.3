@@ -124,77 +124,78 @@ const CommandMenuContent: React.FC = () => {
           className="w-full max-w-2xl 2xl:max-w-3xl bg-white shadow-2xl border border-[#E5E5E5] overflow-hidden pointer-events-auto flex flex-col max-h-[60vh]"
         >
           {/* Search Header */}
-          <div className="flex items-center px-6 py-5 border-b border-[#E5E5E5] shrink-0">
-            <Search className="text-[#999999] mr-4" size={20} strokeWidth={1.5} />
+          <div className="flex items-center px-8 py-8 border-b border-[#E5E5E5] shrink-0 bg-white relative">
+            <Search className="text-editorial-black/40 mr-6" size={24} strokeWidth={1.5} />
             <input
               ref={inputRef}
               type="text"
-              placeholder="Buscar comando, template ou texto..."
-              className="flex-1 bg-transparent text-xl text-[#111111] placeholder:text-[#CCCCCC] outline-none font-serif italic-editorial"
+              placeholder="Buscar arquivo..."
+              className="flex-1 bg-transparent text-2xl md:text-3xl text-editorial-black placeholder:text-editorial-gray/40 outline-none font-serif italic"
               value={query}
               onChange={handleQueryChange}
             />
-            <div className="hidden md:flex items-center gap-2">
-                <span className="text-[9px] font-bold text-[#999999] border border-[#E5E5E5] px-2 py-1 tracking-widest uppercase">ESC</span>
+            <div className="hidden md:flex items-center gap-2 relative z-10">
+                <span className="text-[10px] font-semibold text-editorial-gray border border-editorial-gray/20 rounded-full px-3 py-1 tracking-[0.1em] uppercase">ESC</span>
             </div>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-editorial-black/[0.02] to-transparent pointer-events-none"></div>
           </div>
 
           {/* Results List */}
-          <div ref={listRef} className="overflow-y-auto custom-scrollbar p-2">
+          <div ref={listRef} className="overflow-y-auto custom-scrollbar p-6">
             {filteredItems.length === 0 ? (
-              <div className="py-16 text-center text-[#999999]">
-                <p className="text-sm font-serif italic">Nenhum resultado encontrado.</p>
+              <div className="py-24 text-center text-editorial-gray">
+                <p className="text-xl font-serif italic opacity-60">Nenhum resultado encontrado.</p>
               </div>
             ) : (
               filteredItems.map((item, idx) => (
                 <div
                   key={item.id}
                   className={`
-                    w-full flex items-center justify-between p-4 transition-colors duration-200 group text-left border-b border-transparent relative
-                    ${idx === selectedIndex ? 'bg-[#FAFAFA]' : 'hover:bg-[#FAFAFA]'}
+                    w-full flex items-center justify-between p-6 transition-all duration-300 group text-left relative overflow-hidden rounded-md cursor-pointer
+                    ${idx === selectedIndex ? 'bg-editorial-bg' : 'hover:bg-editorial-bg/50'}
                   `}
                   onMouseEnter={() => setSelectedIndex(idx)}
                 >
                   <button 
                     onClick={() => handleSelect(item)}
-                    className="flex-1 flex items-center gap-5 min-w-0 text-left"
+                    className="flex-1 flex items-center gap-6 min-w-0 text-left z-10 relative"
                   >
                     <div className={`
-                        w-8 h-8 flex items-center justify-center shrink-0 border rounded-full transition-colors
-                        ${idx === selectedIndex ? 'border-[#111111] text-[#111111]' : 'border-[#E5E5E5] text-[#CCCCCC]'}
+                        w-10 h-10 flex items-center justify-center shrink-0 border rounded-full transition-all duration-300
+                        ${idx === selectedIndex ? 'border-editorial-black text-editorial-black' : 'border-[#E5E5E5] text-editorial-gray'}
                     `}>
                         {getIcon(item.channel)}
                     </div>
-                    <div className="min-w-0">
-                       <h4 className={`text-base font-serif italic-editorial truncate ${idx === selectedIndex ? 'text-[#111111]' : 'text-[#666666]'}`}>
+                    <div className="min-w-0 flex-1">
+                       <h4 className={`text-xl md:text-2xl font-serif italic truncate transition-colors duration-300 ${idx === selectedIndex ? 'text-editorial-black' : 'text-editorial-gray'}`}>
                          {item.title}
                        </h4>
-                       <p className="text-[10px] uppercase tracking-wider text-[#999999] truncate max-w-[300px] mt-1">
-                         {item.description || item.subject || 'Sem descrição'}
+                       <p className={`text-[10px] uppercase font-semibold tracking-[0.2em] truncate max-w-[300px] mt-2 transition-colors duration-300 ${idx === selectedIndex ? 'text-editorial-black/60' : 'text-editorial-gray/60'}`}>
+                         {item.category}
                        </p>
                     </div>
                   </button>
 
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-4 z-10 relative">
                     {/* Copy Button */}
                     <button
                         onClick={(e) => handleCopy(e, item)}
                         className={`
-                            w-8 h-8 flex items-center justify-center rounded-full border border-transparent
-                            transition-all duration-200
+                            w-10 h-10 flex items-center justify-center rounded-full border border-[#E5E5E5] bg-white
+                            transition-all duration-300
                             ${copiedId === item.id 
-                                ? 'text-emerald-600 bg-emerald-50 opacity-100' 
-                                : 'text-[#999999] hover:text-[#111111] hover:bg-white hover:border-[#E5E5E5] opacity-0 group-hover:opacity-100'
+                                ? 'text-emerald-600 border-emerald-200 bg-emerald-50 opacity-100 scale-110' 
+                                : 'text-editorial-gray hover:text-editorial-black hover:border-editorial-black opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0'
                             }
                         `}
                         title="Copiar conteúdo"
                     >
-                        {copiedId === item.id ? <Check size={14} /> : <Copy size={14} />}
+                        {copiedId === item.id ? <Check size={16} /> : <Copy size={16} />}
                     </button>
 
                     {idx === selectedIndex && (
-                        <div className="hidden md:flex items-center text-[#111111] text-[9px] font-bold tracking-[0.2em] uppercase gap-3">
-                            <CornerDownLeft size={12} strokeWidth={1.5} />
+                        <div className="hidden md:flex items-center text-editorial-black opacity-40">
+                            <ArrowRight size={20} strokeWidth={1.5} />
                         </div>
                     )}
                   </div>
@@ -204,11 +205,11 @@ const CommandMenuContent: React.FC = () => {
           </div>
           
           {/* Footer */}
-          <div className="bg-[#FAFAFA] border-t border-[#E5E5E5] px-6 py-3 flex justify-between items-center text-[9px] text-[#999999] uppercase tracking-widest">
-             <span>{filteredItems.length} resultados</span>
-             <div className="flex gap-4">
-                <span className="flex items-center gap-1"><ArrowRight size={10} className="rotate-[-90deg]"/> <ArrowRight size={10} className="rotate-90deg"/> Navegar</span>
-                <span className="flex items-center gap-1"><CornerDownLeft size={10}/> Abrir</span>
+          <div className="bg-white border-t border-[#E5E5E5] px-8 py-6 flex justify-between items-center text-[10px] text-editorial-gray font-semibold uppercase tracking-[0.2em]">
+             <span>{filteredItems.length} Encontrados</span>
+             <div className="flex gap-6">
+                <span className="flex items-center gap-2"><div className="flex -space-x-1"><ArrowRight size={12} className="rotate-[-90deg]"/><ArrowRight size={12} className="rotate-90"/></div> Mover</span>
+                <span className="flex items-center gap-2"><CornerDownLeft size={12}/> Abrir</span>
              </div>
           </div>
 

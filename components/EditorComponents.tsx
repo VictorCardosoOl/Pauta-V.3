@@ -32,11 +32,11 @@ export const EditorHeader = memo<EditorHeaderProps>(({
         
         <div className="flex flex-col min-w-0 gap-1">
            <div className="flex items-center gap-2">
-             <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-editorial-gray border border-editorial-gray/30 px-2 py-0.5 rounded-full">
+             <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-editorial-gray border border-editorial-gray/30 px-3 py-1 rounded-full">
                 {template.channel === 'EMAIL' ? 'Email' : (template.channel === 'PROMPT' ? 'Prompt' : 'Chat')}
              </span>
            </div>
-           <h1 className="text-xl md:text-3xl font-sans font-bold text-editorial-black truncate leading-none mt-1">
+           <h1 className="text-xl md:text-3xl font-sans font-black text-editorial-black truncate leading-none mt-2">
              {template.title}
            </h1>
         </div>
@@ -197,34 +197,34 @@ export const ContentArea = memo<ContentAreaProps>(({
           {/* Main Document */}
           <div className="flex flex-col w-full">
             {template.channel === CommunicationChannel.EMAIL && (
-              <div className="editor-element mb-12 p-8 bg-transparent border border-editorial-black transition-colors group focus-within:bg-white">
-                <div className="flex items-center justify-between mb-4">
-                   <label className="text-[9px] font-sans font-bold uppercase tracking-widest text-editorial-gray">Assunto</label>
+              <div className="editor-element mb-12 lg:mb-20 p-8 border-b border-[#e0e0e0] group transition-all duration-500">
+                <div className="flex items-center justify-between mb-8">
+                   <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-editorial-gray">Assunto / Subject</label>
                    <button 
                      onClick={() => copyToClipboard(subject, 'subject')}
-                     className={`flex items-center gap-2 text-[9px] font-sans font-medium tracking-wide transition-colors bg-transparent px-4 py-2 border rounded-full ${
-                       isCopied('subject') ? 'bg-editorial-black text-white border-editorial-black' : 'text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'
+                     className={`flex items-center gap-3 font-sans text-[9px] font-bold uppercase tracking-[0.2em] transition-colors bg-transparent px-5 py-2.5 rounded-full ${
+                       isCopied('subject') ? 'bg-editorial-black text-white border border-editorial-black' : 'text-editorial-gray border border-[#e0e0e0] hover:border-editorial-black hover:text-editorial-black'
                      }`}
                    >
-                     {isCopied('subject') ? <Check size={12}/> : <Copy size={12}/>}
+                     {isCopied('subject') ? <Check size={14}/> : <Copy size={14}/>}
                      {isCopied('subject') ? 'Copiado' : 'Copiar'}
                    </button>
                 </div>
                 <input 
                   value={subject} 
                   onChange={(e) => setSubject(e.target.value)} 
-                  className="w-full bg-transparent text-2xl md:text-3xl font-serif italic text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
-                  placeholder="Insira o assunto..."
+                  className="w-full bg-transparent text-3xl md:text-5xl lg:text-6xl font-serif text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
+                  placeholder="The subject of the matter..."
                 />
               </div>
             )}
             
-            <div className="editor-element relative group pl-2 md:pl-0">
+            <div className="editor-element relative group pl-4 md:pl-0 mt-8">
                 <RichTextEditor
                   content={content}
                   onChange={setContent}
                   placeholder="Escreva sua mensagem aqui..."
-                  className="text-2xl md:text-3xl 3xl:text-4xl text-editorial-black leading-[1.6]"
+                  className="text-2xl md:text-4xl lg:text-[40px] text-editorial-black leading-[1.6] font-serif font-light"
                   isSerif={true}
                   focusedVariable={focusedVariable}
                 />

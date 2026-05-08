@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Pauta" />
-    <title>Pauta</title>
+    <title>AntiGravity.</title>
     
     <!-- Premium App Icon (Command Symbol in Dark Squircle) -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgcng9IjUiIGZpbGw9IiMxQzFDMUUiLz48cGF0aCBkPSJNMTUgNnYxMmEzIDMgMCAxIDAgMy0zSDZhMyAzIDAgMSAwIDMgM1Y2YTMgMyAwIDEgMC0zIDNoMTJhMyAzIDAgMSAwLTMtMyIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==" />
@@ -23,11 +23,9 @@
         theme: {
           extend: {
             colors: {
-              'editorial-bg': '#EBE9E4', // The cream/beige background
-              'editorial-black': '#111111', // Sharp black
-              'editorial-gray': '#888888', // Secondary text
-              'editorial-petrol': '#002633', // Dark Petrol Blue
-              'editorial-highlight': '#FFF9C4', // Pastel Highlight (Yellow-ish)
+              'editorial-bg': '#f7f7f7', // Minimalist off-white
+              'editorial-black': '#0a0a0a', // Deepest black
+              'editorial-gray': '#737373', // Secondary text
             },
             screens: {
               '2xl': '1536px',
@@ -43,7 +41,7 @@
             },
             fontFamily: {
               serif: ['Cormorant Garamond', 'serif'],
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
             },
             backgroundImage: {
               'noise': "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noiseFilter\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.8\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%25\" height=\"100%25\" filter=\"url(%23noiseFilter)\" opacity=\"0.05\"/%3E%3C/svg%3E')",

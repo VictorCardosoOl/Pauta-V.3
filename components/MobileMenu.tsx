@@ -20,8 +20,9 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, selecte
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
             onClick={onClose}
-            className="fixed inset-0 bg-editorial-black/20 backdrop-blur-sm z-40 md:hidden"
+            className="fixed inset-0 bg-white/80 backdrop-blur-md z-40 md:hidden"
           />
           
           {/* Menu Drawer */}
@@ -29,57 +30,66 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, selecte
             initial={{ x: '-100%' }}
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 left-0 z-50 w-[80%] max-w-[300px] bg-editorial-bg border-r border-editorial-black flex flex-col md:hidden shadow-2xl"
+            transition={{ type: 'spring', damping: 25, stiffness: 100 }}
+            className="fixed inset-y-0 left-0 z-50 w-[85%] max-w-[340px] bg-editorial-bg border-r border-[#e0e0e0] flex flex-col md:hidden shadow-[-20px_0_40px_rgba(0,0,0,0.05)]"
           >
             {/* Header */}
-            <div className="p-6 border-b border-editorial-black flex justify-between items-center">
-              <h2 className="font-sans font-bold text-xl uppercase tracking-tighter">Menu</h2>
+            <div className="p-8 border-b border-[#e0e0e0] flex justify-between items-center bg-editorial-bg">
+              <h2 className="font-sans font-black text-2xl uppercase tracking-tighter">AntiGravity</h2>
               <button 
                 onClick={onClose}
-                className="p-2 -mr-2 hover:bg-editorial-black/5 rounded-full transition-colors"
+                className="p-3 -mr-2 bg-[#f0f0f0] rounded-full hover:bg-editorial-black hover:text-white transition-colors"
               >
-                <X size={24} strokeWidth={1.5} />
+                <X size={20} strokeWidth={2} />
               </button>
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto custom-scrollbar p-6 flex flex-col gap-6">
-               <div className="flex flex-col gap-4">
+            <nav className="flex-1 overflow-y-auto custom-scrollbar p-8 flex flex-col gap-6">
+               <div className="flex flex-col gap-8">
                   <button 
                     onClick={() => {
                         onSelectCategory('all');
                         onClose();
                     }}
-                    className={`text-left font-sans text-lg font-medium uppercase tracking-widest transition-all group flex items-center justify-between ${selectedCategory === 'all' ? 'text-editorial-black' : 'text-editorial-gray hover:text-editorial-black'}`}
+                    className={`text-left font-sans text-sm font-semibold uppercase tracking-[0.2em] transition-all flex items-center justify-between ${selectedCategory === 'all' ? 'text-editorial-black translate-x-2' : 'text-editorial-gray hover:text-editorial-black hover:translate-x-2'}`}
                   >
                     <span>Visão Geral</span>
                     {selectedCategory === 'all' && <span className="w-1.5 h-1.5 bg-editorial-black rounded-full" />}
                   </button>
                   
-                  <div className="h-px w-full bg-editorial-black/20 my-2" />
+                  <div className="h-px w-8 bg-[#e0e0e0] my-2" />
 
-                  {CATEGORIES.map((cat) => (
+                  {CATEGORIES.map((cat, idx) => (
                     <button
                       key={cat.id}
                       onClick={() => {
                           onSelectCategory(cat.id);
                           onClose();
                       }}
-                      className={`text-left font-sans text-lg font-medium uppercase tracking-widest transition-all group flex items-center justify-between ${selectedCategory === cat.id ? 'text-editorial-black' : 'text-editorial-gray hover:text-editorial-black'}`}
+                      className={`text-left transition-all duration-300 flex flex-col items-start gap-1 ${selectedCategory === cat.id ? 'translate-x-2' : 'hover:translate-x-2'}`}
                     >
-                      <span>{cat.name}</span>
-                      <span className={`w-1.5 h-1.5 bg-editorial-black rounded-full transition-opacity ${selectedCategory === cat.id ? 'opacity-100' : 'opacity-0 group-hover:opacity-50'}`} />
+                        <div className="flex items-center gap-4 w-full">
+                          <span className={`font-serif italic text-xl transition-colors duration-300 ${selectedCategory === cat.id ? 'text-editorial-black' : 'text-editorial-gray/40'}`}>
+                              {(idx + 1).toString().padStart(2, '0')}.
+                          </span>
+                          <span className={`font-sans text-sm font-semibold uppercase tracking-[0.2em] transition-colors duration-300 ${selectedCategory === cat.id ? 'text-editorial-black' : 'text-editorial-gray'}`}>
+                              {cat.name}
+                          </span>
+                        </div>
                     </button>
                   ))}
                 </div>
             </nav>
 
             {/* Footer */}
-            <div className="p-6 border-t border-editorial-black mt-auto">
-                <div className="flex flex-col gap-3">
-                  <div className="mt-4 text-[10px] uppercase tracking-widest text-editorial-gray">
-                    © 2026 Studio
+            <div className="p-8 border-t border-[#e0e0e0] mt-auto">
+                <div className="flex flex-col gap-2">
+                  <div className="text-[10px] uppercase font-semibold tracking-[0.2em] text-editorial-black">
+                    Design & Engineering
+                  </div>
+                  <div className="font-serif italic text-editorial-gray text-sm">
+                    Paris — New York
                   </div>
                 </div>
             </div>
