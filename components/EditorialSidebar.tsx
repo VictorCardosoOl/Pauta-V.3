@@ -1,6 +1,5 @@
 import React from 'react';
 import { CATEGORIES } from '../constants';
-import { Github, Twitter } from 'lucide-react';
 
 interface EditorialSidebarProps {
   selectedCategory: string;
@@ -55,21 +54,11 @@ export const EditorialSidebar: React.FC<EditorialSidebarProps> = ({ selectedCate
         </div>
       </nav>
 
-      {/* Footer Links */}
+      {/* Footer Copyright */}
       <div className="p-6 xl:p-8 border-t border-editorial-black mt-auto transition-all duration-300">
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4">
-            <a href="#" className="text-editorial-black hover:text-editorial-gray transition-colors" title="Github">
-              <Github size={20} strokeWidth={1.5} />
-            </a>
-            <a href="#" className="text-editorial-black hover:text-editorial-gray transition-colors" title="Twitter">
-              <Twitter size={20} strokeWidth={1.5} />
-            </a>
-          </div>
           <div className="text-[9px] xl:text-[10px] uppercase tracking-widest text-editorial-gray">
             © 2026 Studio
           </div>
-        </div>
       </div>
     </aside>
   );

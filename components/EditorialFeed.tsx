@@ -92,13 +92,6 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
            <div className="font-sans font-black text-[15vw] leading-none tracking-tighter uppercase text-editorial-black/10 select-none">
               Pauta
            </div>
-           <div className="flex flex-col items-end gap-4">
-              <div className="font-serif italic text-xl">Assine nossa newsletter</div>
-              <div className="flex border-b border-editorial-black pb-2 w-64">
-                 <input type="email" placeholder="Digite seu email" className="bg-transparent outline-none w-full font-sans text-sm placeholder:text-editorial-gray/50" />
-                 <button className="font-sans text-xs font-bold uppercase tracking-widest">Enviar</button>
-              </div>
-           </div>
         </div>
       </div>
     </div>

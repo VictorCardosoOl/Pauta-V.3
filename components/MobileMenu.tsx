@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowUpRight } from 'lucide-react';
+import { X } from 'lucide-react';
 import { CATEGORIES } from '../constants';
 
 interface MobileMenuProps {
@@ -78,12 +78,6 @@ export const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose, selecte
             {/* Footer */}
             <div className="p-6 border-t border-editorial-black mt-auto">
                 <div className="flex flex-col gap-3">
-                  <a href="#" className="font-serif italic text-lg hover:underline decoration-1 underline-offset-4 flex items-center gap-2 group">
-                    Github <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                  <a href="#" className="font-serif italic text-lg hover:underline decoration-1 underline-offset-4 flex items-center gap-2 group">
-                    Twitter <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
                   <div className="mt-4 text-[10px] uppercase tracking-widest text-editorial-gray">
                     © 2026 Studio
                   </div>
