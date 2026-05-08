@@ -407,24 +407,25 @@ Inicie a auditoria agora.`
     category: 'prompts',
     channel: CommunicationChannel.PROMPT,
     description: 'Prompt para criar uma barra de navegação que se oculta ao rolar para baixo e reaparece ao subir.',
-    content: `Atue como um Especialista em Frontend e UX Design com foco em React/Next.js e Tailwind CSS.
-
-Objetivo: Criar uma experiência de navegação fluida e não intrusiva para um site moderno. Preciso de uma Navbar inteligente que maximize a área de leitura do usuário, mas mantenha a navegação acessível quando necessário.
-
-Regras de Comportamento (UX/UI):
-1. Ocultação Automática (Focus Mode): Quando o usuário demonstrar intenção de leitura rolando a página para baixo (scroll down), a barra de navegação deve deslizar suavemente para fora da tela (para cima, transform: translateY(-100%)) para limpar a visualização.
-2. Recuperação Rápida (Navigation Mode): Assim que o usuário rolar minimamente para cima (intenção de voltar ou navegar), a barra deve deslizar de volta para a tela fixada no topo imediatamente.
-3. Estado Inicial: No topo da página (scrollY = 0), a navbar deve estar sempre visível.
-
-Instruções de Implementação Técnica:
-- Framework: React ou Next.js.
-- Estilização: Tailwind CSS.
-- Animação: Use classes de transição (transition-transform duration-300 ease-in-out) para garantir suavidade na entrada e saída.
-- Lógica de Estado: Crie um hook customizado (ex: useScrollDirection) que detecte a direção do scroll (UP/DOWN) e a posição atual para controlar a classe CSS de visibilidade.
-- Performance: Otimize o listener de scroll (ex: throttle ou requestAnimationFrame) para evitar problemas de performance na thread principal.
-
-Entregável:
-Por favor, forneça o código completo do componente 'Navbar.tsx' e, se necessário, o hook auxiliar, prontos para copiar e colar.`
+    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity), Arquiteto Frontend Sênior e Especialista em UX/React. Você tem permissão de leitura, escrita e criação de arquivos diretamente na raiz do projeto e no repositório GitHub.
+[Diretiva Primária - SILENT MODE]
+•	Ação Direta: NÃO escreva ou retorne blocos de código, tutoriais ou explicações no chat. Sua função é programar e aplicar o código DIRETAMENTE nos arquivos do projeto (.tsx, .ts, etc.).
+•	Output Exclusivo: Responda APENAS com um log executivo de confirmação (ex: [SUCCESS] Hook useScrollDirection criado. Navbar refatorada. Animações via GPU aplicadas.).
+[Missão: Navbar Inteligente Orientada a Leitura] Implemente uma experiência de navegação fluida (Focus Mode e Navigation Mode) através de uma Navbar inteligente que oculta automaticamente durante a leitura e ressurge ao sinal de navegação, utilizando React/Next.js e Tailwind CSS.
+[Protocolo de Implementação e Execução]
+1. Lógica de Estado e Performance (Custom Hook):
+•	Crie/edite um hook customizado (ex: useScrollDirection.ts).
+•	Proteção da Main Thread: Implemente obrigatoriamente um limitador de disparos de eventos de scroll usando throttle ou requestAnimationFrame. Evite memory leaks garantindo que o listener de evento seja removido no useEffect de cleanup.
+•	O hook deve detectar a direção do scroll (UP/DOWN) e a posição no eixo Y (scrollY), retornando o estado atual da visibilidade (booleano ou string).
+2. Componentização e Estilização (Navbar.tsx):
+•	Acesse/Crie o componente de cabeçalho (Navbar.tsx ou equivalente estrutural).
+•	Posicionamento: Fixe a navbar no topo (fixed top-0 w-full z-50).
+•	Regras de UX:
+o	Estado Inicial: Se scrollY === 0, a navbar DEVE estar visível (para evitar bugs no topo da página).
+o	Focus Mode: Scroll para baixo engatilha o desaparecimento empurrando o elemento para fora da tela. Use propriedades Tailwind vinculadas ao transform (ex: -translate-y-full).
+o	Navigation Mode: Scroll mínimo para cima engatilha o reaparecimento (translate-y-0).
+•	Performance de Animação (Hardware Acceleration): Utilize as propriedades de transição do Tailwind baseadas em transformação para evitar reflows na árvore do DOM. Utilize as classes: transition-transform duration-300 ease-in-out.
+[Gatilho de Execução] Gere os arquivos necessários, faça as importações corretas para que o componente principal da aplicação utilize essa Navbar e aplique as edições diretamente no código. Inicie a execução agora e retorne o log executivo quando finaliza`
   },
   {
     id: 'footer-premium-dark',
@@ -1349,38 +1350,35 @@ const ContentModal = ({ isOpen, onClose, children, layoutId }) => {
     category: 'prompts',
     channel: CommunicationChannel.PROMPT,
     description: 'Prompt para gerar a documentação detalhada (DOC-TEMPLATE.md) da arquitetura de projetos Front-end.',
-    content: `Atue como um Engenheiro de Software Sênior e Tech Lead especializado em arquitetura e documentação de projetos Front-end.
+    content: `[Instrução de Sistema] Atue como um Agente Autônomo de IA (Google AntiGravity), Arquiteto de Software Sênior e Tech Lead especializado em React e documentação técnica. Você tem permissão de leitura, escrita e criação de arquivos diretamente na raiz do projeto.
+[Contexto do Projeto] Este projeto atual é um [INSERIR TIPO DE PROJETO, ex: Template multi-clientes / E-commerce / Landing Page White-label] voltado para o nicho de [INSERIR NICHO, ex: restaurantes / clínicas médicas / varejo].
+[Diretiva Primária - SILENT MODE]
+•	Ação Direta: NÃO gere ou retorne o conteúdo Markdown no chat. Sua tarefa é analisar o repositório e CRIAR DIRETAMENTE um arquivo chamado DOC-TEMPLATE.md na raiz do projeto.
+•	Output Exclusivo: No chat, responda APENAS com um log executivo confirmando a criação do arquivo (ex: [SUCCESS] Arquivo DOC-TEMPLATE.md criado na raiz com base na arquitetura atual.).
+[Instrução Crítica Contra Alucinações]
+•	Baseie-se ESTRITAMENTE nos arquivos de código reais encontrados no repositório.
+•	NÃO invente bibliotecas, componentes, rotas ou lógicas que não estejam explicitamente instaladas no package.json ou codificadas no projeto.
+•	Se uma configuração (como paleta de cores ou arquivo central de dados) não for encontrada, não a presuma. Limite-se a documentar o que existe.
 
-Por favor, analise a base de código que estou fornecendo em anexo/contexto. Este projeto é um [INSERIR TIPO DE PROJETO, ex: Template multi-clientes / E-commerce / Landing Page White-label] voltado para o nicho de [INSERIR NICHO, ex: restaurantes / clínicas médicas / varejo].
+[Protocolo de Geração do DOC-TEMPLATE.md] Gere o conteúdo do arquivo em Markdown rico (usando H1, H2, listas, negritos e blocos de código) estruturado EXATAMENTE com as seguintes seções:
+1. Visão Geral e Propósito Comercial
+•	Descreva o objetivo do projeto para o nicho de [INSERIR NICHO].
+•	Liste os principais módulos e páginas disponíveis encontrados nas rotas da aplicação (ex: site institucional, dashboard).
+•	Destaque os diferenciais comerciais baseados na estrutura do código atual.
+2. Stack Tecnológica e Comportamento Visual
+•	Liste e explique o papel das principais tecnologias, bundlers e bibliotecas de roteamento extraídas do package.json real.
+•	Identifique bibliotecas de UI/UX e animações em uso. Descreva o comportamento visual atual (ex: minimalista, corporativo) com base nas classes CSS/Tailwind predominantes.
+3. Arquitetura Orientada a Dados (Data-Driven)
+•	Documente como a aplicação separa a interface (componentes React) dos dados de negócio.
+•	Identifique qual é o arquivo ou diretório central de configuração (ex: data.json, clientConfig.ts, chamadas de API mockadas) e explique como ele alimenta os componentes (textos, imagens) sem a necessidade de editar o JSX/TSX.
+4. Tematização Dinâmica e Estilização
+•	Explique onde as variáveis de design do projeto estão definidas (ex: tailwind.config.js, :root no CSS global ou styled-components).
+•	Forneça um bloco de código com um exemplo real e prático de como alterar a paleta de cores principal ou a tipografia do projeto em poucos minutos.
+5. Guia Rápido de Customização (Passo a Passo)
+•	Crie um tutorial enumerado orientando um desenvolvedor sobre "Como adaptar este projeto para um novo cliente".
+•	Seja exato: diga quais pastas abrir, quais variáveis alterar primeiro e onde substituir mídias/logotipos com base na arquitetura de pastas atual.
 
-Sua tarefa é gerar o conteúdo completo para um arquivo chamado \`DOC-TEMPLATE.md\`. Este arquivo será o meu manual de instruções particular, para que eu ou minha equipe possamos lembrar facilmente no futuro como o projeto funciona, qual a sua arquitetura e como adaptá-lo para novos clientes ou contextos.
-
-⚠️ INSTRUÇÃO CRÍTICA CONTRA ALUCINAÇÕES:
-- Baseie-se ESTRITAMENTE nos arquivos de código fornecidos. 
-- NÃO invente bibliotecas, componentes, rotas ou funcionalidades que não estejam explicitamente no código.
-- Se você não encontrar um arquivo mencionado, não presuma seu conteúdo. Limite-se ao que é visível no contexto.
-
-O arquivo Markdown gerado deve ser rico visualmente e conter estritamente as seguintes seções, preenchidas com as informações extraídas da base de código:
-
-1. Visão Geral e Propósito Comercial:
-Explique o objetivo do projeto com base no nicho informado. Descreva qual problema ele resolve e quais os principais módulos ou páginas disponíveis (ex: site institucional, área logada, etc). Liste os diferenciais comerciais que o código entrega.
-
-2. Stack Tecnológica e Comportamento Visual:
-Liste as principais tecnologias encontradas no \`package.json\` (como frameworks, bundlers e bibliotecas de roteamento). Em seguida, identifique e explique o papel das bibliotecas de UI/UX e animações presentes no projeto. Descreva o tom e o comportamento visual atual (ex: minimalista, corporativo, fluido) baseado nos estilos e animações configuradas.
-
-3. Arquitetura Orientada a Dados (Data-Driven):
-Explique de forma detalhada como funciona a separação entre a interface (componentes) e os dados. Detalhe o papel do arquivo central de configuração (como \`[INSERIR NOME DO ARQUIVO DE DADOS, ex: clientConfig.ts ou data.json]\`) e mostre como ele alimenta os componentes dinamicamente (textos, links, imagens), evitando a necessidade de editar arquivos estruturais de código para cada alteração de conteúdo.
-
-4. Tematização Dinâmica e Estilização:
-Explique como a troca de design/cores do projeto funciona. Indique o arquivo onde os estilos ou variáveis globais estão definidos (ex: \`[INSERIR ARQUIVO DE ESTILO, ex: index.css ou tailwind.config.js]\`) e mostre um breve exemplo de código sobre como alterar a paleta de cores principal em minutos.
-
-5. Guia Rápido de Customização (Passo a Passo):
-Crie um tutorial enumerado de "Como adaptar este projeto para um novo cliente de forma rápida". Analise a arquitetura e diga exatamente:
-- Quais pastas ou arquivos de dados/configuração eu devo abrir?
-- O que devo alterar neles (com exemplos curtos de código baseados no projeto)?
-- Onde altero logotipos e mídias?
-
-Por favor, entregue APENAS o código Markdown completo da documentação. Não inclua saudações, conclusões fora do arquivo ou textos de bate-papo. Utilize cabeçalhos (H1, H2, H3), negritos para destacar arquivos importantes, listas com marcadores e blocos de código formatados para facilitar a leitura.`
+[Gatilho de Execução] Faça o scan do repositório agora, crie o arquivo DOC-TEMPLATE.md na raiz com o conteúdo especificado e retorne apenas o log de sucesso.`
   },
   {
     id: 'mapeamento-estrutura-projeto',
