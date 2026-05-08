@@ -38,7 +38,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         {/* Hero Section */}
         {isAllCategory && heroTemplate && (
           <div className="mb-24 pb-20 border-b border-[#e0e0e0]">
-            <h1 className="font-sans font-black text-[12vw] md:text-[9vw] leading-[0.8] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line mix-blend-difference">
+            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[0.8] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line mix-blend-difference">
               {categoryName}
             </h1>
             
@@ -79,7 +79,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
 
         {!isAllCategory && (
           <div className="mb-20 pb-12 border-b border-[#e0e0e0]">
-            <h1 className="font-sans font-black text-[10vw] md:text-[7vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
+            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
           </div>

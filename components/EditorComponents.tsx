@@ -20,11 +20,11 @@ export const EditorHeader = memo<EditorHeaderProps>(({
   template, onClose, showVariables, onToggleVariables, onReset, hasVariables 
 }) => {
   return (
-    <div className="flex-none flex items-center justify-between px-6 py-6 pt-[max(2rem,env(safe-area-inset-top))] md:px-12 md:py-8 bg-editorial-bg sticky top-0 z-20 border-b border-editorial-black">
+    <div className="flex-none flex items-center justify-between px-6 py-6 pt-[max(2rem,env(safe-area-inset-top))] md:px-12 md:py-8 bg-transparent">
       <div className="flex items-center gap-6 min-w-0">
         <button 
           onClick={onClose} 
-          className="ml-[60px] md:ml-[40px] group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5 transition-all active:scale-95 bg-transparent rounded-full"
+          className="ml-[60px] md:ml-[40px] group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-[#e0e0e0] hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300 bg-white shadow-sm rounded-full"
           title="Voltar (ESC)"
         >
              <ChevronLeft size={20} strokeWidth={1.5} className="relative -left-[1px] text-editorial-black" />
@@ -46,20 +46,20 @@ export const EditorHeader = memo<EditorHeaderProps>(({
         {hasVariables && (
            <button 
             onClick={onToggleVariables}
-            className={`flex items-center gap-2 px-5 py-2.5 border rounded-full transition-all duration-300 active:scale-95 ${
+            className={`flex items-center gap-2 px-5 py-2.5 border rounded-full transition-all duration-300 ${
                 showVariables 
-                ? 'bg-editorial-black text-white border-editorial-black' 
-                : 'bg-transparent text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'
+                ? 'bg-editorial-black text-white border-editorial-black scale-100 shadow-xl' 
+                : 'bg-white shadow-sm text-editorial-black border-[#e0e0e0] hover:border-editorial-black scale-95 hover:scale-100'
             }`}
             title="Personalizar"
           >
             <SlidersHorizontal size={16} strokeWidth={1.5} />
-            <span className="text-[10px] font-sans font-bold uppercase tracking-widest hidden md:inline-block">Personalizar</span>
+            <span className="text-[10px] font-sans font-bold uppercase tracking-[0.2em] hidden md:inline-block">Personalizar</span>
           </button>
         )}
         <button 
             onClick={onReset} 
-            className="w-10 h-10 flex items-center justify-center text-editorial-black border border-editorial-black/20 rounded-full hover:border-editorial-black hover:bg-editorial-black/5 transition-colors" 
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-editorial-black border border-[#e0e0e0] bg-white shadow-sm rounded-full hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300" 
             title="Resetar"
         >
           <RefreshCw size={18} strokeWidth={1.5} />
@@ -86,9 +86,9 @@ export const VariablePanel = memo<VariablePanelProps>(({ placeholders, variableV
 
   return (
     <div className={`h-full overflow-y-auto custom-scrollbar bg-editorial-bg ${className || 'p-8 md:p-10'}`}>
-      <div className="flex items-center gap-2 text-editorial-black mb-8 border-b border-editorial-black pb-4">
+      <div className="flex items-center gap-2 text-editorial-black mb-8 border-b border-[#e0e0e0] pb-4">
         <Sparkles size={16} strokeWidth={1.25} />
-        <span className="text-[10px] font-sans font-bold uppercase tracking-widest">Variáveis</span>
+        <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.2em]">Variáveis</span>
       </div>
       
       <div className="flex flex-col gap-8">
@@ -98,14 +98,14 @@ export const VariablePanel = memo<VariablePanelProps>(({ placeholders, variableV
           
           return (
             <div key={placeholder} className="group">
-               <label htmlFor={placeholder} className="block text-[10px] font-sans font-bold uppercase tracking-widest mb-3 ml-1 text-editorial-gray">
+               <label htmlFor={placeholder} className="block text-[10px] font-sans font-semibold uppercase tracking-[0.2em] mb-3 ml-1 text-editorial-gray">
                   {placeholder.replace(/[\][]/g, '')}
                </label>
               <div className="relative">
                 {inputType === 'textarea' ? (
                   <textarea
                     id={placeholder}
-                    className="w-full bg-transparent border border-editorial-black rounded-none p-4 text-sm font-medium text-editorial-black focus:bg-white outline-none transition-all min-h-[6rem] resize-y placeholder:font-serif placeholder:italic placeholder:text-editorial-gray/50"
+                    className="w-full bg-transparent border border-[#e0e0e0] rounded-none p-4 text-[var(--text-base)] font-medium text-editorial-black focus:bg-white focus:border-editorial-black outline-none transition-all min-h-[6rem] resize-y placeholder:font-serif placeholder:italic placeholder:text-editorial-gray/50"
                     value={value}
                     onChange={(e) => onVariableChange(placeholder, e.target.value)}
                     onFocus={() => onFocusVariable(placeholder)}
@@ -116,7 +116,7 @@ export const VariablePanel = memo<VariablePanelProps>(({ placeholders, variableV
                   <input 
                     type={inputType}
                     id={placeholder}
-                    className="w-full bg-transparent border border-editorial-black rounded-none p-4 text-sm font-medium text-editorial-black focus:bg-white outline-none transition-all placeholder:font-serif placeholder:italic placeholder:text-editorial-gray/50"
+                    className="w-full bg-transparent border border-[#e0e0e0] rounded-none p-4 text-[var(--text-base)] font-medium text-editorial-black focus:bg-white focus:border-editorial-black outline-none transition-all placeholder:font-serif placeholder:italic placeholder:text-editorial-gray/50"
                     value={value} 
                     onChange={(e) => onVariableChange(placeholder, e.target.value)}
                     onFocus={() => onFocusVariable(placeholder)}
@@ -169,17 +169,17 @@ export const ContentArea = memo<ContentAreaProps>(({
           {scenarios.map((scene, idx) => (
             <div 
               key={idx} 
-              className="editor-element p-10 bg-transparent border border-editorial-black hover:bg-white transition-all duration-300 flex flex-col h-full group"
+              className="editor-element p-8 md:p-10 bg-white border border-[#e0e0e0] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group"
             >
-              <div className="flex justify-between items-center border-b border-editorial-black pb-5 mb-6">
+              <div className="flex justify-between items-center border-b border-[#e0e0e0] pb-5 mb-6">
                 <div className="flex items-center gap-3">
                     <Quote size={18} strokeWidth={1.25} className="text-editorial-gray" />
-                    <h3 className="text-[10px] font-sans font-bold uppercase tracking-widest text-editorial-black">{scene.title}</h3>
+                    <h3 className="text-[10px] font-sans font-semibold uppercase tracking-[0.2em] text-editorial-black">{scene.title}</h3>
                 </div>
                 <button 
                   onClick={() => copyToClipboard(scene.text, `scene-${idx}`, true)} 
-                  className={`text-[9px] font-sans font-bold uppercase tracking-widest px-4 py-2 border rounded-full transition-all ${
-                      isCopied(`scene-${idx}`) ? 'bg-editorial-black text-white border-editorial-black' : 'bg-transparent text-editorial-black border-editorial-black/20 hover:border-editorial-black hover:bg-editorial-black/5'
+                  className={`text-[9px] font-sans font-bold uppercase tracking-[0.2em] px-4 py-2 border rounded-full transition-all duration-300 ${
+                      isCopied(`scene-${idx}`) ? 'bg-editorial-black text-white border-editorial-black' : 'bg-white shadow-sm text-editorial-black border-[#e0e0e0] hover:border-editorial-black'
                   }`}
                 >
                   {isCopied(`scene-${idx}`) ? 'Copiado' : 'Copiar'}
@@ -213,7 +213,7 @@ export const ContentArea = memo<ContentAreaProps>(({
                 <input 
                   value={subject} 
                   onChange={(e) => setSubject(e.target.value)} 
-                  className="w-full bg-transparent text-3xl md:text-5xl lg:text-6xl font-serif text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
+                  className="w-full bg-transparent text-[var(--text-4xl)] font-serif text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
                   placeholder="The subject of the matter..."
                 />
               </div>
@@ -224,7 +224,7 @@ export const ContentArea = memo<ContentAreaProps>(({
                   content={content}
                   onChange={setContent}
                   placeholder="Escreva sua mensagem aqui..."
-                  className="text-2xl md:text-4xl lg:text-[40px] text-editorial-black leading-[1.6] font-serif font-light"
+                  className="text-[var(--text-3xl)] text-editorial-black leading-[1.6] font-serif font-light"
                   isSerif={true}
                   focusedVariable={focusedVariable}
                 />
@@ -233,17 +233,17 @@ export const ContentArea = memo<ContentAreaProps>(({
 
           {/* Secondary Content */}
           {secondaryContent && (
-            <div className="editor-element mt-16 pt-16 border-t border-editorial-black">
+            <div className="editor-element mt-16 pt-16 border-t border-[#e0e0e0]">
                <div className="flex items-center gap-3 mb-8 text-editorial-gray">
                   <AlignLeft size={16} strokeWidth={1.5} />
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-widest">{template.secondaryLabel || 'Conteúdo Adicional'}</span>
+                  <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.2em]">{template.secondaryLabel || 'Conteúdo Adicional'}</span>
                </div>
-               <div className="bg-transparent p-8 border border-editorial-black hover:bg-white transition-colors">
+               <div className="bg-transparent p-8 md:p-12 border border-[#e0e0e0] hover:bg-white transition-colors">
                    <RichTextEditor
                       content={secondaryContent}
                       onChange={setSecondaryContent}
                       placeholder="Conteúdo secundário..."
-                      className="text-base text-editorial-black leading-relaxed"
+                      className="text-[var(--text-lg)] text-editorial-black leading-relaxed"
                       isSerif={false}
                       focusedVariable={focusedVariable}
                     />

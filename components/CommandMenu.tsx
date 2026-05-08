@@ -130,7 +130,7 @@ const CommandMenuContent: React.FC = () => {
               ref={inputRef}
               type="text"
               placeholder="Buscar arquivo..."
-              className="flex-1 bg-transparent text-2xl md:text-3xl text-editorial-black placeholder:text-editorial-gray/40 outline-none font-serif italic"
+              className="flex-1 bg-transparent text-[var(--text-3xl)] text-editorial-black placeholder:text-editorial-gray/40 outline-none font-serif italic"
               value={query}
               onChange={handleQueryChange}
             />
@@ -167,7 +167,7 @@ const CommandMenuContent: React.FC = () => {
                         {getIcon(item.channel)}
                     </div>
                     <div className="min-w-0 flex-1">
-                       <h4 className={`text-xl md:text-2xl font-serif italic truncate transition-colors duration-300 ${idx === selectedIndex ? 'text-editorial-black' : 'text-editorial-gray'}`}>
+                       <h4 className={`text-[var(--text-xl)] font-serif italic truncate transition-colors duration-300 ${idx === selectedIndex ? 'text-editorial-black' : 'text-editorial-gray'}`}>
                          {item.title}
                        </h4>
                        <p className={`text-[10px] uppercase font-semibold tracking-[0.2em] truncate max-w-[300px] mt-2 transition-colors duration-300 ${idx === selectedIndex ? 'text-editorial-black/60' : 'text-editorial-gray/60'}`}>

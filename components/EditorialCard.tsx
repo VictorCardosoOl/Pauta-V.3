@@ -51,17 +51,17 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                </span>
                {isPinned && <Pin size={16} className="fill-editorial-black text-editorial-black" />}
             </div>
-            <span className="font-serif italic text-xl text-editorial-gray">
+            <span className="font-serif italic text-[var(--text-lg)] text-editorial-gray">
               {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
             </span>
           </div>
 
-          <h2 className="font-sans font-black text-6xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-12 max-w-4xl text-editorial-black group-hover:text-editorial-gray transition-colors duration-700">
+          <h2 className="font-sans font-black text-[var(--text-6xl)] leading-[0.9] tracking-tighter mb-12 max-w-4xl text-editorial-black group-hover:text-editorial-gray transition-colors duration-700">
             {template.title}
           </h2>
           
           <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-end mt-auto">
-             <p className="font-serif text-2xl md:text-3xl leading-relaxed text-editorial-gray opacity-80 flex-1 max-w-2xl line-clamp-4">
+             <p className="font-serif text-[var(--text-xl)] leading-relaxed text-editorial-gray opacity-80 flex-1 max-w-2xl line-clamp-4">
                {template.description || template.content.substring(0, 500) + "..."}
              </p>
              
@@ -104,8 +104,8 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
     >
       <div className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"></div>
 
-      <div className="flex items-baseline justify-between mb-10 relative z-10">
-        <span className="font-serif italic text-6xl text-editorial-gray/20 group-hover:text-editorial-black transition-colors duration-700 font-light">
+      <div className="flex items-baseline justify-between mb-10 relative z-10 w-full">
+        <span className="font-serif italic text-[var(--text-4xl)] text-editorial-gray/20 group-hover:text-editorial-black transition-colors duration-700 font-light">
           {(index + 1).toString().padStart(2, '0')}
         </span>
         <div className="flex items-center gap-3">
@@ -116,11 +116,11 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         </div>
       </div>
       
-      <h3 className="font-sans font-black text-3xl md:text-4xl leading-[1.1] mb-6 group-hover:text-editorial-gray transition-colors duration-500 relative z-10">
+      <h3 className="font-sans font-black text-[var(--text-2xl)] leading-[1.1] mb-6 group-hover:text-editorial-gray transition-colors duration-500 relative z-10 w-full break-words">
         {template.title}
       </h3>
       
-      <p className="font-serif text-xl text-editorial-gray opacity-70 line-clamp-4 mb-10 flex-1 relative z-10">
+      <p className="font-serif text-[var(--text-base)] text-editorial-gray opacity-70 line-clamp-4 mb-10 flex-1 relative z-10 w-full">
         {template.description || template.content.substring(0, 300) + "..."}
       </p>
 

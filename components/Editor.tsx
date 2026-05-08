@@ -132,7 +132,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
       tabIndex={-1}
     >
       {/* Header - Fixed */}
-      <div ref={headerRef} className="z-20 shrink-0 relative">
+      <div ref={headerRef} className="z-20 shrink-0 relative bg-editorial-bg border-b border-[#e0e0e0]">
         <EditorHeader 
           template={template} 
           onClose={onClose} 
@@ -144,7 +144,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
       </div>
 
       {/* Main Layout */}
-      <div className="flex-1 flex flex-row overflow-hidden relative min-h-0">
+      <div className="flex-1 flex flex-row overflow-hidden relative min-h-0 bg-white">
         
         {/* Content Area (Native Scroll Container) */}
         <div ref={scrollContainerRef} className="flex-1 h-full overflow-y-auto custom-scrollbar relative pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-0"> 
@@ -159,18 +159,17 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
              />
         </div>
 
-        {/* Variable Panel (Desktop) */}
-        {hasVariables && !isMobile && (
+          {hasVariables && !isMobile && (
            <motion.div 
              initial={false}
              animate={{ 
-                width: showVariables ? 380 : 0,
+                width: showVariables ? "clamp(380px, 30vw, 480px)" : 0,
                 opacity: showVariables ? 1 : 0
              }}
              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-             className="hidden lg:block h-full border-l border-editorial-black relative overflow-hidden shrink-0 bg-editorial-bg variable-panel"
+             className="hidden lg:block h-full border-l border-[#e0e0e0] relative overflow-hidden shrink-0 bg-editorial-bg variable-panel"
            >
-             <div className="absolute inset-0 w-[380px] h-full overflow-y-auto custom-scrollbar">
+             <div className="absolute inset-0 w-[400px] xl:w-[480px] h-full overflow-y-auto custom-scrollbar">
                 <VariablePanel 
                   placeholders={placeholders} 
                   variableValues={variableValues} 
