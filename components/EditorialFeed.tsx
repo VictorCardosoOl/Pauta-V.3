@@ -59,7 +59,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
               </div>
 
               {/* Secondary Column (Desktop Only) - Featured Articles */}
-              <div className="hidden lg:flex flex-col gap-10 border-l border-[#e0e0e0] pl-10 xl:pl-16 h-full">
+              <div className="hidden lg:flex flex-col gap-10 border-l border-[#e0e0e0] pl-10 xl:pl-16">
                  <div className="font-serif italic text-4xl mb-4 font-light text-editorial-black">Selecionados</div>
                  {listTemplates.slice(0, 3).map((template, idx) => (
                     <div key={template.id} onClick={() => setSelectedTemplate(template)} className="group cursor-pointer border-b border-[#e0e0e0] pb-8 last:border-none">

@@ -39,11 +39,11 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClick}
-        className="group relative flex flex-col w-full h-full cursor-pointer"
+        className="group relative flex flex-col w-full cursor-pointer"
       >
         <div className="absolute -inset-10 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none rounded-[100px]"></div>
         
-        <div className="relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-10 xl:p-14 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-700">
+        <div className="relative z-10 flex flex-col border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-10 xl:p-14 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-700">
           <div className="flex items-center justify-between mb-16">
             <div className="flex items-center gap-4">
                <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] bg-editorial-black text-white px-4 py-2 rounded-full">
@@ -60,7 +60,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
             {template.title}
           </h2>
           
-          <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-end mt-auto">
+          <div className="flex flex-col md:flex-row gap-12 md:gap-20 items-end mt-8">
              <p className="font-serif text-[var(--text-xl)] leading-relaxed text-editorial-gray opacity-80 flex-1 max-w-2xl line-clamp-4">
                {template.description || template.content.substring(0, 500) + "..."}
              </p>
