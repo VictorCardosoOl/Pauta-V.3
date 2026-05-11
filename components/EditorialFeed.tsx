@@ -24,9 +24,9 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
     : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Coleção';
 
   return (
-    <div className="flex flex-col md:flex-row w-full bg-editorial-bg min-h-full">
+    <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
       {/* Main Content (Hero + Feed) */}
-      <div className="flex-1 flex flex-col p-8 md:p-16 lg:p-24 2xl:p-32 border-r border-[#e0e0e0]">
+      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-16 w-full max-w-[1440px] mx-auto relative">
         
         {/* Pre-title Label */}
         <div className="mb-4">
@@ -37,12 +37,12 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
 
         {/* Hero Section */}
         {isAllCategory && heroTemplate && (
-          <div className="mb-24 pb-20 border-b border-[#e0e0e0]">
-            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[0.8] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line mix-blend-difference">
+          <div className="mb-24 pb-20 border-b border-[#e0e0e0] mt-12 md:mt-20">
+            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[1] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line">
               {categoryName}
             </h1>
             
-            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-16 xl:gap-24 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 xl:gap-20 items-start">
               {/* Hero Card */}
               <div className="group relative">
                 <EditorialCard 
@@ -68,7 +68,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
                        <p className="font-serif text-lg text-editorial-gray opacity-80 line-clamp-2">{template.description}</p>
                     </div>
                  ))}
-                 <button className="mt-auto flex items-center justify-between gap-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] group hover:text-editorial-gray transition-colors self-end border border-editorial-black px-6 py-3 rounded-full overflow-hidden relative">
+                 <button className="mt-auto flex items-center justify-between gap-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] group hover:text-editorial-gray transition-colors self-start border border-editorial-black px-6 py-3 rounded-full overflow-hidden relative">
                     <span className="relative z-10 transition-colors group-hover:text-white">Explorar Índices</span>
                     <div className="absolute inset-0 bg-editorial-black transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"></div>
                  </button>
@@ -79,7 +79,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
 
         {!isAllCategory && (
           <div className="mb-20 pb-12 border-b border-[#e0e0e0]">
-            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
+            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line">
               {categoryName}
             </h1>
           </div>

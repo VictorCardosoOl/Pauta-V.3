@@ -244,7 +244,7 @@ const AppContent: React.FC = () => {
            </button>
         </div>
 
-        <div className="relative flex flex-col h-full overflow-hidden">
+        <div className="relative flex-1 flex flex-col overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               {!selectedTemplate ? (
                 <motion.div 
@@ -253,10 +253,10 @@ const AppContent: React.FC = () => {
                   initial="listInitial"
                   animate="listAnimate"
                   exit="listExit"
-                  className="flex flex-col w-full h-full will-change-transform"
+                  className="flex-1 flex flex-col w-full h-full will-change-transform"
                 >
-                  <div ref={scrollContainerRef} className="flex-1 overflow-y-auto custom-scrollbar">
-                    <div ref={contentWrapperRef} className="w-full">
+                  <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+                    <div ref={contentWrapperRef} className="w-full min-h-full">
                       <EditorialFeed 
                         pinnedTemplates={pinnedTemplates}
                         otherTemplates={otherTemplates}
