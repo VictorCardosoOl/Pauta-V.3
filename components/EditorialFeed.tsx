@@ -26,7 +26,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
   return (
     <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
       {/* Main Content (Hero + Feed) */}
-      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-16 w-full max-w-[1440px] mx-auto relative">
+      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-16 xl:p-24 w-full mx-auto relative">
         
         {/* Pre-title Label */}
         <div className="mb-4">
@@ -38,11 +38,11 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         {/* Hero Section */}
         {isAllCategory && heroTemplate && (
           <div className="mb-24 pb-20 border-b border-[#e0e0e0] mt-12 md:mt-20">
-            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[1] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line">
+            <h1 className="font-sans font-black text-[14vw] md:text-[10vw] xl:text-[9vw] leading-[0.8] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
             
-            <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-12 xl:gap-20 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-16 xl:gap-24 items-start">
               {/* Hero Card */}
               <div className="group relative">
                 <EditorialCard 
@@ -78,15 +78,15 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         )}
 
         {!isAllCategory && (
-          <div className="mb-20 pb-12 border-b border-[#e0e0e0]">
-            <h1 className="font-sans font-black text-[var(--text-fluid-hero)] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line">
+          <div className="mb-20 pb-12 border-b border-[#e0e0e0] mt-12 md:mt-20">
+            <h1 className="font-sans font-black text-[12vw] md:text-[8vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
           </div>
         )}
 
         {/* Grid Feed (Below Hero) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-16 gap-y-28">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-12 gap-y-24 xl:gap-x-16 xl:gap-y-28">
            {(isAllCategory ? listTemplates.slice(3) : listTemplates).map((template, idx) => (
               <EditorialCard 
                 key={template.id} 
@@ -101,12 +101,12 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         </div>
 
         {/* Footer Area */}
-        <div className="mt-40 pt-20 border-t border-[#e0e0e0] flex flex-col items-center justify-center relative overflow-hidden">
+        <div className="mt-40 border-t border-[#e0e0e0] flex flex-col items-center justify-center relative overflow-hidden min-h-[50vh] xl:min-h-[60vh] w-full">
            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-editorial-black/[0.03] to-transparent pointer-events-none"></div>
-           <div className="font-sans font-black text-[18vw] leading-none tracking-tighter uppercase text-editorial-black/[0.04] select-none text-center">
+           <div className="font-sans font-black text-[18vw] leading-none tracking-tighter uppercase text-editorial-black/[0.04] select-none text-center mix-blend-darken">
               Awwwards.
            </div>
-           <div className="absolute bottom-10 font-serif italic text-xl text-editorial-gray">
+           <div className="absolute bottom-16 font-serif italic text-2xl text-editorial-gray">
               Design is thinking made visual.
            </div>
         </div>
