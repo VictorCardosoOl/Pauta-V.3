@@ -47,8 +47,8 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
       </div>
 
       {/* Minimal Search */}
-      <div className="relative w-full xl:w-[400px] group pb-2">
-         <div className={`absolute inset-y-0 left-0 pl-0 flex items-center pointer-events-none transition-colors duration-500 ${searchQuery ? 'text-[#111111]' : 'text-[#999999]'}`}>
+      <div className="relative w-full xl:w-[400px] group">
+         <div className={`absolute inset-y-0 left-6 flex items-center pointer-events-none transition-colors duration-300 ${searchQuery ? 'text-[#111111]' : 'text-[#999999]'}`}>
             <Search size={16} strokeWidth={1.5} />
          </div>
          <input 
@@ -57,12 +57,12 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
            placeholder="Filtrar modelos..."
            value={searchQuery}
            onChange={(e) => setSearchQuery(e.target.value)}
-           className="w-full pl-8 pr-8 py-4 bg-transparent border-b border-[#E5E5E5] text-xl font-serif italic-editorial text-[#111111] focus:outline-none focus:border-[#111111] transition-colors duration-500 placeholder:text-[#CCCCCC] placeholder:font-serif placeholder:italic-editorial placeholder:font-light"
+           className="w-full px-6 pl-12 pr-12 py-4 bg-white/50 backdrop-blur-md border border-[#E5E5E5] rounded-full text-xl font-serif italic-editorial text-[#111111] focus:outline-none focus:border-[#111111] focus:bg-white transition-all duration-300 placeholder:text-[#CCCCCC] focus:placeholder:text-[#999999] placeholder:transition-colors placeholder:duration-300 placeholder:font-serif placeholder:italic-editorial placeholder:font-light shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
          />
          {searchQuery && (
            <button 
              onClick={() => { setSearchQuery(''); searchInputRef.current?.focus(); }} 
-             className="absolute inset-y-0 right-0 flex items-center text-[#111111] hover:opacity-50 transition-opacity"
+             className="absolute inset-y-0 right-6 flex items-center text-[#111111] hover:opacity-50 transition-opacity"
            >
              <X size={14} />
            </button>
