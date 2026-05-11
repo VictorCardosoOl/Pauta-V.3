@@ -85,11 +85,8 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
     const ctx = gsap.context(() => {
       const panel = panelRef.current;
       const preContainer = preLayersRef.current;
-      const plusH = plusHRef.current;
-      const plusV = plusVRef.current;
-      const icon = iconRef.current;
       
-      if (!panel || !plusH || !plusV || !icon) return;
+      if (!panel) return;
 
       let preLayers: Element[] = [];
       if (preContainer) {
@@ -100,9 +97,6 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
       // Initial States
       const offscreen = position === 'left' ? -100 : 100;
       gsap.set([panel, ...preLayers], { xPercent: offscreen });
-      gsap.set(plusH, { transformOrigin: '50% 50%', rotate: 0 });
-      gsap.set(plusV, { transformOrigin: '50% 50%', rotate: 90 });
-      gsap.set(icon, { rotate: 0, transformOrigin: '50% 50%' });
       if (toggleBtnRef.current) gsap.set(toggleBtnRef.current, { color: menuButtonColor });
     });
     return () => ctx.revert();
@@ -280,16 +274,7 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
     });
   }, [position]);
 
-  const animateIcon = useCallback((opening: boolean) => {
-    const icon = iconRef.current;
-    if (!icon) return;
-    spinTweenRef.current?.kill();
-    if (opening) {
-      spinTweenRef.current = gsap.to(icon, { rotate: 225, duration: 0.8, ease: 'power4.out', overwrite: 'auto' });
-    } else {
-      spinTweenRef.current = gsap.to(icon, { rotate: 0, duration: 0.35, ease: 'power3.inOut', overwrite: 'auto' });
-    }
-  }, []);
+
 
   const animateColor = useCallback(
     (opening: boolean) => {
@@ -323,9 +308,8 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
       onMenuClose?.();
       playClose();
     }
-    animateIcon(target);
     animateColor(target);
-  }, [playOpen, playClose, animateIcon, animateColor, onMenuOpen, onMenuClose]);
+  }, [playOpen, playClose, animateColor, onMenuOpen, onMenuClose]);
 
   const closeMenu = useCallback(() => {
     if (openRef.current) {
@@ -333,10 +317,9 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
       setOpen(false);
       onMenuClose?.();
       playClose();
-      animateIcon(false);
       animateColor(false);
     }
-  }, [playClose, animateIcon, animateColor, onMenuClose]);
+  }, [playClose, animateColor, onMenuClose]);
 
   const openMenu = useCallback(() => {
     if (!openRef.current) {
@@ -344,10 +327,9 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
       setOpen(true);
       onMenuOpen?.();
       playOpen();
-      animateIcon(true);
       animateColor(true);
     }
-  }, [playOpen, animateIcon, animateColor, onMenuOpen]);
+  }, [playOpen, animateColor, onMenuOpen]);
 
   useImperativeHandle(ref, () => ({
     toggle: toggleMenu,
@@ -453,16 +435,20 @@ export const StaggeredMenu = forwardRef<StaggeredMenuHandle, StaggeredMenuProps>
       <header className="staggered-menu-header" aria-label="Main navigation header">
         <button
           ref={toggleBtnRef}
-          className="sm-toggle"
+          className="relative inline-flex items-center justify-center h-12 px-6 rounded-full border border-[#E5E5E5] bg-white group hover:border-[#111111] transition-colors"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           aria-controls="staggered-menu-panel"
           onClick={toggleMenu}
           type="button"
         >
-          <span ref={iconRef} className="sm-icon" aria-hidden="true">
-            <span ref={plusHRef} className="sm-icon-line" />
-            <span ref={plusVRef} className="sm-icon-line sm-icon-line-v" />
+          <span className="font-sans text-[10px] uppercase tracking-[0.2em] font-semibold text-[#111111] leading-none mb-px relative overflow-hidden h-[12px] flex flex-col justify-center">
+            <span className={`block transition-transform duration-500 will-change-transform ${open ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+              Menu
+            </span>
+            <span className={`block absolute top-0 transition-transform duration-500 will-change-transform ${open ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}>
+              Fechar
+            </span>
           </span>
         </button>
       </header>

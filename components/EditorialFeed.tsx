@@ -20,7 +20,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
     : [...pinnedTemplates, ...otherTemplates];
 
   const categoryName = isAllCategory 
-    ? 'Edição Limitada' 
+    ? 'The Archive.' 
     : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Coleção';
 
   return (
@@ -38,9 +38,12 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         {/* Hero Section */}
         {isAllCategory && heroTemplate && (
           <div className="mb-24 pb-20 border-b border-[#e0e0e0] mt-12 md:mt-20">
-            <h1 className="font-sans font-black text-[14vw] md:text-[10vw] xl:text-[9vw] leading-[0.8] tracking-tighter mb-16 text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
+            <h1 className="font-sans font-black text-[14vw] md:text-[10vw] xl:text-[9vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
+            <p className="font-serif italic text-[var(--text-xl)] text-editorial-gray max-w-2xl mt-8 mb-16">
+              Um acervo meticulosamente curado de prompts, ferramentas e lógicas de IA para otimização de comunicação e engenharia de software criativa.
+            </p>
             
             <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-16 xl:gap-24 items-start">
               {/* Hero Card */}
@@ -82,6 +85,9 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
             <h1 className="font-sans font-black text-[12vw] md:text-[8vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
+            <p className="font-serif italic text-[var(--text-xl)] text-editorial-gray mt-6">
+               Visualizando entradas da coleção indexada.
+            </p>
           </div>
         )}
 
@@ -103,8 +109,8 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
         {/* Footer Area */}
         <div className="mt-40 border-t border-[#e0e0e0] flex flex-col items-center justify-center relative overflow-hidden min-h-[50vh] xl:min-h-[60vh] w-full">
            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-editorial-black/[0.03] to-transparent pointer-events-none"></div>
-           <div className="font-sans font-black text-[18vw] leading-none tracking-tighter uppercase text-editorial-black/[0.04] select-none text-center mix-blend-darken">
-              Awwwards.
+           <div className="font-sans font-black text-[15vw] leading-none tracking-tighter uppercase text-editorial-black/[0.04] select-none text-center mix-blend-darken">
+              AntiGravity.
            </div>
            <div className="absolute bottom-16 font-serif italic text-2xl text-editorial-gray">
               Design is thinking made visual.
