@@ -36,14 +36,14 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
             {categoryInfo.subtitle}
             </span>
         </motion.div>
-        <motion.h2 
+        <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="text-5xl md:text-7xl lg:text-[5.5rem] font-serif italic-editorial text-[#111111] leading-[0.9] tracking-tight -ml-[4px]"
         >
           {categoryInfo.title}
-        </motion.h2>
+        </motion.h1>
       </div>
 
       {/* Minimal Search */}

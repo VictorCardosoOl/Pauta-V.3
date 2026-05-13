@@ -8,7 +8,6 @@ import { CATEGORIES } from './constants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDebounce } from './hooks/useDebounce';
 import { useAppStore } from './store/useAppStore';
-import { Menu } from 'lucide-react';
 import gsap from 'gsap';
 import Lenis from '@studio-freight/lenis';
 

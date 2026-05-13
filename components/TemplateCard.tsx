@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Pin, Copy, Check } from 'lucide-react';
 import { Template } from '../types';
@@ -13,7 +13,7 @@ interface TemplateCardProps {
   onTogglePin: (id: string) => void;
 }
 
-export const TemplateCard: React.FC<TemplateCardProps> = ({ template, searchQuery, onClick, index, isPinned, onTogglePin }) => {
+export const TemplateCard: React.FC<TemplateCardProps> = memo(({ template, searchQuery, onClick, index, isPinned, onTogglePin }) => {
   const [copied, setCopied] = React.useState(false);
 
   const handleCopy = async (e: React.MouseEvent) => {
@@ -38,24 +38,28 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, searchQuer
 
   return (
     <motion.div
+      layout
       role="button"
       tabIndex={0}
       onKeyDown={handleKeyDown}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, scale: 0.98, y: 15 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.2 } }}
+      transition={{ duration: 0.5, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
-      className="
+      className={`
         group relative flex flex-col items-start text-left p-10 h-full w-full 
-        bg-white 
-        border border-[#E5E5E5]
+        border
         rounded-[24px]
-        hover:border-[#111111]
         transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]
         will-change-transform
         cursor-pointer
         focus-visible:ring-1 focus-visible:ring-black focus-visible:ring-offset-4 outline-none
-      "
+        ${isPinned 
+          ? 'bg-[#FAFAFA] border-[#D1D1D1] hover:border-[#111111]' 
+          : 'bg-white border-[#E5E5E5] hover:border-[#111111]'
+        }
+      `}
     >
       {/* Copy Button */}
       <button 
@@ -66,7 +70,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, searchQuer
           focus-visible:opacity-100 focus-visible:bg-black/5
           ${copied 
             ? 'text-emerald-600 bg-emerald-50 opacity-100' 
-            : 'text-[#999999] opacity-0 group-hover:opacity-100 hover:text-[#111111] hover:border-[#E5E5E5]'
+            : 'text-[#999999] opacity-0 group-hover:opacity-100 hover:text-[#111111] hover:border-[#E5E5E5] hover:bg-white'
           }
         `}
         title="Copiar conteúdo"
@@ -86,8 +90,8 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, searchQuer
           transition-all duration-300
           focus-visible:opacity-100 focus-visible:bg-black/5
           ${isPinned 
-            ? 'text-[#111111] opacity-100' 
-            : 'text-[#999999] opacity-0 group-hover:opacity-100 hover:text-[#111111] hover:border-[#E5E5E5]'
+            ? 'text-[#111111] bg-[#EEEEEE] opacity-100 hover:bg-[#E5E5E5]' 
+            : 'text-[#999999] opacity-0 group-hover:opacity-100 hover:text-[#111111] hover:border-[#E5E5E5] hover:bg-white'
           }
         `}
         title={isPinned ? "Remover dos favoritos" : "Fixar nos favoritos"}
@@ -125,4 +129,4 @@ export const TemplateCard: React.FC<TemplateCardProps> = ({ template, searchQuer
       </div>
     </motion.div>
   );
-};
+});
