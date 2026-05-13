@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Template } from '../types';
 import { EditorialCard } from './EditorialCard';
 import { CATEGORIES } from '../constants';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { useWindowColumns } from '../hooks/useWindowColumns';
 
 interface EditorialFeedProps {
   pinnedTemplates: Template[];
@@ -10,9 +12,12 @@ interface EditorialFeedProps {
   selectedCategory: string;
   onPin: (id: string) => void;
   pinnedIds: string[];
+  scrollRef?: React.RefObject<HTMLDivElement>;
 }
 
-export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds }) => {
+export const EditorialFeed: React.FC<EditorialFeedProps> = ({ 
+  pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds, scrollRef 
+}) => {
   const isAllCategory = selectedCategory === 'all';
   const heroTemplate = isAllCategory ? (pinnedTemplates[0] || otherTemplates[0]) : null;
   const listTemplates = isAllCategory 
@@ -22,6 +27,21 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
   const categoryName = isAllCategory 
     ? 'The Archive.' 
     : CATEGORIES.find(c => c.id === selectedCategory)?.name || 'Coleção';
+
+  // --- VIRTUALIZATION LOGIC ---
+  const cols = useWindowColumns();
+  const feedItems = isAllCategory ? listTemplates.slice(3) : listTemplates;
+  const rowCount = Math.ceil(feedItems.length / cols);
+  
+  const gapX = cols >= 3 ? 64 : 48; // Estimate 64px (4rem) for xl+ gap, 48px for md
+  const gapY = cols >= 3 ? 112 : 96; // Estimate 112px (7rem), 96px (6rem)
+  
+  const virtualizer = useVirtualizer({
+    count: rowCount,
+    getScrollElement: () => scrollRef?.current || null,
+    estimateSize: () => 400 + gapY, // Approx card height + gap
+    overscan: 2,
+  });
 
   return (
     <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
@@ -91,19 +111,50 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
           </div>
         )}
 
-        {/* Grid Feed (Below Hero) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-12 gap-y-24 xl:gap-x-16 xl:gap-y-28">
-           {(isAllCategory ? listTemplates.slice(3) : listTemplates).map((template, idx) => (
-              <EditorialCard 
-                key={template.id} 
-                template={template} 
-                onClick={() => setSelectedTemplate(template)} 
-                onPin={onPin}
-                isPinned={pinnedIds.includes(template.id)}
-                index={isAllCategory ? idx + 3 : idx} // Offset index correctly
-                isHero={false}
-              />
-           ))}
+        {/* Virtualized Grid Feed (Below Hero) */}
+        <div 
+          style={{
+            height: `${virtualizer.getTotalSize()}px`,
+            width: '100%',
+            position: 'relative',
+          }}
+        >
+          {virtualizer.getVirtualItems().map((virtualRow) => {
+            const rowIndex = virtualRow.index;
+            const itemsInRow = feedItems.slice(rowIndex * cols, rowIndex * cols + cols);
+            
+            return (
+              <div
+                key={virtualRow.key}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: `${virtualRow.size - gapY}px`, // Subtract gap from size if we want
+                  transform: `translateY(${virtualRow.start}px)`,
+                }}
+                className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-12 gap-y-0 xl:gap-x-16`}
+              >
+                {itemsInRow.map((template, colIdx) => {
+                  const absoluteIdx = rowIndex * cols + colIdx;
+                  const displayIdx = isAllCategory ? absoluteIdx + 3 : absoluteIdx;
+                  
+                  return (
+                    <EditorialCard 
+                      key={template.id} 
+                      template={template} 
+                      onClick={() => setSelectedTemplate(template)} 
+                      onPin={onPin}
+                      isPinned={pinnedIds.includes(template.id)}
+                      index={displayIdx}
+                      isHero={false}
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
         </div>
 
         {/* Footer Area */}
@@ -120,3 +171,4 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({ pinnedTemplates, o
     </div>
   );
 };
+

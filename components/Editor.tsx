@@ -77,42 +77,62 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
   }, []);
 
   // --- GSAP ENTRANCE CHOREOGRAPHY ---
+  // Store timeline reference to allow reversing on exit
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
         // Wait for page transition to finish (approx 0.5s)
         const timeline = gsap.timeline({ delay: 0.5 });
+        tlRef.current = timeline;
 
         // Header falls in smoothly
         timeline.from(headerRef.current, {
-            y: -10,
+            y: -20,
             opacity: 0,
-            duration: 0.4,
-            ease: "power2.out"
+            duration: 0.8,
+            ease: "power3.out"
         });
 
-        // Content elements stagger up - Simplified
-        timeline.from(".editor-element", {
-            y: 20,
-            opacity: 0,
-            duration: 0.5,
-            stagger: 0.05, // Faster stagger
-            ease: "power2.out",
-            clearProps: "transform" // Only clear transform to avoid layout shifts
-        }, "-=0.2");
+        // Content elements stagger up - Sophisticated
+        timeline.fromTo(".editor-element", 
+          { y: 40, opacity: 0, scale: 0.98 }, 
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.1, // More pronounced stagger
+            ease: "power4.out",
+            clearProps: "transform,scale" // Clean up to avoid layout shifts later
+        }, "-=0.6");
 
         // Sidebar slides in
         if (hasVariables && !isMobile) {
-            timeline.from(".variable-panel", {
-                x: 10,
-                opacity: 0,
-                duration: 0.4,
-                ease: "power2.out"
-            }, "-=0.3");
+            timeline.fromTo(".variable-panel",
+              { x: 50, opacity: 0 },
+              {
+                x: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: "power3.out"
+            }, "-=0.6");
         }
     });
 
     return () => ctx.revert();
   }, [hasVariables, isMobile]);
+
+  // Handle Close with Exit Animation
+  const handleClose = () => {
+    if (tlRef.current) {
+        tlRef.current.timeScale(2).reverse().then(() => {
+            onClose();
+        });
+    } else {
+        onClose();
+    }
+  };
 
   const handleCopyAll = () => {
     const fullText = subject ? `<b>Assunto:</b> ${subject}<br><br>${content}` : content;
@@ -135,7 +155,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
       <div ref={headerRef} className="z-20 shrink-0 relative bg-editorial-bg border-b border-[#e0e0e0]">
         <EditorHeader 
           template={template} 
-          onClose={onClose} 
+          onClose={handleClose} 
           showVariables={showVariables}
           onToggleVariables={() => setShowVariables(!showVariables)}
           onReset={handleReset}

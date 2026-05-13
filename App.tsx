@@ -254,7 +254,7 @@ const AppContent: React.FC = () => {
                   exit="listExit"
                   className="flex-1 flex flex-col w-full h-full will-change-transform"
                 >
-                  <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+                  <div ref={scrollContainerRef} className="flex-1 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-[3px] [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-editorial-gray/20 hover:[&::-webkit-scrollbar-thumb]:bg-editorial-gray/40 [&::-webkit-scrollbar-thumb]:rounded-full" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(74, 74, 74, 0.2) transparent' }}>
                     <div ref={contentWrapperRef} className="w-full min-h-full">
                       <EditorialFeed 
                         pinnedTemplates={pinnedTemplates}
@@ -263,6 +263,7 @@ const AppContent: React.FC = () => {
                         selectedCategory={selectedCategory}
                         onPin={togglePin}
                         pinnedIds={pinnedIds}
+                        scrollRef={scrollContainerRef}
                       />
                     </div>
                   </div>
