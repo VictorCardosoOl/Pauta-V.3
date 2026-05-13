@@ -57,7 +57,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
            placeholder="Filtrar modelos..."
            value={searchQuery}
            onChange={(e) => setSearchQuery(e.target.value)}
-           className="w-full px-6 pl-12 pr-12 py-4 bg-white/50 backdrop-blur-md border border-[#E5E5E5] rounded-full text-xl font-serif italic-editorial text-[#111111] focus:outline-none focus:border-[#111111] focus:bg-white transition-all duration-300 placeholder:text-[#CCCCCC] focus:placeholder:text-[#999999] placeholder:transition-colors placeholder:duration-300 placeholder:font-serif placeholder:italic-editorial placeholder:font-light shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+           className="w-full pl-14 pr-14 py-4 bg-white/50 backdrop-blur-md border border-[#E5E5E5] rounded-full text-xl font-serif italic-editorial text-[#111111] focus:outline-none focus:border-[#111111] focus:bg-white transition-all duration-300 placeholder:text-[#CCCCCC] focus:placeholder:text-[#999999] shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
          />
          {searchQuery && (
            <button 
