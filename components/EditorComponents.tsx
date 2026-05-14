@@ -20,7 +20,7 @@ export const EditorHeader = memo<EditorHeaderProps>(({
   template, onClose, showVariables, onToggleVariables, onReset, hasVariables 
 }) => {
   return (
-    <div className="flex-none flex items-center justify-between px-6 py-6 pt-[max(2rem,env(safe-area-inset-top))] md:px-12 md:py-8 bg-transparent">
+    <div className="flex-none flex items-center justify-between px-6 py-4 pt-[max(1.5rem,env(safe-area-inset-top))] md:px-12 md:py-6 bg-transparent">
       <div className="flex items-center gap-6 min-w-0">
         <button 
           onClick={onClose} 
@@ -85,8 +85,8 @@ export const VariablePanel = memo<VariablePanelProps>(({ placeholders, variableV
   if (!isVisible || placeholders.length === 0) return null;
 
   return (
-    <div className={`h-full overflow-y-auto custom-scrollbar bg-editorial-bg ${className || 'p-8 md:p-10'}`}>
-      <div className="flex items-center gap-2 text-editorial-black mb-8 border-b border-[#e0e0e0] pb-4">
+    <div className={`h-full overflow-y-auto custom-scrollbar bg-editorial-bg ${className || 'p-6 md:p-8'}`}>
+      <div className="flex items-center gap-2 text-editorial-black mb-6 border-b border-[#e0e0e0] pb-3">
         <Sparkles size={16} strokeWidth={1.25} />
         <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.2em]">Variáveis</span>
       </div>
@@ -163,7 +163,7 @@ export const ContentArea = memo<ContentAreaProps>(({
 
   return (
     // Added 'editor-element' classes for GSAP staggering
-    <div className="w-full max-w-4xl 3xl:max-w-5xl mx-auto p-6 md:p-16 3xl:p-24 pb-40 flex flex-col gap-12">
+    <div className="w-full max-w-4xl 3xl:max-w-5xl mx-auto p-4 md:p-8 3xl:p-12 pb-16 flex flex-col gap-6">
       {isScenarioMode ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {scenarios.map((scene, idx) => (
@@ -197,8 +197,8 @@ export const ContentArea = memo<ContentAreaProps>(({
           {/* Main Document */}
           <div className="flex flex-col w-full">
             {template.channel === CommunicationChannel.EMAIL && (
-              <div className="editor-element mb-12 lg:mb-20 p-8 border-b border-[#e0e0e0] group transition-all duration-500">
-                <div className="flex items-center justify-between mb-8">
+              <div className="editor-element mb-8 lg:mb-10 p-6 border-b border-[#e0e0e0] group transition-all duration-500">
+                <div className="flex items-center justify-between mb-6">
                    <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-editorial-gray">Assunto / Subject</label>
                    <button 
                      onClick={() => copyToClipboard(subject, 'subject')}
@@ -213,18 +213,18 @@ export const ContentArea = memo<ContentAreaProps>(({
                 <input 
                   value={subject} 
                   onChange={(e) => setSubject(e.target.value)} 
-                  className="w-full bg-transparent text-[var(--text-4xl)] font-serif text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
+                  className="w-full bg-transparent text-[var(--text-3xl)] font-serif text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
                   placeholder="The subject of the matter..."
                 />
               </div>
             )}
             
-            <div className="editor-element relative group pl-4 md:pl-0 mt-8">
+            <div className="editor-element relative group pl-4 md:pl-0 mt-4">
                 <RichTextEditor
                   content={content}
                   onChange={setContent}
                   placeholder="Escreva sua mensagem aqui..."
-                  className="text-[var(--text-3xl)] text-editorial-black leading-[1.6] font-serif font-light"
+                  className="text-[var(--text-xl)] text-editorial-black leading-[1.6] font-serif font-light"
                   isSerif={true}
                   focusedVariable={focusedVariable}
                 />
@@ -233,12 +233,12 @@ export const ContentArea = memo<ContentAreaProps>(({
 
           {/* Secondary Content */}
           {secondaryContent && (
-            <div className="editor-element mt-16 pt-16 border-t border-[#e0e0e0]">
-               <div className="flex items-center gap-3 mb-8 text-editorial-gray">
+            <div className="editor-element mt-10 pt-10 border-t border-[#e0e0e0]">
+               <div className="flex items-center gap-3 mb-6 text-editorial-gray">
                   <AlignLeft size={16} strokeWidth={1.5} />
                   <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.2em]">{template.secondaryLabel || 'Conteúdo Adicional'}</span>
                </div>
-               <div className="bg-transparent p-8 md:p-12 border border-[#e0e0e0] hover:bg-white transition-colors">
+               <div className="bg-transparent p-6 md:p-10 border border-[#e0e0e0] hover:bg-white transition-colors">
                    <RichTextEditor
                       content={secondaryContent}
                       onChange={setSecondaryContent}

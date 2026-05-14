@@ -61,7 +61,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChang
     content: content,
     editorProps: {
       attributes: {
-        class: `outline-none min-h-[150px] ${className || ''} ${isSerif ? 'font-serif italic' : 'font-sans'}`,
+        class: `outline-none min-h-[100px] ${className || ''} ${isSerif ? 'font-serif italic' : 'font-sans'}`,
       },
     },
     onUpdate: ({ editor }) => {

@@ -34,19 +34,19 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
   const rowCount = Math.ceil(feedItems.length / cols);
   
   const gapX = cols >= 3 ? 64 : 48; // Estimate 64px (4rem) for xl+ gap, 48px for md
-  const gapY = cols >= 3 ? 112 : 96; // Estimate 112px (7rem), 96px (6rem)
+  const gapY = cols >= 3 ? 80 : 64; // Reduced from 112/96
   
   const virtualizer = useVirtualizer({
     count: rowCount,
     getScrollElement: () => scrollRef?.current || null,
-    estimateSize: () => 400 + gapY, // Approx card height + gap
+    estimateSize: () => 350 + gapY, // Reduced from 400
     overscan: 2,
   });
 
   return (
     <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
       {/* Main Content (Hero + Feed) */}
-      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-16 xl:p-24 w-full mx-auto relative">
+      <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-20 w-full mx-auto relative">
         
         {/* Pre-title Label */}
         <div className="mb-4">
@@ -57,7 +57,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
 
         {/* Hero Section */}
         {isAllCategory && heroTemplate && (
-          <div className="mb-24 pb-20 border-b border-[#e0e0e0] mt-12 md:mt-20">
+          <div className="mb-16 pb-16 border-b border-[#e0e0e0] mt-8 md:mt-12">
             <h1 className="font-sans font-black text-[14vw] md:text-[10vw] xl:text-[9vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
@@ -101,7 +101,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
         )}
 
         {!isAllCategory && (
-          <div className="mb-20 pb-12 border-b border-[#e0e0e0] mt-12 md:mt-20">
+          <div className="mb-12 pb-10 border-b border-[#e0e0e0] mt-8 md:mt-12">
             <h1 className="font-sans font-black text-[12vw] md:text-[8vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
               {categoryName}
             </h1>
@@ -158,7 +158,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
         </div>
 
         {/* Footer Area */}
-        <div className="mt-40 border-t border-[#e0e0e0] flex flex-col items-center justify-center relative overflow-hidden min-h-[50vh] xl:min-h-[60vh] w-full">
+        <div className="mt-24 border-t border-[#e0e0e0] flex flex-col items-center justify-center relative overflow-hidden min-h-[40vh] xl:min-h-[50vh] w-full">
            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-editorial-black/[0.03] to-transparent pointer-events-none"></div>
            <div className="font-sans font-black text-[15vw] leading-none tracking-tighter uppercase text-editorial-black/[0.04] select-none text-center mix-blend-darken">
               AntiGravity.

@@ -49,8 +49,8 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       >
         <div aria-hidden="true" className="absolute -inset-10 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none rounded-[100px]"></div>
         
-        <div className="relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-10 xl:p-14 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-700">
-          <div className="flex items-center justify-between mb-16">
+        <div className="relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-8 xl:p-12 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-700">
+          <div className="flex items-center justify-between mb-12">
             <div className="flex items-center gap-4">
                <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] bg-editorial-black text-white px-4 py-2 rounded-full">
                  Destaque Principal
@@ -113,11 +113,11 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       role="button"
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
-      className="group flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-8 xl:p-10 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black"
+      className="group flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-6 xl:p-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black"
     >
       <div aria-hidden="true" className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"></div>
 
-      <div className="flex items-baseline justify-between mb-10 relative z-10 w-full">
+      <div className="flex items-baseline justify-between mb-8 relative z-10 w-full">
         <span aria-hidden="true" className="font-serif italic text-[var(--text-4xl)] text-editorial-gray/20 group-hover:text-editorial-black transition-colors duration-700 font-light">
           {(index + 1).toString().padStart(2, '0')}
         </span>
@@ -133,7 +133,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         {template.title}
       </h3>
       
-      <p className="font-serif text-[var(--text-base)] text-editorial-gray opacity-70 line-clamp-4 mb-10 flex-1 relative z-10 w-full">
+      <p className="font-serif text-[var(--text-base)] text-editorial-gray opacity-70 line-clamp-4 mb-8 flex-1 relative z-10 w-full">
         {template.description || template.content.substring(0, 300) + "..."}
       </p>
 
