@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Template } from '../types';
 import { Pin, Copy, Check, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTemplateCopier } from '../hooks/useTemplateCopier';
+import gsap from 'gsap';
 
 interface EditorialCardProps {
   template: Template;
@@ -30,6 +31,30 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
       onClick();
+    }
+  };
+
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  
+  const handleMouseEnter = () => {
+    if (buttonsRef.current) {
+      gsap.to(buttonsRef.current, {
+        opacity: 1,
+        x: 0,
+        duration: 0.4,
+        ease: "power2.out",
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (buttonsRef.current) {
+      gsap.to(buttonsRef.current, {
+        opacity: 0,
+        x: -16,
+        duration: 0.3,
+        ease: "power2.in",
+      });
     }
   };
 
@@ -110,6 +135,10 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       transition={{ duration: 0.8, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
       onKeyDown={handleKeyDown}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleMouseEnter}
+      onBlur={handleMouseLeave}
       role="button"
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
@@ -138,7 +167,10 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       </p>
 
       <div className="mt-auto flex items-center justify-between pt-6 relative z-10">
-        <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -translate-x-4 group-hover:translate-x-0 ease-[cubic-bezier(0.16,1,0.3,1)]">
+        <div 
+          ref={buttonsRef}
+          className="flex items-center gap-2 opacity-0 -translate-x-4"
+        >
            <button 
              onClick={handlePin}
              aria-pressed={isPinned}
