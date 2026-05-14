@@ -20,11 +20,11 @@ export const EditorHeader = memo<EditorHeaderProps>(({
   template, onClose, showVariables, onToggleVariables, onReset, hasVariables 
 }) => {
   return (
-    <div className="flex-none flex items-center justify-between px-6 py-4 pt-[max(1.5rem,env(safe-area-inset-top))] md:px-12 md:py-6 bg-transparent">
+    <div className="flex-none flex items-center justify-between px-6 py-3 pt-[max(1rem,env(safe-area-inset-top))] md:px-12 md:py-4 bg-transparent text-editorial-black">
       <div className="flex items-center gap-6 min-w-0">
         <button 
           onClick={onClose} 
-          className="ml-[60px] md:ml-[40px] group flex items-center justify-center w-10 h-10 md:w-12 md:h-12 border border-[#e0e0e0] hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300 bg-white shadow-sm rounded-full"
+          className="ml-[50px] md:ml-[30px] group flex items-center justify-center w-10 h-10 border border-[#e0e0e0] hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300 bg-white shadow-sm rounded-full"
           title="Voltar (ESC)"
         >
              <ChevronLeft size={20} strokeWidth={1.5} className="relative -left-[1px] text-editorial-black" />
@@ -163,7 +163,7 @@ export const ContentArea = memo<ContentAreaProps>(({
 
   return (
     // Added 'editor-element' classes for GSAP staggering
-    <div className="w-full max-w-4xl 3xl:max-w-5xl mx-auto p-4 md:p-8 3xl:p-12 pb-16 flex flex-col gap-6">
+    <div className="w-full max-w-4xl 3xl:max-w-5xl mx-auto p-4 md:p-6 3xl:p-10 pb-10 flex flex-col gap-5">
       {isScenarioMode ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {scenarios.map((scene, idx) => (

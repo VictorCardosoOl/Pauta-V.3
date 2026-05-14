@@ -4,6 +4,7 @@ import { EditorialCard } from './EditorialCard';
 import { CATEGORIES } from '../constants';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { useWindowColumns } from '../hooks/useWindowColumns';
+import { AppHeader } from './AppHeader';
 
 interface EditorialFeedProps {
   pinnedTemplates: Template[];
@@ -13,16 +14,32 @@ interface EditorialFeedProps {
   onPin: (id: string) => void;
   pinnedIds: string[];
   scrollRef?: React.RefObject<HTMLDivElement>;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  searchInputRef: React.RefObject<HTMLInputElement>;
 }
 
 export const EditorialFeed: React.FC<EditorialFeedProps> = ({ 
-  pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds, scrollRef 
+  pinnedTemplates, otherTemplates, setSelectedTemplate, selectedCategory, onPin, pinnedIds, scrollRef,
+  searchQuery, setSearchQuery, searchInputRef
 }) => {
   const isAllCategory = selectedCategory === 'all';
-  const heroTemplate = isAllCategory ? (pinnedTemplates[0] || otherTemplates[0]) : null;
-  const listTemplates = isAllCategory 
-    ? (pinnedTemplates[0] ? otherTemplates : otherTemplates.slice(1))
-    : [...pinnedTemplates, ...otherTemplates];
+  
+  // Get up to 2 hero templates if in 'all' category
+  const heroTemplates = useMemo(() => {
+    if (!isAllCategory) return [];
+    if (pinnedTemplates.length >= 2) return pinnedTemplates.slice(0, 2);
+    if (pinnedTemplates.length === 1) return [pinnedTemplates[0], otherTemplates[0]];
+    return otherTemplates.slice(0, 2);
+  }, [isAllCategory, pinnedTemplates, otherTemplates]);
+
+  const listTemplates = useMemo(() => {
+    if (!isAllCategory) return [...pinnedTemplates, ...otherTemplates];
+    
+    // If we are showing heroes, we need to remove those specific items from the list
+    const heroIds = heroTemplates.map(t => t.id);
+    return otherTemplates.filter(t => !heroIds.includes(t.id));
+  }, [isAllCategory, pinnedTemplates, otherTemplates, heroTemplates]);
 
   const categoryName = isAllCategory 
     ? 'The Archive.' 
@@ -45,37 +62,36 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
 
   return (
     <div className="flex flex-col w-full bg-editorial-bg min-h-screen">
-      {/* Main Content (Hero + Feed) */}
+      {/* Main Content (Header + Feed) */}
       <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-12 xl:p-20 w-full mx-auto relative">
         
-        {/* Pre-title Label */}
-        <div className="mb-4">
-            <span className="font-sans text-[10px] md:text-xs font-semibold tracking-[0.3em] uppercase text-editorial-gray">
-                — {new Date().getFullYear()} / Q2 Collection
-            </span>
-        </div>
+        <AppHeader 
+          categoryInfo={{
+            title: categoryName,
+            subtitle: isAllCategory ? `— ${new Date().getFullYear()} / Q2 Collection` : 'Visualizando entradas da coleção indexada.'
+          }}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          searchInputRef={searchInputRef}
+        />
 
-        {/* Hero Section */}
-        {isAllCategory && heroTemplate && (
-          <div className="mb-16 pb-16 border-b border-[#e0e0e0] mt-8 md:mt-12">
-            <h1 className="font-sans font-black text-[14vw] md:text-[10vw] xl:text-[9vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
-              {categoryName}
-            </h1>
-            <p className="font-serif italic text-[var(--text-xl)] text-editorial-gray max-w-2xl mt-8 mb-16">
-              Um acervo meticulosamente curado de prompts, ferramentas e lógicas de IA para otimização de comunicação e engenharia de software criativa.
-            </p>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-16 xl:gap-24 items-start">
-              {/* Hero Card */}
-              <div className="group relative">
-                <EditorialCard 
-                  template={heroTemplate} 
-                  onClick={() => setSelectedTemplate(heroTemplate)} 
-                  onPin={onPin}
-                  isPinned={pinnedIds.includes(heroTemplate.id)}
-                  index={0} 
-                  isHero={true} 
-                />
+        {/* Hero Section (Only if No Search) */}
+        {!searchQuery && isAllCategory && heroTemplates.length > 0 && (
+          <div className="mb-10 pb-10 border-b border-[#e0e0e0] mt-0">
+            <div className="grid grid-cols-1 lg:grid-cols-[2.5fr_1fr] gap-12 xl:gap-20 items-start">
+              {/* Hero Column */}
+              <div className="flex flex-col gap-12 group relative">
+                {heroTemplates.map((template, hIdx) => (
+                  <EditorialCard 
+                    key={template.id} 
+                    template={template} 
+                    onClick={() => setSelectedTemplate(template)} 
+                    onPin={onPin}
+                    isPinned={pinnedIds.includes(template.id)}
+                    index={hIdx} 
+                    isHero={hIdx === 0} 
+                  />
+                ))}
               </div>
 
               {/* Secondary Column (Desktop Only) - Featured Articles */}
@@ -100,18 +116,7 @@ export const EditorialFeed: React.FC<EditorialFeedProps> = ({
           </div>
         )}
 
-        {!isAllCategory && (
-          <div className="mb-12 pb-10 border-b border-[#e0e0e0] mt-8 md:mt-12">
-            <h1 className="font-sans font-black text-[12vw] md:text-[8vw] leading-[0.8] tracking-tighter text-editorial-black uppercase whitespace-pre-line mix-blend-darken">
-              {categoryName}
-            </h1>
-            <p className="font-serif italic text-[var(--text-xl)] text-editorial-gray mt-6">
-               Visualizando entradas da coleção indexada.
-            </p>
-          </div>
-        )}
-
-        {/* Virtualized Grid Feed (Below Hero) */}
+        {/* Virtualized Grid Feed */}
         <div 
           style={{
             height: `${virtualizer.getTotalSize()}px`,

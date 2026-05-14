@@ -90,6 +90,7 @@ const AppContent: React.FC = () => {
   const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const contentWrapperRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   
   // Optimized Pinned IDs State
   const [pinnedIds, setPinnedIds] = useState<string[]>(() => {
@@ -264,6 +265,9 @@ const AppContent: React.FC = () => {
                         onPin={togglePin}
                         pinnedIds={pinnedIds}
                         scrollRef={scrollContainerRef}
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                        searchInputRef={searchInputRef}
                       />
                     </div>
                   </div>
