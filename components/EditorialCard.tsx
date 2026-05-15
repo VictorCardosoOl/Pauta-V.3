@@ -25,6 +25,18 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   const handlePin = (e: React.MouseEvent) => {
     e.stopPropagation();
     onPin(template.id);
+    
+    // Animate the icon
+    const icon = e.currentTarget.querySelector('svg');
+    if (icon) {
+      gsap.to(icon, {
+        scale: 1.35,
+        duration: 0.15,
+        yoyo: true,
+        repeat: 1,
+        ease: "power1.inOut"
+      });
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -35,38 +47,107 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   };
 
   const buttonsRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
+  const exploreTextRef = useRef<HTMLSpanElement>(null);
+  const exploreIconRef = useRef<HTMLDivElement>(null);
+  const arrowRef = useRef<SVGSVGElement>(null);
   
   const handleMouseEnter = () => {
+    const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 0.6 } });
+
+    // Sophisticated card scale and elevation
+    if (cardRef.current) {
+      tl.to(cardRef.current, {
+        scale: 1.02,
+        boxShadow: "0 30px 60px -12px rgba(0,0,0,0.08)",
+        duration: 0.8,
+      }, 0);
+    }
+
+    // Smooth button entrance
     if (buttonsRef.current) {
-      gsap.to(buttonsRef.current, {
+      tl.to(buttonsRef.current, {
         opacity: 1,
         x: 0,
-        duration: 0.4,
-        ease: "power2.out",
-      });
+      }, 0.1);
+    }
+
+    // Coordinated "Explorar" indicator
+    if (exploreTextRef.current) {
+      tl.to(exploreTextRef.current, {
+        opacity: 1,
+        x: 0,
+      }, 0.05);
+    }
+
+    if (exploreIconRef.current) {
+      tl.to(exploreIconRef.current, {
+        backgroundColor: "#111111",
+        borderColor: "#111111",
+      }, 0.05);
+    }
+
+    if (arrowRef.current) {
+      tl.to(arrowRef.current, {
+        rotate: 0,
+        color: "#ffffff",
+      }, 0.05);
     }
   };
 
   const handleMouseLeave = () => {
+    const tl = gsap.timeline({ defaults: { ease: "power4.inOut", duration: 0.4 } });
+
+    if (cardRef.current) {
+      tl.to(cardRef.current, {
+        scale: 1,
+        boxShadow: "0 0px 0px 0px rgba(0,0,0,0)",
+      }, 0);
+    }
+
     if (buttonsRef.current) {
-      gsap.to(buttonsRef.current, {
+      tl.to(buttonsRef.current, {
         opacity: 0,
         x: -16,
-        duration: 0.3,
-        ease: "power2.in",
-      });
+      }, 0);
+    }
+
+    if (exploreTextRef.current) {
+      tl.to(exploreTextRef.current, {
+        opacity: 0,
+        x: 48,
+      }, 0);
+    }
+
+    if (exploreIconRef.current) {
+      tl.to(exploreIconRef.current, {
+        backgroundColor: "transparent",
+        borderColor: "rgba(74, 74, 74, 0.3)", // editorial-gray/30
+      }, 0);
+    }
+
+    if (arrowRef.current) {
+      tl.to(arrowRef.current, {
+        rotate: -45,
+        color: "#111111",
+      }, 0);
     }
   };
 
   if (isHero) {
     return (
       <motion.article 
+        ref={cardRef as any}
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClick}
         onKeyDown={handleKeyDown}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onBlur={handleMouseLeave}
         role="button"
         tabIndex={0}
         aria-label={`Visualizar modelo em destaque: ${template.title}`}
@@ -96,7 +177,10 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                {template.description || template.content.substring(0, 500) + "..."}
              </p>
              
-             <div className="flex items-center gap-3 shrink-0">
+             <div 
+               ref={buttonsRef}
+               className="flex items-center gap-3 shrink-0 opacity-0 -translate-x-4"
+             >
                 <button 
                   onClick={handlePin}
                   aria-pressed={isPinned}
@@ -129,6 +213,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
 
   return (
     <motion.article 
+      ref={cardRef as any}
       initial={{ opacity: 0, scale: 0.95, y: 30 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}
@@ -142,7 +227,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       role="button"
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
-      className="group flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-6 xl:p-8 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black"
+      className="group flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-6 xl:p-8 h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black"
     >
       <div aria-hidden="true" className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"></div>
 
@@ -191,9 +276,21 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         </div>
         
         <div aria-hidden="true" className="flex items-center gap-3 overflow-hidden ml-auto">
-           <span className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform translate-x-12 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">Explorar</span>
-           <div className="w-10 h-10 rounded-full border border-editorial-gray/30 flex items-center justify-center group-hover:bg-editorial-black group-hover:border-editorial-black transition-colors duration-500">
-               <ArrowRight size={16} className="text-editorial-black group-hover:text-white transition-colors duration-500 -rotate-45 group-hover:rotate-0" />
+           <span 
+             ref={exploreTextRef}
+             className="font-sans text-[11px] font-bold uppercase tracking-[0.2em] text-editorial-black transform translate-x-12 opacity-0"
+           >
+             Explorar
+           </span>
+           <div 
+             ref={exploreIconRef}
+             className="w-10 h-10 rounded-full border border-editorial-gray/30 flex items-center justify-center transition-colors duration-500"
+           >
+               <ArrowRight 
+                 ref={arrowRef as any}
+                 size={16} 
+                 className="text-editorial-black -rotate-45" 
+               />
            </div>
         </div>
       </div>
