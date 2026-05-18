@@ -20,11 +20,11 @@ export const EditorHeader = memo<EditorHeaderProps>(({
   template, onClose, showVariables, onToggleVariables, onReset, hasVariables 
 }) => {
   return (
-    <div className="flex-none flex items-center justify-between px-6 py-3 pt-[max(1rem,env(safe-area-inset-top))] md:px-12 md:py-4 bg-transparent text-editorial-black">
+    <div className="editor-header">
       <div className="flex items-center gap-6 min-w-0">
         <button 
           onClick={onClose} 
-          className="ml-[50px] md:ml-[30px] group flex items-center justify-center w-10 h-10 border border-[#e0e0e0] hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300 bg-white shadow-sm rounded-full"
+          className="group editor-btn-back"
           title="Voltar (ESC)"
         >
              <ChevronLeft size={20} strokeWidth={1.5} className="relative -left-[1px] text-editorial-black" />
@@ -59,7 +59,7 @@ export const EditorHeader = memo<EditorHeaderProps>(({
         )}
         <button 
             onClick={onReset} 
-            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center text-editorial-black border border-[#e0e0e0] bg-white shadow-sm rounded-full hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300" 
+            className="w-10 h-10 flex items-center justify-center text-editorial-black border border-[#e0e0e0] bg-white shadow-sm rounded-full hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300" 
             title="Resetar"
         >
           <RefreshCw size={18} strokeWidth={1.5} />
@@ -146,11 +146,11 @@ interface Scenario {
 interface ContentAreaProps {
   template: Template;
   subject: string;
-  setSubject: (v: string) => void;
+  setSubject: (subject: string) => void;
   content: string;
-  setContent: (v: string) => void;
+  setContent: (content: string) => void;
   secondaryContent: string;
-  setSecondaryContent: (v: string) => void;
+  setSecondaryContent: (content: string) => void;
   isScenarioMode: boolean;
   scenarios: Scenario[];
   focusedVariable: string | null;
@@ -163,7 +163,7 @@ export const ContentArea = memo<ContentAreaProps>(({
 
   return (
     // Added 'editor-element' classes for GSAP staggering
-    <div className="w-full max-w-4xl 3xl:max-w-5xl mx-auto p-4 md:p-6 3xl:p-10 pb-10 flex flex-col gap-5">
+    <div className="editor-workspace">
       {isScenarioMode ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {scenarios.map((scene, idx) => (

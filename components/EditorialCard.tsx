@@ -53,14 +53,14 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   const arrowRef = useRef<SVGSVGElement>(null);
   
   const handleMouseEnter = () => {
-    const tl = gsap.timeline({ defaults: { ease: "power4.out", duration: 0.6 } });
+    const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.3 } });
 
     // Sophisticated card scale and elevation
     if (cardRef.current) {
       tl.to(cardRef.current, {
-        scale: 1.02,
+        scale: 1.015,
         boxShadow: "0 30px 60px -12px rgba(0,0,0,0.08)",
-        duration: 0.8,
+        duration: 0.4,
       }, 0);
     }
 
@@ -69,7 +69,8 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       tl.to(buttonsRef.current, {
         opacity: 1,
         x: 0,
-      }, 0.1);
+        duration: 0.3,
+      }, 0.05);
     }
 
     // Coordinated "Explorar" indicator
@@ -96,7 +97,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
   };
 
   const handleMouseLeave = () => {
-    const tl = gsap.timeline({ defaults: { ease: "power4.inOut", duration: 0.4 } });
+    const tl = gsap.timeline({ defaults: { ease: "power3.out", duration: 0.25 } });
 
     if (cardRef.current) {
       tl.to(cardRef.current, {
@@ -141,7 +142,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         onClick={onClick}
         onKeyDown={handleKeyDown}
         onMouseEnter={handleMouseEnter}
@@ -155,7 +156,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       >
         <div aria-hidden="true" className="absolute -inset-10 bg-white/40 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none rounded-[100px]"></div>
         
-        <div className="relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-8 xl:p-12 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-700">
+        <div className="editorial-card-hero">
           <div className="flex items-center justify-between mb-12">
             <div className="flex items-center gap-4">
                <span className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] bg-editorial-black text-white px-4 py-2 rounded-full">
@@ -185,7 +186,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                   onClick={handlePin}
                   aria-pressed={isPinned}
                   aria-label={isPinned ? "Desafixar modelo" : "Fixar modelo"}
-                  className="p-4 rounded-full border border-editorial-gray/30 hover:border-editorial-black hover:bg-editorial-black hover:text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-editorial-black"
+                  className="icon-btn-hero"
                   title={isPinned ? "Desafixar" : "Fixar"}
                 >
                   <Pin size={20} className={isPinned ? "fill-current" : ""} />
@@ -193,7 +194,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
                 <button 
                   onClick={handleCopy}
                   aria-label="Copiar conteúdo do modelo"
-                  className="p-4 rounded-full border border-editorial-gray/30 hover:border-editorial-black hover:bg-editorial-black hover:text-white transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-editorial-black"
+                  className="icon-btn-hero"
                   title="Copiar"
                 >
                   {isCopied(template.id) ? <Check size={20} /> : <Copy size={20} />}
@@ -217,7 +218,7 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       initial={{ opacity: 0, scale: 0.95, y: 30 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}
-      transition={{ duration: 0.8, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.4, delay: index * 0.03, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
       onKeyDown={handleKeyDown}
       onMouseEnter={handleMouseEnter}
@@ -227,9 +228,9 @@ export const EditorialCard: React.FC<EditorialCardProps> = ({ template, onClick,
       role="button"
       tabIndex={0}
       aria-label={`Visualizar modelo: ${template.title}`}
-      className="group flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-6 xl:p-8 h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black"
+      className="group editorial-card"
     >
-      <div aria-hidden="true" className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-none"></div>
+      <div aria-hidden="true" className="absolute inset-0 bg-editorial-black transform scale-y-0 origin-bottom group-hover:scale-y-[0.02] transition-transform duration-[400ms] ease-out pointer-events-none"></div>
 
       <div className="flex items-baseline justify-between mb-8 relative z-10 w-full">
         <span aria-hidden="true" className="font-serif italic text-[var(--text-4xl)] text-editorial-gray/20 group-hover:text-editorial-black transition-colors duration-700 font-light">

@@ -1,4 +1,8 @@
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   /* Fonts - Sophisticated Awwwards Style */
   --font-serif: 'Cormorant Garamond', serif;
@@ -156,6 +160,56 @@ input::placeholder, textarea::placeholder {
 /* Utility for smooth transitions */
 .transition-smooth {
   transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 400ms; /* Slower */
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 400ms; /* Faster fluid */
 }
+
+@layer components {
+  /* Editor Components */
+  .editor-header {
+    @apply flex-none flex items-center justify-between px-6 py-3 pt-[max(1rem,env(safe-area-inset-top))] md:px-12 md:py-4 bg-transparent text-editorial-black border-b border-white/5;
+  }
+  
+  .editor-btn-back {
+    @apply ml-[50px] md:ml-[30px] flex items-center justify-center w-10 h-10 border border-[#e0e0e0] hover:border-editorial-black hover:bg-editorial-black/5 transition-all duration-300 bg-white shadow-sm rounded-full;
+  }
+
+  .editor-btn-action {
+    @apply flex items-center justify-center gap-2 px-6 py-2.5 rounded-full border border-editorial-gray/30 hover:border-editorial-black hover:bg-editorial-black focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 transition-all duration-300 shadow-sm bg-white hover:text-white text-editorial-black text-xs font-semibold tracking-wider font-sans uppercase;
+  }
+
+  .editor-workspace {
+    @apply w-full max-w-4xl 3xl:max-w-5xl mx-auto p-4 md:p-6 3xl:p-10 pb-10 flex flex-col gap-5;
+  }
+
+  /* App Header & Search */
+  .app-header-container {
+    @apply flex flex-col xl:flex-row xl:items-end justify-between gap-12 mb-16 pt-16 px-4 md:px-2;
+  }
+  
+  .search-input {
+    @apply w-full pl-14 pr-14 py-3.5 bg-white backdrop-blur-md border border-[#111111]/10 rounded-full text-lg font-serif italic-editorial text-[#111111] focus:outline-none focus:border-[#111111] transition-all duration-300 placeholder:text-[#CCCCCC] shadow-sm;
+  }
+
+  .search-btn-trigger {
+    @apply flex items-center justify-center w-14 h-14 rounded-full bg-white border border-[#E5E5E5] text-[#111111] shadow-sm hover:shadow-md transition-shadow;
+  }
+
+  /* Cards */
+  .editorial-card {
+    @apply flex flex-col cursor-pointer border border-[#e0e0e0] bg-white/40 hover:bg-white p-6 xl:p-8 h-full overflow-hidden relative focus-visible:outline-none focus-visible:border-editorial-black transition-smooth;
+  }
+  
+  .editorial-card-hero {
+    @apply relative z-10 flex flex-col h-full border border-editorial-gray/20 bg-white/50 backdrop-blur-md p-8 xl:p-12 hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.05)] transition-shadow duration-500;
+  }
+
+  .pin-btn {
+    @apply p-3 bg-editorial-bg hover:bg-editorial-gray/10 rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-editorial-black;
+  }
+  
+  .icon-btn-hero {
+    @apply p-4 rounded-full border border-editorial-gray/30 hover:border-editorial-black hover:bg-editorial-black hover:text-white transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-editorial-black;
+  }
+}
+

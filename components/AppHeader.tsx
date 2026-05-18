@@ -33,20 +33,20 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   };
 
   return (
-    <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-16 mb-20 pt-20 px-4 md:px-2">
+    <div className="app-header-container">
       <div className="max-w-5xl relative">
         {/* Decorative Line */}
         <motion.div 
             initial={{ width: 0 }}
             animate={{ width: 80 }}
-            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, delay: 0.1, ease: 'easeOut' }}
             className="absolute -top-8 left-0 h-[1px] bg-[#111111]" 
         />
         
         <motion.div 
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1, duration: 0.8 }}
+          transition={{ delay: 0.05, duration: 0.4 }}
           className="flex items-center gap-3 mb-4"
         >
             <span className="label-editorial text-[#666666] tracking-[0.3em] text-[10px]">
@@ -56,7 +56,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.1, duration: 0.5, ease: 'easeOut' }}
           className="text-4xl md:text-6xl lg:text-[4.5rem] font-serif italic-editorial text-[#111111] leading-[0.9] tracking-tight -ml-[4px]"
         >
           {categoryInfo.title}
@@ -84,7 +84,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
                 placeholder="Filtrar modelos..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-14 pr-14 py-3.5 bg-white backdrop-blur-md border border-[#111111]/10 rounded-full text-lg font-serif italic-editorial text-[#111111] focus:outline-none focus:border-[#111111] transition-all duration-300 placeholder:text-[#CCCCCC] shadow-sm"
+                className="search-input"
               />
               <button 
                 onClick={handleToggleSearch} 
@@ -103,7 +103,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleToggleSearch}
-              className="flex items-center justify-center w-14 h-14 rounded-full bg-white border border-[#E5E5E5] text-[#111111] shadow-sm hover:shadow-md transition-shadow"
+              className="search-btn-trigger"
               aria-label="Abrir busca"
             >
               <Search size={20} strokeWidth={1.5} />
