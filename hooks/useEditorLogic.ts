@@ -1,4 +1,5 @@
 import { useState, useMemo, useCallback } from 'react';
+import { useScroll, useSpring, useTransform, MotionValue } from 'framer-motion';
 import { Template } from '../types';
 import { 
   processStaticTags, 
@@ -11,7 +12,7 @@ import {
   formatTextToHtml
 } from '../utils/textUtils';
 
-export const useEditorLogic = (template: Template) => {
+export const useEditorLogic = (template: Template, scrollRef?: React.RefObject<HTMLElement>) => {
   // Lazy initialization: Process text ONCE before the first render to avoid mount flickering/re-renders.
   const [subject, setSubject] = useState<string>(() => processStaticTags(template.subject || ''));
   // Format content to HTML (convert newlines to <br>) for RichTextEditor
@@ -185,6 +186,27 @@ export const useEditorLogic = (template: Template) => {
     });
   }, [content, isScenarioMode]);
 
+  // Scroll animation logic for smooth expansion/collapsing effects
+  const { scrollYProgress } = useScroll({ container: scrollRef });
+  
+  // Smooth out the scroll for a deceleration effect
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
+  // Example transforms for subject, content, secondaryContent expanding smoothly
+  // We expose these so the components can use them to create gentle parallax/scaling
+  const subjectScale = useTransform(smoothScroll, [0, 0.1], [1, 0.98]);
+  const subjectOpacity = useTransform(smoothScroll, [0, 0.1], [1, 0.5]);
+  
+  const contentY = useTransform(smoothScroll, [0, 0.3], [0, -10]);
+  const contentOpacity = useTransform(smoothScroll, [0, 0.1], [1, 0.9]);
+  
+  const secondaryY = useTransform(smoothScroll, [0, 0.5], [20, 0]);
+  const secondaryOpacity = useTransform(smoothScroll, [0, 0.3, 0.5], [0, 0.5, 1]);
+
   return {
     subject, setSubject,
     content, setContent,
@@ -195,6 +217,15 @@ export const useEditorLogic = (template: Template) => {
     handleReset,
     placeholders,
     scenarios,
-    isScenarioMode
+    isScenarioMode,
+    scrollAnim: {
+      smoothScroll,
+      subjectScale,
+      subjectOpacity,
+      contentY,
+      contentOpacity,
+      secondaryY,
+      secondaryOpacity
+    }
   };
 };

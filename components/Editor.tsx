@@ -46,6 +46,13 @@ const fabVariants: Variants = {
 };
 
 export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
+  const [isMobile, setIsMobile] = React.useState(false);
+  const [focusedVariable, setFocusedVariable] = React.useState<string | null>(null);
+  
+  // Refs for Scroll & Animation
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+
   const {
     subject, setSubject,
     content, setContent,
@@ -56,18 +63,12 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
     handleReset,
     placeholders,
     scenarios,
-    isScenarioMode
-  } = useEditorLogic(template);
+    isScenarioMode,
+    scrollAnim
+  } = useEditorLogic(template, scrollContainerRef);
 
   const { copyToClipboard, isCopied } = useTemplateCopier();
   const hasVariables = placeholders.length > 0;
-  
-  const [isMobile, setIsMobile] = React.useState(false);
-  const [focusedVariable, setFocusedVariable] = React.useState<string | null>(null);
-  
-  // Refs for Scroll & Animation
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1024);
@@ -176,6 +177,7 @@ export const Editor: React.FC<EditorProps> = ({ template, onClose }) => {
                isScenarioMode={isScenarioMode}
                scenarios={scenarios}
                focusedVariable={focusedVariable}
+               scrollAnim={scrollAnim}
              />
         </div>
 

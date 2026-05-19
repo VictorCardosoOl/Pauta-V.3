@@ -137,6 +137,8 @@ export const VariablePanel = memo<VariablePanelProps>(({ placeholders, variableV
 
 VariablePanel.displayName = 'VariablePanel';
 
+import { motion, MotionValue } from 'framer-motion';
+
 // --- CONTENT AREA ---
 interface Scenario {
   title: string;
@@ -154,10 +156,19 @@ interface ContentAreaProps {
   isScenarioMode: boolean;
   scenarios: Scenario[];
   focusedVariable: string | null;
+  scrollAnim: {
+    smoothScroll: MotionValue<number>;
+    subjectScale: MotionValue<number>;
+    subjectOpacity: MotionValue<number>;
+    contentY: MotionValue<number>;
+    contentOpacity: MotionValue<number>;
+    secondaryY: MotionValue<number>;
+    secondaryOpacity: MotionValue<number>;
+  };
 }
 
 export const ContentArea = memo<ContentAreaProps>(({
-  template, subject, setSubject, content, setContent, secondaryContent, setSecondaryContent, isScenarioMode, scenarios, focusedVariable
+  template, subject, setSubject, content, setContent, secondaryContent, setSecondaryContent, isScenarioMode, scenarios, focusedVariable, scrollAnim
 }) => {
   const { copyToClipboard, isCopied } = useTemplateCopier();
 
@@ -197,7 +208,10 @@ export const ContentArea = memo<ContentAreaProps>(({
           {/* Main Document */}
           <div className="flex flex-col w-full">
             {template.channel === CommunicationChannel.EMAIL && (
-              <div className="editor-element mb-8 lg:mb-10 p-6 border-b border-[#e0e0e0] group transition-all duration-500">
+              <motion.div 
+                style={{ scale: scrollAnim.subjectScale, opacity: scrollAnim.subjectOpacity, transformOrigin: 'top center' }}
+                className="editor-element mb-8 lg:mb-10 p-6 border-b border-[#e0e0e0] group transition-all duration-500"
+              >
                 <div className="flex items-center justify-between mb-6">
                    <label className="font-sans text-[10px] font-semibold uppercase tracking-[0.2em] text-editorial-gray">Assunto / Subject</label>
                    <button 
@@ -216,10 +230,13 @@ export const ContentArea = memo<ContentAreaProps>(({
                   className="w-full bg-transparent text-[var(--text-3xl)] font-serif text-editorial-black outline-none placeholder:text-editorial-gray/30 border-none p-0 focus:ring-0 leading-tight" 
                   placeholder="The subject of the matter..."
                 />
-              </div>
+              </motion.div>
             )}
             
-            <div className="editor-element relative group pl-4 md:pl-0 mt-4">
+            <motion.div 
+              style={{ y: scrollAnim.contentY, opacity: scrollAnim.contentOpacity }}
+              className="editor-element relative group pl-4 md:pl-0 mt-4"
+            >
                 <RichTextEditor
                   content={content}
                   onChange={setContent}
@@ -228,12 +245,15 @@ export const ContentArea = memo<ContentAreaProps>(({
                   isSerif={true}
                   focusedVariable={focusedVariable}
                 />
-            </div>
+            </motion.div>
           </div>
 
           {/* Secondary Content */}
           {secondaryContent && (
-            <div className="editor-element mt-10 pt-10 border-t border-[#e0e0e0]">
+            <motion.div 
+               style={{ y: scrollAnim.secondaryY, opacity: scrollAnim.secondaryOpacity }}
+               className="editor-element mt-10 pt-10 border-t border-[#e0e0e0]"
+            >
                <div className="flex items-center gap-3 mb-6 text-editorial-gray">
                   <AlignLeft size={16} strokeWidth={1.5} />
                   <span className="text-[10px] font-sans font-semibold uppercase tracking-[0.2em]">{template.secondaryLabel || 'Conteúdo Adicional'}</span>
@@ -248,7 +268,7 @@ export const ContentArea = memo<ContentAreaProps>(({
                       focusedVariable={focusedVariable}
                     />
                </div>
-            </div>
+            </motion.div>
           )}
         </>
       )}
